@@ -1,6 +1,7 @@
 package br.com.scia.xml.entity.view;
 
 //passei aqui - thiaguinho
+//tbm passei jow! Louis
 public class Peca {
 	
 	private String tipoEquipamento;
