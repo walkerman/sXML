@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="474.0" rotate="360.0" xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.scia.xml.controller.SplashController">
+  <children>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="51.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@JavaFX/scia_xml.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <Button layoutX="312.0" layoutY="115.0" mnemonicParsing="false" onAction="#abrirProximaTela" text="Proxima Tela" />
+  </children>
+  <rotationAxis>
+    <Point3D x="1.0" z="1.0" />
+  </rotationAxis>
+</AnchorPane>
