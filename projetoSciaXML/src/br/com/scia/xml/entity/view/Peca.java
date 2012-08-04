@@ -1,5 +1,6 @@
 package br.com.scia.xml.entity.view;
 
+//passei aqui - thiaguinho
 public class Peca {
 	
 	private String tipoEquipamento;
