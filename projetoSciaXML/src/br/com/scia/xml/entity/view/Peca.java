@@ -2,6 +2,7 @@ package br.com.scia.xml.entity.view;
 
 //passei aqui - thiaguinho
 //tbm passei jow! Louis
+//é assim que faz caraio | vai corinthians/vai conninf
 public class Peca {
 	
 	private String tipoEquipamento;
