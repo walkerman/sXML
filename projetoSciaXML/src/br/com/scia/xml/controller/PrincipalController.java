@@ -47,7 +47,7 @@ import br.com.scia.xml.view.SciaXMLStarter;
 
 /**
  *
- * @author luy
+ * @author louis
  */
 public class PrincipalController implements Initializable{
 	
