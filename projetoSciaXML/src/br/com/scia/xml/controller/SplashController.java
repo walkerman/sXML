@@ -57,7 +57,9 @@ public class SplashController implements Initializable{
 			try {
 				this.diretorio.setText(f.getPath());  
 				SciaXMLFileManager.carregarPecas(f);
+				loadProgressBar(1.0);
 			} catch (SciaXMLFileManagerException e) {
+				loadProgressBar(0.0);
 				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 			} 
 		}
@@ -81,9 +83,12 @@ public class SplashController implements Initializable{
 					this.diretorio.setText(RepositorioProjeto.projeto.getDiretorioPecas());
 					
 					SciaXMLFileManager.carregarPecas(new File(this.diretorio.getText()));
+					
+					loadProgressBar(1.0);
 				}
 			} catch (SciaXMLFileManagerException e) {
 				e.printStackTrace();
+				loadProgressBar(0.0);
 				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 			}
         }		
@@ -124,10 +129,15 @@ public class SplashController implements Initializable{
 				
 				SciaXMLFileManager.salvarProjeto(f);
 				
-				loadProgressBar();
+				PrincipalController.stage = new Stage();
+				PrincipalController.loadPage();
+						
+				PrincipalController.stage.show();
+				
+				SplashController.stage.close();
 			}
 		}
-		catch (SciaXMLValidationException e) {
+		catch (SciaXMLValidationException e) {			
 			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 		}
 		catch (SciaXMLFileManagerException e) {
@@ -135,17 +145,8 @@ public class SplashController implements Initializable{
 		}		
 	}
 	
-	private void loadProgressBar() {
-		this.progressBar.setProgress(0.5);		
-		
-		PrincipalController.stage = new Stage();
-		PrincipalController.loadPage();
-		
-		this.progressBar.setProgress(1.0);
-		
-		PrincipalController.stage.show();
-		
-		SplashController.stage.close();
+	private void loadProgressBar(Double value) {
+		this.progressBar.setProgress(value);
 	}
 
 	private void validarCamposSplash() throws SciaXMLValidationException{
@@ -191,10 +192,8 @@ public class SplashController implements Initializable{
 	}
 	
 	@FXML
-	public void abrirSobre(){
-		
-		// Implementar popup com os dados do sistema
-		
+	public void abrirSobre(){		
+		// TODO: Implementar popup com os dados do sistema
 	}
 	
 	public static void loadPage(){
@@ -205,7 +204,8 @@ public class SplashController implements Initializable{
 	        SplashController.stage.setScene(scene);
 	        SplashController.stage.setTitle("SciaXML");
 	        SplashController.stage.setResizable(false);
-	        SplashController.stage.show();	        
+	        SplashController.stage.show();
+	        
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -214,5 +214,4 @@ public class SplashController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
-    
 }

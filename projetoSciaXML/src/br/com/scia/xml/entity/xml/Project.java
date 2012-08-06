@@ -3,6 +3,7 @@ package br.com.scia.xml.entity.xml;
 import java.util.List;
 
 import br.com.scia.xml.entity.view.SumarioDados;
+import br.com.scia.xml.util.SciaXMLContantes;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -29,10 +30,35 @@ public class Project {
 	@XStreamOmitField
 	private Double comprimentoY;
 	
-	public Project(SumarioDados sumarioDados) {
+	public Project(SumarioDados sumarioDados, String fileName) {
+		
+		if (sumarioDados != null){
+			
+			this.xmlns = SciaXMLContantes.XMLNS;
+			this.def = new Definition(fileName+SciaXMLContantes.DEF);
+			
+			List<Coordenada> nos= sumarioDados.getListaDeNos();
+			if (nos != null && nos.size() > 0){
+				
+				Header header = getDefaultStructNodeHeader();
+				//TableNode tabelaNos = new TableNode(id, t, name, h, objects)
+				
+				for (Coordenada coordenada : nos) {
+					
+				}
+				
+				//Container containerNos = new Container(SciaXMLContantes.ID_CONTAINER, SciaXMLContantes.STRUCT_NODE, tabelaNos);
+			}
+			
+		}
 		
 	}
 	
+	private Header getDefaultStructNodeHeader() {
+		Header retorno = new Header();
+		return null;
+	}
+
 	public Project(String xmlns, Definition def, List<Container> containers) {
 		this.xmlns = xmlns;
 		this.def = def;

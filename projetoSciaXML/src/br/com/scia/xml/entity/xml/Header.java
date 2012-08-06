@@ -152,6 +152,11 @@ public class Header {
 	public void setH20(HeaderItem h20) {
 		this.h20 = h20;
 	}
+	
+	public Header(){
+		
+	}
+	
 	public Header(HeaderItem h0, HeaderItem h1, HeaderItem h2, HeaderItem h3,
 			HeaderItem h4, HeaderItem h5, HeaderItem h6, HeaderItem h7,
 			HeaderItem h8, HeaderItem h9, HeaderItem h10, HeaderItem h11,

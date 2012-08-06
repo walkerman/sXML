@@ -27,6 +27,8 @@ public class SciaXMLContantes {
 	// XML Final Default Values
 	public static final String ENCODING = "<?xml version=\"1.0\" encoding=\"UTF-16\" standalone=\"yes\"?>";
 	public static final String XMLNS = "http://www.scia.cz";
+	public static final String DEF = ".def";
+	public static final String XML = ".xml";
 	public static final String ID_CONTAINER = "{D3885EC4-BAE5-11D4-B3FA-00104BC3B531}";
 	
 	// Mensagens de validação

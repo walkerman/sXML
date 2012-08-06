@@ -320,24 +320,25 @@ public class PrincipalController implements Initializable{
 		
 	@FXML
 	public void gerarXML(ActionEvent e){		
-		if (!"".equals(this.totalPecas.getText())){
-			popularSumarioDados();
+		if (!"".equals(this.totalPecas.getText())){		
+			FileChooser fc = new FileChooser();
+			fc.setTitle("Informe o nome do arquivo");
+			File f = fc.showSaveDialog(null);
 			
 			SumarioDados s = popularSumarioDados();
 			
-			System.out.println("Entrada:\n");
-			s.toString();
+			System.out.println("Entrada:\n"+s.toString());
 			
 			try {
+				// TODO: Revisar cálculo Marquinhos
 				s = Calculo.calculaEstrutura(s);
 				
-				System.out.println("Saída:\n");
-				s.toString();
+				System.out.println("Saída:\n"+s.toString());
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 			
-			construirProject(s);			
+			construirProject(s,f);			
 		}	
 		else{
 			JOptionPane.showMessageDialog(null, "Nenhum arquivo de peça carregado no sistema.");
@@ -345,9 +346,13 @@ public class PrincipalController implements Initializable{
 			
 	}
 	
-	private void construirProject(SumarioDados s) {
+	private void construirProject(SumarioDados s, File f) {
 
-		// O método mais zica		
+		// TODO: O método mais zica		
+		
+		String fileName = f.getName();
+		System.out.println(fileName);
+		Project p = new Project(s,fileName);
 		
 	}
 
@@ -432,6 +437,7 @@ public class PrincipalController implements Initializable{
 		popularSumarioDados();
 		try {
 			SciaXMLFileManager.salvarProjeto(new File(RepositorioProjeto.projeto.getNomeArquivo()));
+			JOptionPane.showMessageDialog(null,"Projeto salvo com sucesso.");
 		} catch (SciaXMLFileManagerException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);

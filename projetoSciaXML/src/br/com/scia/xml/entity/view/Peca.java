@@ -3,6 +3,7 @@ package br.com.scia.xml.entity.view;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias ("peca")
+//teste merge
 public class Peca {
 	
 	private String tipoEquipamento;

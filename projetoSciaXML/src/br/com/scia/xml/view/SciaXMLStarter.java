@@ -33,4 +33,5 @@ public class SciaXMLStarter extends Application{
 		SplashController.stage.show();
 	    SplashController.stage.getScene().getStylesheets().add("/SciaXML.css");
 	}
+	
 }

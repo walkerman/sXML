@@ -1,4 +1,5 @@
 package br.com.scia.xml.model;
+//vai corinthians
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,41 +17,14 @@ public class Calculo {
 		dados.setVaoDeApoioX(calculaVaoDeApoio(dados, SciaXMLContantes.EIXO_X));
 		dados.setVaoDeApoioY(calculaVaoDeApoio(dados, SciaXMLContantes.EIXO_Y));
 		dados.setListaDeNos(Calculo.calculaCoordenadas(dados));
-		dados = Calculo.aninhaNo(dados);
+		Calculo.aninhaNo(dados);
 		
 		return dados;
 	}
 	
-	
-	public static List<Coordenada> recuperaListaDeNos(SumarioDados dados) {
-		try {			
-
-
-			List<Coordenada> lista = calculaCoordenadas(dados);
-
-			for (Coordenada coordenada : lista) {
-				System.out.println(coordenada.getNo()+ " Coordenada X " + coordenada.getX() +  " Coordenada Y " + coordenada.getY() );
-			}
-
-
-		} catch (CalculoException e) {
-			System.out.println("Problemas na realização do cálculo - " + e.getMessage());
-		}
-		return null;		
-	}
-
 	public static Double calculaVaoDeApoio(SumarioDados dados, String eixo) throws CalculoException{
 
 		Double vaoDeApoio = 0.0;
-
-		//		if (comprimentoTotal <= 0 
-		//				|| quantidadeDeTorres == null
-		//				|| quantidadeDeTorres <= 0 
-		//				|| comprimentoTravessa <= 0
-		//				|| folgaEixoX <= 0 
-		//				|| folgaEixoY <= 0) {
-		//			throw new CalculoException("calculaVaoDeApoio() - Parâmetros de entrada incorretos.");
-		//		}
 		
 		if (eixo.equalsIgnoreCase(SciaXMLContantes.EIXO_X)){
 			switch (dados.getPecasX().size()) {
@@ -180,26 +154,30 @@ public class Calculo {
 
 	public static SumarioDados aninhaNo(SumarioDados dados){
 
-		Integer eixoX = 3;
-		Integer eixoY = 2;
-		int posicao = 1;
+		int posicaoCursor = 1;
 		int no1;
 		int no2;
 		int no3;
 		int no4;
 		List<Peca> listaPecaX = new ArrayList<Peca>();
 		List<Peca> listaPecaY = new ArrayList<Peca>();
-		Peca peca1 = new Peca();
-		Peca peca2= new Peca();
-		Peca peca3 = new Peca();
-		Peca peca4 = new Peca();
+		Peca peca1 = null;
+		Peca peca2 = null;
+		Peca peca3 = null;
+		Peca peca4 = null;
 
-		for (int j = 0; j < eixoX; j++) {
-			for (int i = 1; i <= (eixoY * 2); i++) {
-				no1 = posicao;
-				no2 = no1+1;
-				no3 = posicao +  (eixoY*2) +1;
-				no4 = no3+1;
+		for (int j = 0; j < dados.getPecasX().size(); j++) {
+			
+			peca1 = new Peca();
+			peca2 = new Peca();
+			peca3 = new Peca();
+			peca4 = new Peca();
+			
+			for (int i = 1; i <= (dados.getPecasY().size() * 2);) {
+				no1 = posicaoCursor;
+				no2 = no1 + 1;
+				no3 = no1 +  (dados.getPecasY().size() * 2);
+				no4 = no3 + 1;
 
 				peca1.setTipoEquipamento(SciaXMLContantes.KITRV);
 				peca2.setTipoEquipamento(SciaXMLContantes.KITRV);
@@ -208,24 +186,22 @@ public class Calculo {
 
 				peca1.setNoInicial(no1);
 				peca1.setNoFinal(no2);
-
 				peca2.setNoInicial(no2);
-				peca2.setNoFinal(no3);
-
-				peca3.setNoInicial(no3);
-				peca3.setNoFinal(no4);
-
-				peca4.setNoInicial(no4);
+				peca2.setNoFinal(no4);
+				peca3.setNoInicial(no4);
+				peca3.setNoFinal(no3);
+				peca4.setNoInicial(no3);
 				peca4.setNoFinal(no1);
 
 				listaPecaX.add(peca1);
-				listaPecaX.add(peca3);
-
 				listaPecaY.add(peca2);
+				listaPecaX.add(peca3);
 				listaPecaY.add(peca4);
-
+				
+				i=i+2;
+				posicaoCursor=i;
 			}
-			posicao = ((eixoX * 2) * 2) + 1;
+			posicaoCursor = posicaoCursor + (dados.getPecasY().size() * 2);
 		}
 
 		dados.setPecasX(listaPecaX);
@@ -233,6 +209,4 @@ public class Calculo {
 
 		return dados;
 	}
-
-
 }
