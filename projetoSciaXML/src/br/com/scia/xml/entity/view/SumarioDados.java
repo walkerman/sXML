@@ -2,10 +2,18 @@ package br.com.scia.xml.entity.view;
 
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import br.com.scia.xml.entity.xml.Coordenada;
 
+@XStreamAlias("SciaXMLProject")
 public class SumarioDados {
 
+	private String nomeArquivo;
+	private String nomeProjeto;
+	private String siglaProjeto;
+	private String diretorioPecas;
+	
 	private String totalPecas;
 	private String tipoEquipamento;
 	private String medidaLageX;
@@ -140,6 +148,26 @@ public class SumarioDados {
 	public void setVaoDeApoioY(Double vaoDeApoioY) {
 		this.vaoDeApoioY = vaoDeApoioY;
 	}
+	public String getNomeProjeto() {
+		return nomeProjeto;
+	}
+	public void setNomeProjeto(String nomeProjeto) {
+		this.nomeProjeto = nomeProjeto;
+	}
+	public String getSiglaProjeto() {
+		return siglaProjeto;
+	}
+	public void setSiglaProjeto(String siglaProjeto) {
+		this.siglaProjeto = siglaProjeto;
+	}
+	public String getDiretorioPecas() {
+		return diretorioPecas;
+	}
+	public void setDiretorioPecas(String diretorioPecas) {
+		this.diretorioPecas = diretorioPecas;
+	}
+	
+
 	public Double getComprimentoTotalEixoX(){		
 		Double comprimento = 0.0;
 		
@@ -158,12 +186,26 @@ public class SumarioDados {
 		}
 		
 		return comprimento;		
-	}
+	}	
 	
+	public String getNomeArquivo() {
+		return nomeArquivo;
+	}
+	public void setNomeArquivo(String nomeArquivo) {
+		this.nomeArquivo = nomeArquivo;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("SumarioDados [totalPecas=");
+		builder.append("SumarioDados [nomeArquivo=");
+		builder.append(nomeArquivo);
+		builder.append(", nomeProjeto=");
+		builder.append(nomeProjeto);
+		builder.append(", siglaProjeto=");
+		builder.append(siglaProjeto);
+		builder.append(", diretorioPecas=");
+		builder.append(diretorioPecas);
+		builder.append(", totalPecas=");
 		builder.append(totalPecas);
 		builder.append(", tipoEquipamento=");
 		builder.append(tipoEquipamento);
@@ -203,9 +245,7 @@ public class SumarioDados {
 		builder.append(vaoDeApoioY);
 		builder.append("]");
 		return builder.toString();
-	}
-	
-	
+	}	
 	
 	
 }

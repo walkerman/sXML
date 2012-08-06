@@ -24,20 +24,25 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import javax.swing.JOptionPane;
 
 import br.com.scia.xml.entity.exception.RepositorioPecasException;
+import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.view.TipoTravessa;
 import br.com.scia.xml.entity.xml.Project;
 import br.com.scia.xml.model.Calculo;
 import br.com.scia.xml.model.RepositorioPecas;
+import br.com.scia.xml.model.RepositorioProjeto;
 import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLFileManager;
 import br.com.scia.xml.view.SciaXMLStarter;
 
 /**
@@ -47,26 +52,22 @@ import br.com.scia.xml.view.SciaXMLStarter;
 public class PrincipalController implements Initializable{
 	
 	public static final String fxml = "SciaXML.fxml";
-	private SciaXMLStarter starter;
+	public static Stage stage;
 	
-	public void loadPage(){
-		try{
+	public static void loadPage(){
+		try{			
 			AnchorPane page = (AnchorPane) FXMLLoader.load(SciaXMLStarter.class.getResource(fxml));
 	        
 	        Scene scene = new Scene(page);
-	        starter.getStage().setScene(scene);
-	        starter.getStage().setTitle("SciaXML");
-	        starter.getStage().setResizable(false);
-	        starter.getStage().show();
+	        PrincipalController.stage.setScene(scene);
+	        PrincipalController.stage.setTitle("SciaXML - " + RepositorioProjeto.projeto.getNomeArquivo());
+	        PrincipalController.stage.setResizable(false);
+	        PrincipalController.stage.show();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void setStarter(SciaXMLStarter starter) {
-		this.starter = starter;
-	}
-	
+		
 	@FXML
 	TitledPane abaDimensoesVigas;
 	@FXML
@@ -141,6 +142,8 @@ public class PrincipalController implements Initializable{
 	TextField sumarioComposicao;	
 	@FXML
 	TextField totalPecas;
+	@FXML
+	TextField diretorioPecas;
 	
 	ArrayList<TipoTravessa> tiposTravessas;	
 	
@@ -185,6 +188,7 @@ public class PrincipalController implements Initializable{
 				if (peca.startsWith(SciaXMLContantes.KITRV))
 				{
 					TipoTravessa t = new TipoTravessa(String.valueOf(ordem), peca);
+					RepositorioPecas.travessas.put(t.getItem(), t);
 					this.tiposTravessas.add(t);
 				}
 				ordem++;	
@@ -218,7 +222,11 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public void adicionarTravessaX(){
 		TipoTravessa selecao = this.tamanhosTravessasX.getSelectionModel().getSelectedItem();
-		TipoTravessa t = new TipoTravessa(""+(this.travessasX.getItems().size()+1), selecao.getItem());
+		adicionarTravessaX(selecao.getItem());
+	}
+	
+	public void adicionarTravessaX(String item){
+		TipoTravessa t = new TipoTravessa(""+(this.travessasX.getItems().size()+1), item);
 		t.setTableReference(this.travessasX);
 		t.setSumarioReference(this.sumarioTravessasX);
 		t.setQuantidadeReference(this.quantidadeTravessasX);
@@ -233,7 +241,11 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public void adicionarTravessaY(){
 		TipoTravessa selecao = this.tamanhosTravessasY.getSelectionModel().getSelectedItem();
-		TipoTravessa t = new TipoTravessa(String.valueOf(this.travessasY.getItems().size()+1), selecao.getItem());
+		adicionarTravessaY(selecao.getItem());
+	}
+	
+	public void adicionarTravessaY(String item){
+		TipoTravessa t = new TipoTravessa(String.valueOf(this.travessasY.getItems().size()+1), item);
 		t.setTableReference(this.travessasY);
 		t.setSumarioReference(this.sumarioTravessasY);
 		t.setQuantidadeReference(this.quantidadeTravessasY);
@@ -340,9 +352,7 @@ public class PrincipalController implements Initializable{
 	}
 
 	private SumarioDados popularSumarioDados(){
-		
-		SumarioDados retorno = new SumarioDados();		
-		
+				
 		try{
 			String tipoEquipamento = this.sumarioTipo.getText();
 			String totalPecas = this.totalPecas.getText();
@@ -360,6 +370,8 @@ public class PrincipalController implements Initializable{
 				Peca peca = new Peca();
 				Project project = RepositorioPecas.pecas.get(tipo);
 				peca.setTipoEquipamento(tipo);
+				System.out.println("X="+project.getComprimentoX());
+				System.out.println("Y="+project.getComprimentoY());
 				peca.setComprimentoPecaX(120.0);
 				peca.setComprimentoPecaY(170.0);
 				pecasX.add(peca);
@@ -370,6 +382,8 @@ public class PrincipalController implements Initializable{
 			for (String tipo : travessasY) {
 				Peca peca = new Peca();
 				Project project = RepositorioPecas.pecas.get(tipo);
+				System.out.println("X="+project.getComprimentoX());
+				System.out.println("Y="+project.getComprimentoY());				
 				peca.setTipoEquipamento(tipo);
 				peca.setComprimentoPecaX(120.0);
 				peca.setComprimentoPecaY(170.0);
@@ -382,29 +396,29 @@ public class PrincipalController implements Initializable{
 			List<String> vigasSecundarias = null;
 			String composicaoTorres = null;
 			
-			retorno.setTotalPecas(totalPecas);
-			retorno.setTipoEquipamento(tipoEquipamento);
-			retorno.setMedidaLageX(medidaLageX);
-			retorno.setMedidaLageY(medidaLageY);
-			retorno.setEspessura(espessura);
-			retorno.setFolgaLajeX1(folgaLajeX1);
-			retorno.setFolgaLajeX2(folgaLajeX2);
-			retorno.setFolgaLajeY1(folgaLajeY1);
-			retorno.setFolgaLajeY2(folgaLajeY2);
-			retorno.setPecasX(pecasX);
-			retorno.setPecasY(pecasY);
-			retorno.setKidH(kidH);
-			retorno.setKidI(kidI);
-			retorno.setVigasPrincipais(vigasPrincipais);
-			retorno.setVigasSecundarias(vigasSecundarias);
-			retorno.setComposicaoTorres(composicaoTorres);
+			RepositorioProjeto.projeto.setTotalPecas(totalPecas);
+			RepositorioProjeto.projeto.setTipoEquipamento(tipoEquipamento);
+			RepositorioProjeto.projeto.setMedidaLageX(medidaLageX);
+			RepositorioProjeto.projeto.setMedidaLageY(medidaLageY);
+			RepositorioProjeto.projeto.setEspessura(espessura);
+			RepositorioProjeto.projeto.setFolgaLajeX1(folgaLajeX1);
+			RepositorioProjeto.projeto.setFolgaLajeX2(folgaLajeX2);
+			RepositorioProjeto.projeto.setFolgaLajeY1(folgaLajeY1);
+			RepositorioProjeto.projeto.setFolgaLajeY2(folgaLajeY2);
+			RepositorioProjeto.projeto.setPecasX(pecasX);
+			RepositorioProjeto.projeto.setPecasY(pecasY);
+			RepositorioProjeto.projeto.setKidH(kidH);
+			RepositorioProjeto.projeto.setKidI(kidI);
+			RepositorioProjeto.projeto.setVigasPrincipais(vigasPrincipais);
+			RepositorioProjeto.projeto.setVigasSecundarias(vigasSecundarias);
+			RepositorioProjeto.projeto.setComposicaoTorres(composicaoTorres);
 			
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Problemas durante a conversão dos dados. " +
 					"Por favor, verifique os dados informados", "SciaXML",JOptionPane.ERROR_MESSAGE);
 		}
 		
-		return retorno;
+		return RepositorioProjeto.projeto;
 	}
 	
 	@FXML
@@ -413,10 +427,76 @@ public class PrincipalController implements Initializable{
 		JOptionPane.showMessageDialog(null, "Habilitar a viga: " + selecao + "?");
 	}
 	
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    	// Método deverá ser utilizado para carregar todos os componentes em tela
-    	// Caso o load dos arquivos seja feito automaticamente e/ou previamente o load da tela principal
+	@FXML
+	public void salvarProjeto(){
+		popularSumarioDados();
+		try {
+			SciaXMLFileManager.salvarProjeto(new File(RepositorioProjeto.projeto.getNomeArquivo()));
+		} catch (SciaXMLFileManagerException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	@FXML
+	public void abrirProjeto(){}
+	
+	@FXML
+	public void sair(){}
+	
+    private String checkString (String s){
+    	if (s != null && !"".equals(s))
+    		return s;
+    	else
+    		return "";
     }
-    
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		if (RepositorioProjeto.projeto != null  && RepositorioPecas.pecas.size() > 0 ){
+			inicializarComponentes();
+			
+			this.totalPecas.setText(String.valueOf(RepositorioPecas.pecas.size()));
+    		this.diretorioPecas.setText(RepositorioProjeto.projeto.getDiretorioPecas());    		
+    		
+			List<Toggle> tipos = this.tipos.getToggles();
+			for (Toggle toggle : tipos) {
+				RadioButton r = (RadioButton) toggle;
+				if (r.getText().equals(RepositorioProjeto.projeto.getTipoEquipamento())){
+					r.setSelected(true);
+					this.sumarioTipo.setText(r.getText());
+					break;
+				}
+			}
+			
+			this.medidaX.setText(checkString(RepositorioProjeto.projeto.getMedidaLageX()));
+    		this.medidaY.setText(checkString(RepositorioProjeto.projeto.getMedidaLageY()));
+    		this.folgaX1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeX1()));
+    		this.folgaX2.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeX2()));
+    		this.folgaY1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeY1()));
+    		this.folgaY2.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeY2()));
+    		this.espessura.setText(checkString(RepositorioProjeto.projeto.getEspessura()));
+    				
+    		this.sumarioMedidaX.setText(checkString(RepositorioProjeto.projeto.getMedidaLageX()));
+    		this.sumarioMedidaY.setText(checkString(RepositorioProjeto.projeto.getMedidaLageY()));
+    		this.sumarioFolgaX1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeX1()));
+    		this.sumarioFolgaX2.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeX2()));
+    		this.sumarioFolgaY1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeY1()));
+    		this.sumarioFolgaY2.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeY2()));
+    		this.sumarioEspessura.setText(checkString(RepositorioProjeto.projeto.getEspessura()));
+    		
+    		List<Peca> pecasX = RepositorioProjeto.projeto.getPecasX();
+    		if (pecasX != null && pecasX.size() > 0)
+	    		for (Peca peca : pecasX) {
+					adicionarTravessaX(peca.getTipoEquipamento());
+				}
+    		
+    		List<Peca> pecasY = RepositorioProjeto.projeto.getPecasY();
+    		if (pecasY != null && pecasY.size() > 0)
+	    		for (Peca peca : pecasY) {
+	    			adicionarTravessaY(peca.getTipoEquipamento());
+				}    		
+    		  		
+    	}		
+	}
 }

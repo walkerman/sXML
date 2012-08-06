@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.com.scia.xml.entity.exception.RepositorioPecasException;
+import br.com.scia.xml.entity.view.TipoTravessa;
 import br.com.scia.xml.entity.xml.Container;
 import br.com.scia.xml.entity.xml.Object;
 import br.com.scia.xml.entity.xml.Project;
@@ -17,10 +18,14 @@ import com.thoughtworks.xstream.XStream;
 public class RepositorioPecas {
 
 	public static HashMap<String, Project> pecas;
+	public static HashMap<String, TipoTravessa> travessas;
 	
 	static{
 		if (pecas == null)
 			RepositorioPecas.pecas = new HashMap<>();
+			
+		if (travessas == null)
+			RepositorioPecas.travessas = new HashMap<>();
 	}
 	
 	public static void addPecas(List<File> arquivos) throws RepositorioPecasException{
@@ -42,7 +47,7 @@ public class RepositorioPecas {
 			}finally{
 				if (parseOK){
 					for (Project project : objetos) {
-						//project = calcularComprimento(project);
+						project = calcularComprimento(project);
 						RepositorioPecas.pecas.put(project.getFileName(), project);
 					}
 					
@@ -72,16 +77,21 @@ public class RepositorioPecas {
 						List<Object> objetos = t.getObjects();
 						
 						if (objetos != null && objetos.size() > 1){
-							Object noInicial = objetos.get(1);
-							Object noFinal = objetos.get(2);
+							
+							Object noInicial = objetos.get(0);
+							Object noFinal = objetos.get(1);
 														
 							try{
-								double comprimentoX = Calculo.calculaComprimentoPeca(Double.parseDouble(noInicial.getP1().getV()), Double.parseDouble(noFinal.getP1().getV()));
-								double comprimentoY = Calculo.calculaComprimentoPeca(Double.parseDouble(noInicial.getP2().getV()), Double.parseDouble(noFinal.getP2().getV()));
+								double noInicialP1 = Double.parseDouble(noInicial.getP1().getV());
+								double noFinalP1 = Double.parseDouble(noFinal.getP1().getV());
 								
-								project.setComprimentoX(comprimentoX);
-								project.setComprimentoY(comprimentoY);
+								double noInicialP2 = Double.parseDouble(noInicial.getP2().getV());
+								double noFinalP2 = Double.parseDouble(noFinal.getP2().getV());
+								
+								project.setComprimentoX(noFinalP1 - noInicialP1);
+								project.setComprimentoY(noFinalP2 - noInicialP2);
 							}catch (Exception e) {
+								e.printStackTrace();
 								System.out.println("Problemas durante o calculo.");
 							}
 						}
@@ -96,7 +106,7 @@ public class RepositorioPecas {
 		return project;
 	}
 
-	private static Project parseXML(File file) throws Exception{
+	private static Project parseXML(File file) throws RepositorioPecasException{
 		Project retorno = null;
 		
 		try {
@@ -107,7 +117,7 @@ public class RepositorioPecas {
 			retorno = (Project) xStream.fromXML(file);
 		} catch (Exception e) {
 			System.out.println("Erro: " + e.getMessage());
-			throw new Exception("Problemas durante o parse do arquivo: " + file.getAbsolutePath());
+			throw new RepositorioPecasException("Problemas durante o parse do arquivo: " + file.getAbsolutePath() + ". Verifique os arquivos do diretório de peças informado.");
 		}
 		
 		return retorno;

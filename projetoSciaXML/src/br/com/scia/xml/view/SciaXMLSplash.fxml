@@ -7,15 +7,53 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="474.0" rotate="360.0" xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.scia.xml.controller.SplashController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="223.00009999999747" prefWidth="649.0" xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.scia.xml.controller.SplashController">
   <children>
-    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="51.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-        <Image url="@JavaFX/scia_xml.png" preserveRatio="false" smooth="false" />
-      </image>
+    <ImageView fitHeight="127.1917664203508" fitWidth="287.9069519042969" layoutX="1.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+    		<image>
+                <Image url="/scia_xml.png" preserveRatio="false" smooth="false" />
+              </image>
     </ImageView>
-    <Button layoutX="312.0" layoutY="115.0" mnemonicParsing="false" onAction="#abrirProximaTela" text="Proxima Tela" />
+    <Button layoutX="569.0" layoutY="146.0" mnemonicParsing="false" onAction="#carregarProjeto" text="Carregar" />
+    <Button layoutX="425.0" layoutY="146.0" mnemonicParsing="false" onAction="#abrirProjeto" text="Abrir Projeto Existente" />
+    <Label layoutX="311.0" layoutY="37.0" text="Dados do Projeto">
+      <font>
+        <Font name="Calibri Bold" size="12.0" />
+      </font>
+    </Label>
+    <TextField fx:id="sigla" layoutX="386.0" layoutY="84.0" prefWidth="252.0" />
+    <Label layoutX="345.0" layoutY="64.0" text="Nome:">
+      <font>
+        <Font name="Calibri" size="12.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Label font="$x1" layoutX="353.0" layoutY="92.0" text="Sigla:" />
+    <TextField fx:id="diretorio" layoutX="386.0" layoutY="110.0" prefWidth="216.0" />
+    <Label font="$x1" layoutX="286.0" layoutY="117.0" text="Diretorio de Peças:" />
+    <TextField fx:id="nome" layoutX="386.0" layoutY="58.0" prefWidth="252.0" />
+    <Button layoutX="609.0" layoutY="110.0" mnemonicParsing="false" onAction="#escolherDiretorio" text="..." />
+    <MenuBar prefWidth="649.0">
+      <menus>
+        <Menu mnemonicParsing="false" text="Arquivo">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#sair" text="Sair" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Ajuda">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#abrirSobre" text="Sobre o SciaXML" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="183.0" prefWidth="624.0" progress="0.0" />
+    <Label layoutX="174.0" layoutY="206.0" text="Desenvolvido por Conninf Soluções em Tecnologia - Copyright 2012">
+      <font>
+        <Font name="Calibri" size="11.0" />
+      </font>
+    </Label>
   </children>
   <rotationAxis>
     <Point3D x="1.0" z="1.0" />

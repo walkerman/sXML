@@ -1,0 +1,9 @@
+.validationFieldError{
+	-fx-border-color: red;
+	-fx-border-width: 2px;
+}
+
+.validationFieldOK{
+	-fx-border-color: #DCDCDC;
+	-fx-border-width: 0.5px;
+}

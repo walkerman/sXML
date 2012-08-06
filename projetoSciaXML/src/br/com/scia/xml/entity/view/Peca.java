@@ -1,10 +1,8 @@
 package br.com.scia.xml.entity.view;
 
-//passei aqui - thiaguinho
-//tbm passei jow! Louis
-//é assim que faz caraio | vai corinthians/vai conninf
-//teste merge
-//pronto!
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias ("peca")
 public class Peca {
 	
 	private String tipoEquipamento;

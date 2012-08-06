@@ -12,6 +12,12 @@ public class RepositorioPecasException extends Exception {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+
+	
+	/**
+	 * 
+	 */
 	public RepositorioPecasException() {
 		// TODO Auto-generated constructor stub
 	}
