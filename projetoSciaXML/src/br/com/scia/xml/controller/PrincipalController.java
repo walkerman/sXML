@@ -330,7 +330,7 @@ public class PrincipalController implements Initializable{
 			System.out.println("Entrada:\n"+s.toString());
 			
 			try {
-				// TODO: Revisar cálculo Marquinhos
+				// TODO: Revisar cálculo Marquinhos (hoje esta fixo para 3 peças em x e 2 em y)
 				s = Calculo.calculaEstrutura(s);
 				
 				System.out.println("Saída:\n"+s.toString());
@@ -350,9 +350,16 @@ public class PrincipalController implements Initializable{
 
 		// TODO: O método mais zica		
 		
-		String fileName = f.getName();
+		String fileName = f.getName()+SciaXMLContantes.XML;
 		System.out.println(fileName);
 		Project p = new Project(s,fileName);
+		
+		try {
+			SciaXMLFileManager.project2XML(p, f);
+		} catch (SciaXMLFileManagerException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+		}
 		
 	}
 

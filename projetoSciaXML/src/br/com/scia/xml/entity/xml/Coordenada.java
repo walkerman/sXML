@@ -2,16 +2,24 @@ package br.com.scia.xml.entity.xml;
 
 public class Coordenada {
 	
-	private Integer no;
+	private String id;
+	private String name;
 	private Double x;
 	private Double y;
 	private Double z;
+		
 	
-	public Integer getNo() {
-		return no;
+	public String getId() {
+		return id;
 	}
-	public void setNo(Integer no) {
-		this.no = no;
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public Double getX() {
 		return x;
@@ -31,9 +39,5 @@ public class Coordenada {
 	public void setZ(Double z) {
 		this.z = z;
 	}
-	
-	
-	
-	
 
 }

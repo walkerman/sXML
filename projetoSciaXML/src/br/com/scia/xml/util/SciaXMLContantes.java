@@ -16,9 +16,32 @@ public class SciaXMLContantes {
 	public static final String KITRV = "KITRV";
 	
 	// Código dos Containers
-	public static final String DATA_LAYER = "DataLayer";
-	public static final String BEAM = "Beam";
 	public static final String STRUCT_NODE = "StructNode";
+	public static final String STRUCT_NODE_ID = "{D3885EC4-BAE5-11D4-B3FA-00104BC3B531}";
+	public static final String STRUCT_NODE_HEADER_H0 = "Name";
+	public static final String STRUCT_NODE_HEADER_H1 = "Coord X";
+	public static final String STRUCT_NODE_HEADER_H2 = "Coord Y";
+	public static final String STRUCT_NODE_HEADER_H3 = "Coord Z";
+	public static final String STRUCT_NODE_TABLE = "StructNode";
+	public static final String STRUCT_NODE_TABLE_ID = "C4D79AFB-6512-4D56-BD04-E1BEA1C3B085";
+	public static final String STRUCT_NODE_TABLE_NAME = "Node";
+	
+	public static final String BEAM = "Beam";
+	public static final String BEAM_ID = "{ECB5D684-7357-11D4-9F6C-00104BC3B443}";
+	public static final String BEAM_HEADER_H0 = "Name";
+	public static final String BEAM_HEADER_H1 = "Beg. node";
+	public static final String BEAM_HEADER_H2 = "End node";
+	public static final String BEAM_HEADER_H3 = "CrossSection";
+	public static final String BEAM_HEADER_H4 = "FEM type";
+	public static final String BEAM_HEADER_H5 = "Member system-line at";
+	public static final String BEAM_HEADER_H6 = "ey";
+	public static final String BEAM_HEADER_H7 = "ez";
+	public static final String BEAM_HEADER_H8 = "Table of geometry";
+	public static final String BEAM_TABLE = "Beam";
+	public static final String BEAM_TABLE_ID = "BDA197C4-2542-44BC-B851-AB3F37E45882";
+	public static final String BEAM_TABLE_NAME = "Beam";
+	
+	public static final String DATA_LAYER = "DataLayer";
 	public static final String LAYER = "Layer";
 	
 	// SciaXML File
@@ -29,7 +52,7 @@ public class SciaXMLContantes {
 	public static final String XMLNS = "http://www.scia.cz";
 	public static final String DEF = ".def";
 	public static final String XML = ".xml";
-	public static final String ID_CONTAINER = "{D3885EC4-BAE5-11D4-B3FA-00104BC3B531}";
+	public static final String CONTAINER_DEFAULT_ID = "";
 	
 	// Mensagens de validação
 	public static final String TITLE_VALIDACAO = "SciaXML Validação";

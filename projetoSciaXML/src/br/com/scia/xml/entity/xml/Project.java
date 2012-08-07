@@ -1,8 +1,12 @@
 package br.com.scia.xml.entity.xml;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
+import br.com.scia.xml.model.RepositorioPecas;
 import br.com.scia.xml.util.SciaXMLContantes;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -36,26 +40,157 @@ public class Project {
 			
 			this.xmlns = SciaXMLContantes.XMLNS;
 			this.def = new Definition(fileName+SciaXMLContantes.DEF);
-			
-			List<Coordenada> nos= sumarioDados.getListaDeNos();
-			if (nos != null && nos.size() > 0){
-				
-				Header header = getDefaultStructNodeHeader();
-				//TableNode tabelaNos = new TableNode(id, t, name, h, objects)
-				
-				for (Coordenada coordenada : nos) {
-					
-				}
-				
-				//Container containerNos = new Container(SciaXMLContantes.ID_CONTAINER, SciaXMLContantes.STRUCT_NODE, tabelaNos);
-			}
-			
+			this.containers = new ArrayList<Container>();
+			this.containers.add(getContainerNos(sumarioDados));
+			this.containers.add(getContainerPecas(sumarioDados));
 		}
 		
 	}
 	
+	private Container getContainerNos(SumarioDados sumarioDados) {
+		List<Coordenada> nos= sumarioDados.getListaDeNos();
+		Container containerNos = null;
+		if (nos != null && nos.size() > 0){
+			
+			List<Object> objects = new ArrayList<Object>();
+			
+			for (Coordenada coordenada : nos) {
+				Object o = new Object();
+				o.setId(coordenada.getId());
+				o.setNm(coordenada.getName());
+				o.setP0(new ObjectItem(String.valueOf(coordenada.getName()), null, null, null, null, null));
+				o.setP1(new ObjectItem(String.valueOf(coordenada.getX()), null, null, null, null, null));
+				o.setP2(new ObjectItem(String.valueOf(coordenada.getY()), null, null, null, null, null));
+				o.setP3(new ObjectItem(String.valueOf(coordenada.getZ()), null, null, null, null, null));
+				objects.add(o);
+			}
+			
+			Header header = getDefaultStructNodeHeader();
+			TableNode tabelaNos = new TableNode(SciaXMLContantes.STRUCT_NODE_TABLE_ID, 
+												SciaXMLContantes.STRUCT_NODE_TABLE, 
+												SciaXMLContantes.STRUCT_NODE_TABLE_NAME, header, objects);
+			
+			containerNos = new Container(SciaXMLContantes.CONTAINER_DEFAULT_ID, SciaXMLContantes.STRUCT_NODE, tabelaNos);
+			
+		}
+		return containerNos;
+	}
+	
+	private Container getContainerPecas(SumarioDados sumarioDados) {
+		Container containerPecas = null;
+		
+		List<Object> objects = new ArrayList<Object>();
+		objects.addAll(getPecasX(sumarioDados.getPecasX()));
+		objects.addAll(getPecasY(sumarioDados.getPecasY()));
+			
+		Header header = getDefaultBeamHeader();
+		TableNode tabelaPecas = new TableNode(SciaXMLContantes.BEAM_TABLE_ID, 
+											SciaXMLContantes.BEAM_TABLE, 
+											SciaXMLContantes.BEAM_TABLE_NAME, header, objects);
+		
+		containerPecas = new Container(SciaXMLContantes.CONTAINER_DEFAULT_ID, SciaXMLContantes.BEAM, tabelaPecas);
+		
+		return containerPecas;
+	}
+	
+	private Collection<Object> getPecasY(List<Peca> pecasY) {
+		List<Object> retorno = new ArrayList<Object>();
+		for (Peca peca : pecasY) {
+			Object o = new Object();
+			Project pecaOrigem = RepositorioPecas.pecas.get(peca.getTipoEquipamento());
+			
+			Container containerOrigem = null;
+			List<Container> listaContainer = pecaOrigem.getContainers();
+			
+			for (Container container : listaContainer) {
+				if (container.getT().contains(SciaXMLContantes.BEAM)){
+					containerOrigem = container;
+					break;
+				}
+			}
+			
+			// Um arquivo de peça só possui um object/peça no container Beam
+			Object objectOrigem = containerOrigem.getTable().getObjects().get(1);
+			
+			o.setId(peca.getId());
+			o.setNm(peca.getName());
+			o.setP0(new ObjectItem(peca.getId(), null, null, null, null, null));
+			o.setP1(new ObjectItem(null,String.valueOf(peca.getNoInicial()),String.valueOf(peca.getNoInicial()),null,null,null));
+			o.setP2(new ObjectItem(null,String.valueOf(peca.getNoFinal()),String.valueOf(peca.getNoFinal()),null,null,null));
+			o.setP3(objectOrigem.getP3());
+			o.setP4(objectOrigem.getP4());
+			o.setP5(objectOrigem.getP5());
+			o.setP6(objectOrigem.getP6());
+			o.setP7(objectOrigem.getP7());
+			o.setP8(objectOrigem.getP8());
+			o.setP9(objectOrigem.getP9());
+			o.setP10(objectOrigem.getP10());
+			o.setP11(objectOrigem.getP11());
+			o.setP12(objectOrigem.getP12());
+			
+			// TODO: Se necessário atualizar os valores da tabela de geometria
+			// o.getXX().setT(new String());
+			
+			retorno.add(o);
+		}		
+		
+		return retorno;
+	}
+
+	private Collection<Object> getPecasX(List<Peca> pecasX) {
+		List<Object> retorno = new ArrayList<Object>();
+		for (Peca peca : pecasX) {
+			Object o = new Object();
+			Project pecaOrigem = RepositorioPecas.pecas.get(peca.getTipoEquipamento());
+			
+			Container containerOrigem = null;
+			List<Container> listaContainer = pecaOrigem.getContainers();
+			
+			for (Container container : listaContainer) {
+				if (container.getT().contains(SciaXMLContantes.BEAM)){
+					containerOrigem = container;
+					break;
+				}
+			}
+			
+			// Um arquivo de peça só possui um object/peça no container Beam
+			Object objectOrigem = containerOrigem.getTable().getObjects().get(1);
+			
+			o.setId(peca.getId());
+			o.setNm(peca.getName());
+			o.setP0(new ObjectItem(peca.getId(), null, null, null, null, null));
+			o.setP1(new ObjectItem(null,String.valueOf(peca.getNoInicial()),String.valueOf(peca.getNoInicial()),null,null,null));
+			o.setP2(new ObjectItem(null,String.valueOf(peca.getNoFinal()),String.valueOf(peca.getNoFinal()),null,null,null));
+			o.setP3(objectOrigem.getP3());
+			o.setP4(objectOrigem.getP4());
+			o.setP5(objectOrigem.getP5());
+			o.setP6(objectOrigem.getP6());
+			o.setP7(objectOrigem.getP7());
+			o.setP8(objectOrigem.getP8());
+			o.setP9(objectOrigem.getP9());
+			o.setP10(objectOrigem.getP10());
+			o.setP11(objectOrigem.getP11());
+			o.setP12(objectOrigem.getP12());
+			
+			// TODO: Se necessário atualizar os valores da tabela de geometria
+			// o.getXX().setT(new String());
+			
+			retorno.add(o);
+		}		
+		
+		return retorno;
+	}
+	
+	private Header getDefaultBeamHeader() {
+		return null;
+	}
+
 	private Header getDefaultStructNodeHeader() {
 		Header retorno = new Header();
+		retorno.setH0(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H0));
+		retorno.setH1(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H1));
+		retorno.setH2(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H2));
+		retorno.setH3(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H3));
 		return null;
 	}
 

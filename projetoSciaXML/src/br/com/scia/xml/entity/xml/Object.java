@@ -1,9 +1,7 @@
 package br.com.scia.xml.entity.xml;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
-@XStreamAlias ("table")
 public class Object {
 	
 	@XStreamAsAttribute
@@ -33,6 +31,8 @@ public class Object {
 	private ObjectItem p18;
 	private ObjectItem p19;
 	private ObjectItem p20;
+	
+	public Object(){}
 	
 	public ObjectItem getP0() {
 		return p0;

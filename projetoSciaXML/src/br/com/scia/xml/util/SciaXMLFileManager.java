@@ -9,6 +9,7 @@ import java.util.List;
 import br.com.scia.xml.entity.exception.RepositorioPecasException;
 import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
 import br.com.scia.xml.entity.view.SumarioDados;
+import br.com.scia.xml.entity.xml.Project;
 import br.com.scia.xml.model.RepositorioPecas;
 import br.com.scia.xml.model.RepositorioProjeto;
 
@@ -41,6 +42,7 @@ public class SciaXMLFileManager {
 				RepositorioProjeto.projeto = (SumarioDados) xs.fromXML(arquivo);
 			}
 		}catch (Exception e) {
+			e.printStackTrace();
 			throw new SciaXMLFileManagerException("Problemas para carregar o arquivo.");
 		}
 	}
@@ -64,6 +66,27 @@ public class SciaXMLFileManager {
 				}	
 			}
 		}catch (RepositorioPecasException e) {
+			throw new SciaXMLFileManagerException(e.getMessage());
+		}
+	}
+	
+	public static void project2XML(Project p, File f) throws SciaXMLFileManagerException{
+		try{
+			if (p != null && f != null){
+				XStream xs = new XStream();
+				xs.autodetectAnnotations(true);
+				String xml = SciaXMLContantes.ENCODING + xs.toXML(p);
+				
+				System.out.println(xml);
+				
+				FileWriter fw = new FileWriter(new File(f.getAbsolutePath()));
+				fw.write(xml);
+				fw.flush();
+				fw.close();
+			}else{
+				throw new SciaXMLFileManagerException("Impossível gerar o arquivo final. Verifique os parâmetros de entrada.");
+			}
+		}catch (IOException e) {
 			throw new SciaXMLFileManagerException(e.getMessage());
 		}
 	}

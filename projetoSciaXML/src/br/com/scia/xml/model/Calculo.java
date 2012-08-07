@@ -145,7 +145,8 @@ public class Calculo {
 		}
 
 		for (Coordenada coordenadaNo : listaCoordenadas) { 
-			coordenadaNo.setNo(no++); 
+			coordenadaNo.setId(String.valueOf(no++));
+			coordenadaNo.setName(String.valueOf(no++));
 		} 
 
 		return listaCoordenadas;
@@ -178,7 +179,7 @@ public class Calculo {
 				no2 = no1 + 1;
 				no3 = no1 +  (dados.getPecasY().size() * 2);
 				no4 = no3 + 1;
-
+				
 				peca1.setTipoEquipamento(SciaXMLContantes.KITRV);
 				peca2.setTipoEquipamento(SciaXMLContantes.KITRV);
 				peca3.setTipoEquipamento(SciaXMLContantes.KITRV);
