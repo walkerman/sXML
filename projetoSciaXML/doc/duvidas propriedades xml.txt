@@ -1,0 +1,6 @@
+  1- Qual a regra de geração do atributo "id" das tags "container" e "table"?
+  2- Quais serão os campos da tabela de peças? Desses, quais serão serao calculados e quais serão mantidos?
+  3- Os xmls gerados pelo Scia com a licença trial possuem uma tabela de geometria. 
+    Já no xml enviado por email pelo Rodrigo essa tabela não existe. Qual é a regra?
+  4- Qual a regra de geração dos atributos da tabela de geometria? 
+  5-Qual seráo arquivo ".def" padrão? 
