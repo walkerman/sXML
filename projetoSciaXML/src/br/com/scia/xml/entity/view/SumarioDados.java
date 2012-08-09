@@ -15,6 +15,9 @@ public class SumarioDados {
 	private String diretorioPecas;
 	
 	private String totalPecas;
+	private String coordenadaX;
+	private String coordenadaY;
+	private String coordenadaZ;
 	private String tipoEquipamento;
 	private String medidaLageX;
 	private String medidaLageY;
@@ -194,6 +197,24 @@ public class SumarioDados {
 	public void setNomeArquivo(String nomeArquivo) {
 		this.nomeArquivo = nomeArquivo;
 	}
+	public String getCoordenadaX() {
+		return coordenadaX;
+	}
+	public void setCoordenadaX(String coordenadaX) {
+		this.coordenadaX = coordenadaX;
+	}
+	public String getCoordenadaY() {
+		return coordenadaY;
+	}
+	public void setCoordenadaY(String coordenadaY) {
+		this.coordenadaY = coordenadaY;
+	}
+	public String getCoordenadaZ() {
+		return coordenadaZ;
+	}
+	public void setCoordenadaZ(String coordenadaZ) {
+		this.coordenadaZ = coordenadaZ;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -207,6 +228,12 @@ public class SumarioDados {
 		builder.append(diretorioPecas);
 		builder.append(", totalPecas=");
 		builder.append(totalPecas);
+		builder.append(", coordenadaX=");
+		builder.append(coordenadaX);
+		builder.append(", coordenadaY=");
+		builder.append(coordenadaY);
+		builder.append(", coordenadaZ=");
+		builder.append(coordenadaZ);
 		builder.append(", tipoEquipamento=");
 		builder.append(tipoEquipamento);
 		builder.append(", medidaLageX=");
@@ -245,7 +272,10 @@ public class SumarioDados {
 		builder.append(vaoDeApoioY);
 		builder.append("]");
 		return builder.toString();
-	}	
+	}
+	
+	
+	
 	
 	
 }

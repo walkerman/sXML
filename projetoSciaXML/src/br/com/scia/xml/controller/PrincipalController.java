@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -51,27 +52,16 @@ import br.com.scia.xml.view.SciaXMLStarter;
  */
 public class PrincipalController implements Initializable{
 	
-	public static final String fxml = "SciaXML.fxml";
-	public static Stage stage;
-	
-	public static void loadPage(){
-		try{			
-			AnchorPane page = (AnchorPane) FXMLLoader.load(SciaXMLStarter.class.getResource(fxml));
-	        
-	        Scene scene = new Scene(page);
-	        PrincipalController.stage.setScene(scene);
-	        PrincipalController.stage.setTitle("SciaXML - " + RepositorioProjeto.projeto.getNomeArquivo());
-	        PrincipalController.stage.setResizable(false);
-	        PrincipalController.stage.show();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-		
 	@FXML
-	TitledPane abaDimensoesVigas;
+	TitledPane abaDimensoesVigas; 
 	@FXML
 	ToggleGroup tipos;
+	@FXML
+	TextField coordenadaX;
+	@FXML
+	TextField coordenadaY;
+	@FXML
+	TextField coordenadaZ;
 	@FXML
 	TextField medidaX;
 	@FXML
@@ -107,15 +97,33 @@ public class PrincipalController implements Initializable{
 	@FXML
 	ListView<String> vigasPrincipais;
 	@FXML
+	TextField transpassePrincipais;
+	@FXML
 	ComboBox<String> tiposVigasSecundarias;
 	@FXML
 	ComboBox<String> vigasSecundariasUsarDe;
 	@FXML
 	ListView<String> vigasSecundarias;
 	@FXML
+	TextField transpasseSecundarias;
+	@FXML
 	TextField composicao;
 	@FXML
+	TextField peDireito;
+	@FXML
+	ComboBox<String> macacos;
+	@FXML
+	ComboBox<String> forcados;
+	@FXML
+	ComboBox<String> postes;
+	@FXML
 	TextField sumarioTipo;
+	@FXML
+	TextField sumarioCoordenadaX;
+	@FXML
+	TextField sumarioCoordenadaY;
+	@FXML
+	TextField sumarioCoordenadaZ;
 	@FXML
 	TextField sumarioMedidaX;
 	@FXML
@@ -144,8 +152,27 @@ public class PrincipalController implements Initializable{
 	TextField totalPecas;
 	@FXML
 	TextField diretorioPecas;
+	@FXML
+	SplitPane split;
 	
-	ArrayList<TipoTravessa> tiposTravessas;	
+	ArrayList<TipoTravessa> tiposTravessas;
+	
+	public static final String fxml = "SciaXML.fxml";
+	public static Stage stage;
+	
+	public static void loadPage(){
+		try{			
+			AnchorPane page = (AnchorPane) FXMLLoader.load(SciaXMLStarter.class.getResource(fxml));
+	        
+	        Scene scene = new Scene(page);
+	        PrincipalController.stage.setScene(scene);
+	        PrincipalController.stage.setTitle("SciaXML - " + RepositorioProjeto.projeto.getNomeArquivo());
+	        PrincipalController.stage.setResizable(false);
+	        PrincipalController.stage.show();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@FXML
 	public void importarArquivos(ActionEvent e){
@@ -284,6 +311,21 @@ public class PrincipalController implements Initializable{
 	}
 	
 	@FXML
+	public void setSumarioCoordenadaX (){
+		this.sumarioCoordenadaX.setText(this.coordenadaX.getText());
+	}
+	
+	@FXML
+	public void setSumarioCoordenadaY (){
+		this.sumarioCoordenadaY.setText(this.coordenadaY.getText());
+	}
+	
+	@FXML
+	public void setSumarioCoordenadaZ() {
+		this.sumarioCoordenadaZ.setText(this.coordenadaZ.getText());
+	}
+	
+	@FXML
 	public void setSumarioMedidaX (){
 		this.sumarioMedidaX.setText(this.medidaX.getText());
 	}
@@ -375,6 +417,9 @@ public class PrincipalController implements Initializable{
 			String folgaLajeX2 = this.sumarioFolgaX2.getText();
 			String folgaLajeY1 = this.sumarioFolgaY1.getText();
 			String folgaLajeY2 = this.sumarioFolgaY2.getText();
+			String coordenadaX = this.sumarioCoordenadaX.getText();
+			String coordenadaY = this.sumarioCoordenadaY.getText();
+			String coordenadaZ = this.sumarioCoordenadaZ.getText();
 			
 			List<String> travessasX = this.sumarioTravessasX.getItems();
 			List<Peca> pecasX = new ArrayList<Peca>();
@@ -424,6 +469,9 @@ public class PrincipalController implements Initializable{
 			RepositorioProjeto.projeto.setVigasPrincipais(vigasPrincipais);
 			RepositorioProjeto.projeto.setVigasSecundarias(vigasSecundarias);
 			RepositorioProjeto.projeto.setComposicaoTorres(composicaoTorres);
+			RepositorioProjeto.projeto.setCoordenadaX(coordenadaX);
+			RepositorioProjeto.projeto.setCoordenadaX(coordenadaY);
+			RepositorioProjeto.projeto.setCoordenadaX(coordenadaZ);
 			
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Problemas durante a conversão dos dados. " +
@@ -449,6 +497,16 @@ public class PrincipalController implements Initializable{
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	@FXML
+	public void showCalc(){
+		this.split.setDividerPositions(0.5);		
+	}
+	
+	@FXML
+	public void hideCalc(){
+		this.split.setDividerPositions(1.0);		
 	}
 	
 	@FXML
