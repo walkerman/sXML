@@ -36,6 +36,7 @@ public class SumarioDados {
 	private String composicaoTorres;
 	private Double vaoDeApoioX;
 	private Double vaoDeApoioY;
+	private List<Peca> pecasFinais;
 	
 	public String getTotalPecas() {
 		return totalPecas;
@@ -272,6 +273,12 @@ public class SumarioDados {
 		builder.append(vaoDeApoioY);
 		builder.append("]");
 		return builder.toString();
+	}
+	public List<Peca> getPecasFinais() {
+		return pecasFinais;
+	}
+	public void setPecasFinais(List<Peca> pecasFinais) {
+		this.pecasFinais = pecasFinais;
 	}
 	
 	

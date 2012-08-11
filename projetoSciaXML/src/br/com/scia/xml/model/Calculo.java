@@ -1,5 +1,4 @@
 package br.com.scia.xml.model;
-//vai corinthians
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.SciaXMLContantes;
 
 public class Calculo {
-
+	
 	public static SumarioDados calculaEstrutura(SumarioDados dados) throws CalculoException{
 		
 		dados.setVaoDeApoioX(calculaVaoDeApoio(dados, SciaXMLContantes.EIXO_X));
@@ -138,15 +137,16 @@ public class Calculo {
 		for (Double x : listaEixoX) {
 			for (Double y : listaEixoY) {
 				coordenada = new Coordenada();
-				coordenada.setX(x.doubleValue());
-				coordenada.setY(y.doubleValue());
+				coordenada.setX(x.doubleValue()/100.0);
+				coordenada.setY(y.doubleValue()/100.0);
+				coordenada.setZ(0.0);
 				listaCoordenadas.add(coordenada);
 			}			
 		}
 
 		for (Coordenada coordenadaNo : listaCoordenadas) { 
 			coordenadaNo.setId(String.valueOf(no++));
-			coordenadaNo.setName(String.valueOf(no++));
+			coordenadaNo.setName("N"+String.valueOf(no++));
 		} 
 
 		return listaCoordenadas;
@@ -160,8 +160,11 @@ public class Calculo {
 		int no2;
 		int no3;
 		int no4;
-		List<Peca> listaPecaX = new ArrayList<Peca>();
-		List<Peca> listaPecaY = new ArrayList<Peca>();
+		int pecaEmY = 0;
+		int idPeca = 1;
+		
+		List<Peca> pecas = new ArrayList<Peca>();
+		
 		Peca peca1 = null;
 		Peca peca2 = null;
 		Peca peca3 = null;
@@ -180,10 +183,19 @@ public class Calculo {
 				no3 = no1 +  (dados.getPecasY().size() * 2);
 				no4 = no3 + 1;
 				
-				peca1.setTipoEquipamento(SciaXMLContantes.KITRV);
-				peca2.setTipoEquipamento(SciaXMLContantes.KITRV);
-				peca3.setTipoEquipamento(SciaXMLContantes.KITRV);
-				peca4.setTipoEquipamento(SciaXMLContantes.KITRV);
+				peca1.setId(String.valueOf(idPeca));
+				peca1.setName("B"+String.valueOf(idPeca++));
+				peca2.setId(String.valueOf(idPeca));
+				peca2.setName("B"+String.valueOf(idPeca++));
+				peca3.setId(String.valueOf(idPeca));
+				peca3.setName("B"+String.valueOf(idPeca++));
+				peca4.setId(String.valueOf(idPeca));
+				peca4.setName("B"+String.valueOf(idPeca++));
+				
+				peca1.setTipo(dados.getPecasY().get(pecaEmY).getTipo());
+				peca2.setTipo(dados.getPecasX().get(j).getTipo());
+				peca3.setTipo(dados.getPecasY().get(pecaEmY).getTipo());
+				peca4.setTipo(dados.getPecasX().get(j).getTipo());
 
 				peca1.setNoInicial(no1);
 				peca1.setNoFinal(no2);
@@ -194,19 +206,20 @@ public class Calculo {
 				peca4.setNoInicial(no3);
 				peca4.setNoFinal(no1);
 
-				listaPecaX.add(peca1);
-				listaPecaY.add(peca2);
-				listaPecaX.add(peca3);
-				listaPecaY.add(peca4);
+				pecas.add(peca1);
+				pecas.add(peca2);
+				pecas.add(peca3);
+				pecas.add(peca4);
 				
 				i=i+2;
 				posicaoCursor=i;
+				pecaEmY+=1;
 			}
 			posicaoCursor = posicaoCursor + (dados.getPecasY().size() * 2);
+			pecaEmY=0;
 		}
 
-		dados.setPecasX(listaPecaX);
-		dados.setPecasY(listaPecaY);
+		dados.setPecasFinais(pecas);
 
 		return dados;
 	}

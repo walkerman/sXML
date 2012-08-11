@@ -1,8 +1,12 @@
 package br.com.scia.xml.util;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +26,7 @@ public class SciaXMLFileManager {
 			if (arquivo != null){
 				XStream xs = new XStream();
 				xs.autodetectAnnotations(true);
+				xs.setMode(XStream.NO_REFERENCES);
 				String xml = xs.toXML(RepositorioProjeto.projeto);
 				
 				FileWriter fw = new FileWriter(arquivo);
@@ -75,11 +80,12 @@ public class SciaXMLFileManager {
 			if (p != null && f != null){
 				XStream xs = new XStream();
 				xs.autodetectAnnotations(true);
+				xs.setMode(XStream.NO_REFERENCES);
+				
 				String xml = SciaXMLContantes.ENCODING + xs.toXML(p);
-				
-				System.out.println(xml);
-				
-				FileWriter fw = new FileWriter(new File(f.getAbsolutePath()));
+								
+				OutputStream stream = new FileOutputStream(f);  
+				Writer fw = new OutputStreamWriter(stream, "UTF-16");
 				fw.write(xml);
 				fw.flush();
 				fw.close();

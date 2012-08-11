@@ -381,6 +381,8 @@ public class PrincipalController implements Initializable{
 			}
 			
 			construirProject(s,f);			
+			
+			JOptionPane.showMessageDialog(null, "Arquivo .sxml salvo com sucesso.");
 		}	
 		else{
 			JOptionPane.showMessageDialog(null, "Nenhum arquivo de peça carregado no sistema.");
@@ -392,12 +394,12 @@ public class PrincipalController implements Initializable{
 
 		// TODO: O método mais zica		
 		
-		String fileName = f.getName()+SciaXMLContantes.XML;
+		String fileName = f.getAbsolutePath()+SciaXMLContantes.XML;
 		System.out.println(fileName);
 		Project p = new Project(s,fileName);
 		
 		try {
-			SciaXMLFileManager.project2XML(p, f);
+			SciaXMLFileManager.project2XML(p, new File(fileName));
 		} catch (SciaXMLFileManagerException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
@@ -426,7 +428,7 @@ public class PrincipalController implements Initializable{
 			for (String tipo : travessasX) {
 				Peca peca = new Peca();
 				Project project = RepositorioPecas.pecas.get(tipo);
-				peca.setTipoEquipamento(tipo);
+				peca.setTipo(tipo);
 				System.out.println("X="+project.getComprimentoX());
 				System.out.println("Y="+project.getComprimentoY());
 				peca.setComprimentoPecaX(120.0);
@@ -441,7 +443,7 @@ public class PrincipalController implements Initializable{
 				Project project = RepositorioPecas.pecas.get(tipo);
 				System.out.println("X="+project.getComprimentoX());
 				System.out.println("Y="+project.getComprimentoY());				
-				peca.setTipoEquipamento(tipo);
+				peca.setTipo(tipo);
 				peca.setComprimentoPecaX(120.0);
 				peca.setComprimentoPecaY(170.0);
 				pecasY.add(peca);
@@ -559,13 +561,13 @@ public class PrincipalController implements Initializable{
     		List<Peca> pecasX = RepositorioProjeto.projeto.getPecasX();
     		if (pecasX != null && pecasX.size() > 0)
 	    		for (Peca peca : pecasX) {
-					adicionarTravessaX(peca.getTipoEquipamento());
+					adicionarTravessaX(peca.getTipo());
 				}
     		
     		List<Peca> pecasY = RepositorioProjeto.projeto.getPecasY();
     		if (pecasY != null && pecasY.size() > 0)
 	    		for (Peca peca : pecasY) {
-	    			adicionarTravessaY(peca.getTipoEquipamento());
+	    			adicionarTravessaY(peca.getTipo());
 				}    		
     		  		
     	}		

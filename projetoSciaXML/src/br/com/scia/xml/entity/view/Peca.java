@@ -3,18 +3,24 @@ package br.com.scia.xml.entity.view;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias ("peca")
-//teste merge
 public class Peca {
 	
 	private String id;
 	private String name;
-	private String tipoEquipamento;
+	private String tipo;
 	private Integer noInicial;
 	private Integer noFinal;
 	private Double comprimentoPecaX;
 	private Double comprimentoPecaY;
 	private Double comprimentoPecaZ;
-	
+		
+	public Peca() {
+		
+		super();
+		this.comprimentoPecaX = 0.0;
+		this.comprimentoPecaY = 0.0;
+		this.comprimentoPecaZ = 0.0;
+	}
 	
 	public String getId() {
 		return id;
@@ -28,11 +34,12 @@ public class Peca {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getTipoEquipamento() {
-		return tipoEquipamento;
+	
+	public String getTipo() {
+		return tipo;
 	}
-	public void setTipoEquipamento(String tipoEquipamento) {
-		this.tipoEquipamento = tipoEquipamento;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	public Integer getNoInicial() {
 		return noInicial;
