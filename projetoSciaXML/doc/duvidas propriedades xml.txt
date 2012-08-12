@@ -28,13 +28,11 @@
        - ECCENTRICITY Y - alterar para as vigas primarias e secuundarias de acordo com as formulas especificadas 
        - ECCENTRICITY Z - alterar para as vigas primarias e secuundarias de acordo com as formulas especificadas
        
-       
-      - TABELA ATRIBUTOS     
-             
+      - TABELA ATRIBUTOS            
        - available - relacionamento com o name da peça, ao sequenciar a peça essa coluna também deve ser sequenciada
        - código - não alterar
        - nome - não alterar
-       - peso kg - não alterar 
+       - peso kg - não alterar
        - comprimento - não alterar 
        - preço - não alterar
   	
