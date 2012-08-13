@@ -33,6 +33,8 @@ import javafx.stage.Stage;
 
 import javax.swing.JOptionPane;
 
+import br.com.scia.xml.dao.RepositorioPecas;
+import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.exception.RepositorioPecasException;
 import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
 import br.com.scia.xml.entity.view.Peca;
@@ -40,8 +42,6 @@ import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.view.TipoTravessa;
 import br.com.scia.xml.entity.xml.Project;
 import br.com.scia.xml.model.Calculo;
-import br.com.scia.xml.model.RepositorioPecas;
-import br.com.scia.xml.model.RepositorioProjeto;
 import br.com.scia.xml.util.SciaXMLContantes;
 import br.com.scia.xml.util.SciaXMLFileManager;
 import br.com.scia.xml.view.SciaXMLStarter;
@@ -183,8 +183,11 @@ public class PrincipalController implements Initializable{
         List<File> files = fileChooser.showOpenMultipleDialog(null);
         
         if (files != null && files.size() > 0){
-        	try {
-				RepositorioPecas.addPecas(files);
+        	try {        	
+        		
+        		for (File file : files) {
+					RepositorioPecas.addPeca(file);
+				}
 				
 				JOptionPane.showMessageDialog(null, "Peças carregadas com sucesso.");
 				

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
-import br.com.scia.xml.model.RepositorioPecas;
 import br.com.scia.xml.util.SciaXMLContantes;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;

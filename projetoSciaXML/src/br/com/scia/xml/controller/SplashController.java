@@ -21,10 +21,11 @@ import javafx.stage.Stage;
 
 import javax.swing.JOptionPane;
 
+import br.com.scia.xml.dao.RepositorioPecas;
+import br.com.scia.xml.dao.RepositorioProjeto;
+import br.com.scia.xml.entity.exception.RepositorioPecasException;
 import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
 import br.com.scia.xml.entity.exception.SciaXMLValidationException;
-import br.com.scia.xml.model.RepositorioPecas;
-import br.com.scia.xml.model.RepositorioProjeto;
 import br.com.scia.xml.util.SciaXMLContantes;
 import br.com.scia.xml.util.SciaXMLFileManager;
 import br.com.scia.xml.view.SciaXMLStarter;
@@ -56,10 +57,15 @@ public class SplashController implements Initializable{
 		if (f != null){
 			try {
 				this.diretorio.setText(f.getPath());  
-				SciaXMLFileManager.carregarPecas(f);
-				loadProgressBar(1.0);
-			} catch (SciaXMLFileManagerException e) {
-				loadProgressBar(0.0);
+				File[] arquivos = f.listFiles();
+				
+				if (arquivos != null && arquivos.length > 0){
+					for (File file: arquivos) {
+						RepositorioPecas.addPeca(file);
+					}
+					this.progressBar.setProgress(1.0);
+				}
+			} catch (RepositorioPecasException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 			} 
 		}
@@ -82,13 +88,23 @@ public class SplashController implements Initializable{
 					this.sigla.setText(RepositorioProjeto.projeto.getSiglaProjeto());
 					this.diretorio.setText(RepositorioProjeto.projeto.getDiretorioPecas());
 					
-					SciaXMLFileManager.carregarPecas(new File(this.diretorio.getText()));
+					File diretorio = new File(this.diretorio.getText());
 					
-					loadProgressBar(1.0);
+					if (diretorio != null){
+						File[] arquivos = diretorio.listFiles();
+						if (arquivos != null && arquivos.length > 0){
+							for (File f : arquivos) {
+								RepositorioPecas.addPeca(f);
+							}
+							this.progressBar.setProgress(1.0);
+						}
+					}
 				}
 			} catch (SciaXMLFileManagerException e) {
 				e.printStackTrace();
-				loadProgressBar(0.0);
+				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+			} catch (RepositorioPecasException e) {
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 			}
         }		
@@ -145,10 +161,6 @@ public class SplashController implements Initializable{
 		}		
 	}
 	
-	private void loadProgressBar(Double value) {
-		this.progressBar.setProgress(value);
-	}
-
 	private void validarCamposSplash() throws SciaXMLValidationException{
 
 		String mensagem = null;
