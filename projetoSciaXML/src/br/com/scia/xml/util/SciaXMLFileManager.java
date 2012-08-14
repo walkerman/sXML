@@ -58,7 +58,7 @@ public class SciaXMLFileManager {
 				String xml = SciaXMLContantes.ENCODING + xs.toXML(p);
 								
 				OutputStream stream = new FileOutputStream(f);  
-				Writer fw = new OutputStreamWriter(stream, "UTF-8");
+				Writer fw = new OutputStreamWriter(stream, "UTF-16");
 				
 				fw.write(xml);
 				fw.flush();
