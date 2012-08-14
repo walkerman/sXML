@@ -2,9 +2,9 @@ package br.com.scia.xml.entity.view;
 
 import java.util.List;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-
 import br.com.scia.xml.entity.xml.Coordenada;
+
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("SciaXMLProject")
 public class SumarioDados {

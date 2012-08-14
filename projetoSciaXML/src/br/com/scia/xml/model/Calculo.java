@@ -3,8 +3,6 @@ package br.com.scia.xml.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.javafx.geom.Path2D.CornerPrefix;
-
 import br.com.scia.xml.entity.exception.CalculoException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
