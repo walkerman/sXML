@@ -13,16 +13,16 @@ import javafx.scene.control.TextField;
 
 import javax.swing.JOptionPane;
 
-public class TipoTravessa implements EventHandler<ActionEvent>{
+public class TipoPecaXY implements EventHandler<ActionEvent>{
 
 	private SimpleStringProperty ordem;
 	private SimpleStringProperty item;
 	private Hyperlink remover;
-	private TableView<TipoTravessa> tableReference;
+	private TableView<TipoPecaXY> tableReference;
 	private ComboBox<String> sumarioReference;
 	private TextField quantidadeReference;
 	
-	public TipoTravessa(String ordem, String item) {
+	public TipoPecaXY(String ordem, String item) {
 		super();
 		this.item = new SimpleStringProperty(item);
 		this.remover = new Hyperlink("Remover");
@@ -48,10 +48,10 @@ public class TipoTravessa implements EventHandler<ActionEvent>{
 	public void setRemover(Hyperlink remover) {
 		this.remover = remover;
 	}
-	public TableView<TipoTravessa> getTableReference() {
+	public TableView<TipoPecaXY> getTableReference() {
 		return tableReference;
 	}
-	public void setTableReference(TableView<TipoTravessa> tableReference) {
+	public void setTableReference(TableView<TipoPecaXY> tableReference) {
 		this.tableReference = tableReference;
 	}
 	
@@ -59,10 +59,10 @@ public class TipoTravessa implements EventHandler<ActionEvent>{
 	public void handle(ActionEvent event) {
 		this.tableReference.getItems().removeAll(this);
 		
-		List<TipoTravessa> itensTable = this.tableReference.getItems();
+		List<TipoPecaXY> itensTable = this.tableReference.getItems();
 		ArrayList<String> itensSumario = new ArrayList<String>();
 		for (int i = 0; i < itensTable.size(); i++) {
-			TipoTravessa t = itensTable.get(i);
+			TipoPecaXY t = itensTable.get(i);
 			t.setOrdem(String.valueOf(i+1));
 			itensSumario.add(t.getItem());
 		}

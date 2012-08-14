@@ -39,7 +39,7 @@ import br.com.scia.xml.entity.exception.RepositorioPecasException;
 import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
-import br.com.scia.xml.entity.view.TipoTravessa;
+import br.com.scia.xml.entity.view.TipoPecaXY;
 import br.com.scia.xml.entity.xml.Project;
 import br.com.scia.xml.model.Calculo;
 import br.com.scia.xml.util.SciaXMLContantes;
@@ -77,21 +77,21 @@ public class PrincipalController implements Initializable{
 	@FXML
 	TextField folgaY2;
 	@FXML
-	ComboBox<String> tiposTravessasX;
+	ComboBox<String> tiposPecasX;
 	@FXML
-	ComboBox<TipoTravessa> tamanhosTravessasX;
+	ComboBox<TipoPecaXY> tamanhosPecasX;
 	@FXML
-	TableView<TipoTravessa> travessasX;
+	TableView<TipoPecaXY> pecasX;
 	@FXML
-	TextField quantidadeTravessasX;
+	TextField quantidadePecasX;
 	@FXML
-	ComboBox<String> tiposTravessasY;
+	ComboBox<String> tiposPecasY;
 	@FXML
-	ComboBox<TipoTravessa> tamanhosTravessasY;
+	ComboBox<TipoPecaXY> tamanhosPecasY;
 	@FXML
-	TableView<TipoTravessa> travessasY;
+	TableView<TipoPecaXY> pecasY;
 	@FXML
-	TextField quantidadeTravessasY;
+	TextField quantidadePecasY;
 	@FXML
 	ComboBox<String> tiposVigasPrincipais;
 	@FXML
@@ -155,7 +155,9 @@ public class PrincipalController implements Initializable{
 	@FXML
 	SplitPane split;
 	
-	ArrayList<TipoTravessa> tiposTravessas;
+	ArrayList<TipoPecaXY> tiposTravessas;
+	ArrayList<TipoPecaXY> tiposCruzetas;
+	ArrayList<TipoPecaXY> tiposEscoras;
 	
 	public static final String fxml = "SciaXML.fxml";
 	public static Stage stage;
@@ -204,29 +206,62 @@ public class PrincipalController implements Initializable{
 	}
 	
 	private void inicializarComponentes(){
-		inicializarTravessas();
+		inicializarPecasXY();
 	}
 	
-	private void inicializarTravessas(){
+	private void inicializarPecasXY(){
 		if (RepositorioPecas.pecas != null){
 			Set<String> pecas = RepositorioPecas.pecas.keySet();
 			
-			this.tiposTravessas = new ArrayList<TipoTravessa>();
-			
+			// Iniciando o load de travessas
+			this.tiposTravessas = new ArrayList<TipoPecaXY>();
 			int ordem = 1;
 			for (String peca : pecas) {
 				if (peca.startsWith(SciaXMLContantes.KITRV))
 				{
-					TipoTravessa t = new TipoTravessa(String.valueOf(ordem), peca);
-					RepositorioPecas.travessas.put(t.getItem(), t);
+					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
+					RepositorioPecas.tiposPecasXY.put(t.getItem(), t);
 					this.tiposTravessas.add(t);
 				}
 				ordem++;	
 			}
-			
 			if (this.tiposTravessas.size() > 0){
-				this.tiposTravessasX.getItems().add("Travessa");
-				this.tiposTravessasY.getItems().add("Travessa");
+				this.tiposPecasX.getItems().add("Travessa");
+				this.tiposPecasY.getItems().add("Travessa");
+			} 
+			
+			// Iniciando o load de cruzetas
+			this.tiposCruzetas = new ArrayList<TipoPecaXY>();
+			ordem = 1;
+			for (String peca : pecas) {
+				if (peca.startsWith(SciaXMLContantes.KIP))
+				{
+					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
+					RepositorioPecas.tiposPecasXY.put(t.getItem(), t);
+					this.tiposCruzetas.add(t);
+				}
+				ordem++;	
+			}
+			if (this.tiposCruzetas.size() > 0){
+				this.tiposPecasX.getItems().add("Cruzeta");
+				this.tiposPecasY.getItems().add("Cruzeta");
+			} 
+			
+			// Iniciando o load de escoras
+			this.tiposEscoras = new ArrayList<TipoPecaXY>();
+			ordem = 1;
+			for (String peca : pecas) {
+				if (peca.startsWith(SciaXMLContantes.KID))
+				{
+					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
+					RepositorioPecas.tiposPecasXY.put(t.getItem(), t);
+					this.tiposEscoras.add(t);
+				}
+				ordem++;	
+			}
+			if (this.tiposEscoras.size() > 0){
+				this.tiposPecasX.getItems().add("Escora");
+				this.tiposPecasY.getItems().add("Escora");
 			} 
 			 
 		}
@@ -234,70 +269,123 @@ public class PrincipalController implements Initializable{
 	}
 	
 	@FXML
-	public void carregarTamanhoTravessasX(){
-		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0){
-			ObservableList<TipoTravessa> list = FXCollections.observableArrayList(this.tiposTravessas);				 
-			this.tamanhosTravessasX.setItems(list);
+	public void carregarTamanhoPecasX(){
+		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Travessa")){
+			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposTravessas);				 
+			this.tamanhosPecasX.setItems(list);
+		}
+		
+		if (this.tiposCruzetas!=null && this.tiposCruzetas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Cruzeta")){
+			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposCruzetas);				 
+			this.tamanhosPecasX.setItems(list);
+		}
+		
+		if (this.tiposEscoras!=null && this.tiposEscoras.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Escora")){
+			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposEscoras);				 
+			this.tamanhosPecasX.setItems(list);
 		}
 	}
 	
+
 	@FXML
-	public void carregarTamanhoTravessasY(){
-		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0){
-			ObservableList<TipoTravessa> list = FXCollections.observableArrayList(this.tiposTravessas);				 
-			this.tamanhosTravessasY.setItems(list);
+	public void carregarTamanhoPecasY(){
+		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Travessa")){
+			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposTravessas);				 
+			this.tamanhosPecasY.setItems(list);
+		}
+		
+		if (this.tiposCruzetas!=null && this.tiposCruzetas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Cruzeta")){
+			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposCruzetas);				 
+			this.tamanhosPecasY.setItems(list);
+		}
+		
+		if (this.tiposEscoras!=null && this.tiposEscoras.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Escora")){
+			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposEscoras);				 
+			this.tamanhosPecasY.setItems(list);
 		}
 	}
 	
+	private Boolean validarRegrasPecasXY(TipoPecaXY tipo, String origem) {
+		Boolean retorno = false;
+		
+		if (tipo.getItem().startsWith(SciaXMLContantes.KID) && this.pecasX.getItems().size() == 0){
+			adicionarPecaY(tipo.getItem());
+			retorno = true;
+		}
+			
+		if (tipo.getItem().startsWith(SciaXMLContantes.KID) && this.pecasY.getItems().size() == 0){
+			adicionarPecaX(tipo.getItem());
+			retorno = true;
+		}
+		
+		if (tipo.getItem().startsWith(SciaXMLContantes.KIP) && "X".equals(origem)){
+			adicionarPecaY("-");
+			retorno = true;
+		}
+		
+		if (tipo.getItem().startsWith(SciaXMLContantes.KIP) && "Y".equals(origem)){
+			adicionarPecaX("-");
+			retorno = true;
+		}
+		
+		if (tipo.getItem().startsWith(SciaXMLContantes.KITRV)){
+			retorno = true;
+		}
+		
+		return retorno;
+	}	
+	
 	@FXML
-	public void adicionarTravessaX(){
-		TipoTravessa selecao = this.tamanhosTravessasX.getSelectionModel().getSelectedItem();
-		adicionarTravessaX(selecao.getItem());
+	public void adicionarPecaX(){
+		TipoPecaXY selecao = this.tamanhosPecasX.getSelectionModel().getSelectedItem();
+		if (validarRegrasPecasXY(selecao, "X"))
+			adicionarPecaX(selecao.getItem());
 	}
 	
-	public void adicionarTravessaX(String item){
-		TipoTravessa t = new TipoTravessa(""+(this.travessasX.getItems().size()+1), item);
-		t.setTableReference(this.travessasX);
+	public void adicionarPecaX(String item){
+		TipoPecaXY t = new TipoPecaXY(""+(this.pecasX.getItems().size()+1), item);
+		t.setTableReference(this.pecasX);
 		t.setSumarioReference(this.sumarioTravessasX);
-		t.setQuantidadeReference(this.quantidadeTravessasX);
+		t.setQuantidadeReference(this.quantidadePecasX);
 		
 		if (t != null){
-			this.travessasX.getItems().add(t);
+			this.pecasX.getItems().add(t);
 			this.sumarioTravessasX.getItems().add(t.getItem());
-			this.quantidadeTravessasX.setText(String.valueOf(this.travessasX.getItems().size()));
+			this.quantidadePecasX.setText(String.valueOf(this.pecasX.getItems().size()));
 		}
 	}
 	
 	@FXML
-	public void adicionarTravessaY(){
-		TipoTravessa selecao = this.tamanhosTravessasY.getSelectionModel().getSelectedItem();
-		adicionarTravessaY(selecao.getItem());
+	public void adicionarPecaY(){
+		TipoPecaXY selecao = this.tamanhosPecasY.getSelectionModel().getSelectedItem();
+		if (validarRegrasPecasXY(selecao, "Y"))
+			adicionarPecaY(selecao.getItem());
 	}
 	
-	public void adicionarTravessaY(String item){
-		TipoTravessa t = new TipoTravessa(String.valueOf(this.travessasY.getItems().size()+1), item);
-		t.setTableReference(this.travessasY);
+	public void adicionarPecaY(String item){
+		TipoPecaXY t = new TipoPecaXY(String.valueOf(this.pecasY.getItems().size()+1), item);
+		t.setTableReference(this.pecasY);
 		t.setSumarioReference(this.sumarioTravessasY);
-		t.setQuantidadeReference(this.quantidadeTravessasY);
+		t.setQuantidadeReference(this.quantidadePecasY);
 		
 		if (t != null){
-			this.travessasY.getItems().add(t);
+			this.pecasY.getItems().add(t);
 			this.sumarioTravessasY.getItems().add(t.getItem());
-			this.quantidadeTravessasY.setText(String.valueOf(this.travessasY.getItems().size()));
+			this.quantidadePecasY.setText(String.valueOf(this.pecasY.getItems().size()));
 		}
 	}
 	
 	@FXML
-	public void limparDadosTravessasX(){
-		this.travessasX.getItems().removeAll(this.travessasX.getItems());
-		this.quantidadeTravessasX.setText(String.valueOf(this.travessasX.getItems().size()));
+	public void limparDadosPecasX(){
+		this.pecasX.getItems().removeAll(this.pecasX.getItems());
+		this.quantidadePecasX.setText(String.valueOf(this.pecasX.getItems().size()));
 		this.sumarioTravessasX.getItems().removeAll(this.sumarioTravessasX.getItems());
 	}
 	
 	@FXML
-	public void limparDadosTravessasY(){
-		this.travessasY.getItems().removeAll(this.travessasY.getItems());
-		this.quantidadeTravessasY.setText(String.valueOf(this.travessasY.getItems().size()));
+	public void limparDadosPecasY(){
+		this.pecasY.getItems().removeAll(this.pecasY.getItems());
+		this.quantidadePecasY.setText(String.valueOf(this.pecasY.getItems().size()));
 		this.sumarioTravessasY.getItems().removeAll(this.sumarioTravessasY.getItems());
 	}
 	
@@ -430,10 +518,8 @@ public class PrincipalController implements Initializable{
 			List<Peca> pecasX = new ArrayList<Peca>();
 			for (String tipo : travessasX) {
 				Peca peca = new Peca();
-				Project project = RepositorioPecas.pecas.get(tipo);
+				//Project project = RepositorioPecas.pecas.get(tipo);
 				peca.setTipo(tipo);
-				System.out.println("X="+project.getComprimentoX());
-				System.out.println("Y="+project.getComprimentoY());
 				peca.setComprimentoPecaX(120.0);
 				peca.setComprimentoPecaY(170.0);
 				pecasX.add(peca);
@@ -443,9 +529,7 @@ public class PrincipalController implements Initializable{
 			List<Peca> pecasY = new ArrayList<Peca>();
 			for (String tipo : travessasY) {
 				Peca peca = new Peca();
-				Project project = RepositorioPecas.pecas.get(tipo);
-				System.out.println("X="+project.getComprimentoX());
-				System.out.println("Y="+project.getComprimentoY());				
+				//Project project = RepositorioPecas.pecas.get(tipo);		
 				peca.setTipo(tipo);
 				peca.setComprimentoPecaX(120.0);
 				peca.setComprimentoPecaY(170.0);
@@ -475,8 +559,8 @@ public class PrincipalController implements Initializable{
 			RepositorioProjeto.projeto.setVigasSecundarias(vigasSecundarias);
 			RepositorioProjeto.projeto.setComposicaoTorres(composicaoTorres);
 			RepositorioProjeto.projeto.setCoordenadaX(coordenadaX);
-			RepositorioProjeto.projeto.setCoordenadaX(coordenadaY);
-			RepositorioProjeto.projeto.setCoordenadaX(coordenadaZ);
+			RepositorioProjeto.projeto.setCoordenadaY(coordenadaY);
+			RepositorioProjeto.projeto.setCoordenadaZ(coordenadaZ);
 			
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Problemas durante a conversão dos dados. " +
@@ -545,6 +629,9 @@ public class PrincipalController implements Initializable{
 				}
 			}
 			
+			this.coordenadaX.setText(checkString(RepositorioProjeto.projeto.getCoordenadaX()));
+    		this.coordenadaY.setText(checkString(RepositorioProjeto.projeto.getCoordenadaY()));
+    		this.coordenadaZ.setText(checkString(RepositorioProjeto.projeto.getCoordenadaZ()));
 			this.medidaX.setText(checkString(RepositorioProjeto.projeto.getMedidaLageX()));
     		this.medidaY.setText(checkString(RepositorioProjeto.projeto.getMedidaLageY()));
     		this.folgaX1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeX1()));
@@ -552,7 +639,10 @@ public class PrincipalController implements Initializable{
     		this.folgaY1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeY1()));
     		this.folgaY2.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeY2()));
     		this.espessura.setText(checkString(RepositorioProjeto.projeto.getEspessura()));
-    				
+    		
+    		this.sumarioCoordenadaX.setText(checkString(RepositorioProjeto.projeto.getCoordenadaX()));
+    		this.sumarioCoordenadaY.setText(checkString(RepositorioProjeto.projeto.getCoordenadaY()));
+    		this.sumarioCoordenadaZ.setText(checkString(RepositorioProjeto.projeto.getCoordenadaZ()));
     		this.sumarioMedidaX.setText(checkString(RepositorioProjeto.projeto.getMedidaLageX()));
     		this.sumarioMedidaY.setText(checkString(RepositorioProjeto.projeto.getMedidaLageY()));
     		this.sumarioFolgaX1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeX1()));
@@ -564,13 +654,13 @@ public class PrincipalController implements Initializable{
     		List<Peca> pecasX = RepositorioProjeto.projeto.getPecasX();
     		if (pecasX != null && pecasX.size() > 0)
 	    		for (Peca peca : pecasX) {
-					adicionarTravessaX(peca.getTipo());
+	    			adicionarPecaX(peca.getTipo());
 				}
     		
     		List<Peca> pecasY = RepositorioProjeto.projeto.getPecasY();
     		if (pecasY != null && pecasY.size() > 0)
 	    		for (Peca peca : pecasY) {
-	    			adicionarTravessaY(peca.getTipo());
+	    			adicionarPecaY(peca.getTipo());
 				}    		
     		  		
     	}		

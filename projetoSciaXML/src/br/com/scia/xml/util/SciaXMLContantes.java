@@ -13,7 +13,17 @@ public class SciaXMLContantes {
 	public static final String ETEM = "tipoETEM";
 	
 	// Código das Peças
-	public static final String KITRV = "KITRV";
+	public static final String KITRV = "KITRV";		// TRAVESSAS
+	public static final String MACACO = "MACACO";	// MACACO
+	public static final String FORCADO = "FORCADO"; // FORCADO
+	public static final String KIP = "KIP";			// POSTES
+	public static final String VM = "VM";			// VIGAS
+	public static final String VI = "VI";			// VIGAS
+	public static final String VA = "VA";			// VIGAS
+	public static final String KID = "KID";			// DIAGONAIS VERTICAIS
+	public static final String KIDH = "KIDH";		// DIAGONAIS HORIZONTAIS
+	public static final String CRU = "CRU";			// CRUZETAS
+	public static final String ESC = "ESC";			// ESCORRAS
 	
 	// Código dos Containers
 	public static final String STRUCT_NODE = "StructNode";

@@ -118,23 +118,23 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <TextField id="medidaX" fx:id="coordenadaX" layoutX="35.0" layoutY="170.0" onKeyPressed="#setSumarioCoordenadaX" onKeyReleased="#setSumarioCoordenadaX" onKeyTyped="#setSumarioCoordenadaX" prefWidth="96.0" />
-                <Label layoutX="15.0" layoutY="199.0" text="Y:" />
-                <TextField id="medidaY" fx:id="coordenadaY" layoutX="35.0" layoutY="196.0" onKeyPressed="#setSumarioCoordenadaY" onKeyReleased="#setSumarioCoordenadaY" onKeyTyped="#setSumarioCoordenadaY" prefWidth="96.0" />
-                <Label layoutX="15.0" layoutY="226.0" text="Z:" />
-                <TextField id="espessura" fx:id="coordenadaZ" layoutX="36.0" layoutY="223.0" onKeyPressed="#setSumarioCoordenadaZ" onKeyReleased="#setSumarioCoordenadaZ" onKeyTyped="#setSumarioCoordenadaZ" prefWidth="96.0" />
+                <Label layoutX="12.0" layoutY="6.0" text="Tipo do Equipamento" underline="true" />
                 <RadioButton fx:id="tipoKIBLOCLaje" layoutX="15.0" layoutY="32.0" mnemonicParsing="false" onAction="#escolherTipoEquipamento" text="KIBLOC (LAJE)">
                   <toggleGroup>
                     <ToggleGroup fx:id="tipos" />
                   </toggleGroup>
                 </RadioButton>
+                <RadioButton fx:id="tipoKIBLOCViga" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" onAction="#escolherTipoEquipamento" text="KIBLOC (VIGA)" toggleGroup="$tipos" />
                 <RadioButton fx:id="tipoETEM" layoutX="15.0" layoutY="78.0" mnemonicParsing="false" onAction="#escolherTipoEquipamento" text="ETEM" toggleGroup="$tipos" />
                 <RadioButton fx:id="tipoALUTOP" layoutX="15.0" layoutY="101.0" mnemonicParsing="false" onAction="#escolherTipoEquipamento" text="ALUTOP" toggleGroup="$tipos" />
-                <Separator layoutX="12.0" layoutY="132.0" prefWidth="267.0" />
-                <RadioButton fx:id="tipoKIBLOCViga" layoutX="14.0" layoutY="55.0" mnemonicParsing="false" onAction="#escolherTipoEquipamento" text="KIBLOC (VIGA)" toggleGroup="$tipos" />
-                <Label layoutX="12.0" layoutY="6.0" text="Tipo do Equipamento" underline="true" />
                 <Label layoutX="12.0" layoutY="144.0" text="Coordenadas de Inicio" underline="true" />
                 <Label layoutX="15.0" layoutY="173.0" text="X:" />
+                <TextField id="medidaX" fx:id="coordenadaX" layoutX="35.0" layoutY="170.0" onKeyPressed="#setSumarioCoordenadaX" onKeyReleased="#setSumarioCoordenadaX" onKeyTyped="#setSumarioCoordenadaX" prefWidth="96.0" />
+                <Label layoutX="15.0" layoutY="199.0" text="Y:" />
+                <TextField id="medidaY" fx:id="coordenadaY" layoutX="35.0" layoutY="196.0" onKeyPressed="#setSumarioCoordenadaY" onKeyReleased="#setSumarioCoordenadaY" onKeyTyped="#setSumarioCoordenadaY" prefWidth="96.0" />
+                <Label layoutX="15.0" layoutY="226.0" text="Z:" />
+                <TextField id="espessura" fx:id="coordenadaZ" layoutX="36.0" layoutY="223.0" onKeyPressed="#setSumarioCoordenadaZ" onKeyReleased="#setSumarioCoordenadaZ" onKeyTyped="#setSumarioCoordenadaZ" prefWidth="96.0" />
+                <Separator layoutX="12.0" layoutY="132.0" prefWidth="267.0" />
               </children>
             </AnchorPane>
           </content>
@@ -149,14 +149,14 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <Label layoutX="61.0" layoutY="37.0" text="X:" />
                 <Label layoutX="8.0" layoutY="6.0" text="Medidas da Laje (cm)" underline="true" />
-                <Label layoutX="8.0" layoutY="129.0" text="Folgas da Laje (cm)" underline="true" />
+                <Label layoutX="61.0" layoutY="37.0" text="X:" />
                 <TextField fx:id="medidaX" layoutX="81.0" layoutY="34.0" onKeyPressed="#setSumarioMedidaX" onKeyReleased="#setSumarioMedidaX" onKeyTyped="#setSumarioMedidaX" prefWidth="96.0" />
                 <Label layoutX="61.0" layoutY="63.0" text="Y:" />
                 <TextField fx:id="medidaY" layoutX="81.0" layoutY="60.0" onKeyPressed="#setSumarioMedidaY" onKeyReleased="#setSumarioMedidaY" onKeyTyped="#setSumarioMedidaY" prefWidth="96.0" />
                 <Label layoutX="13.0" layoutY="161.0" text="X1:" />
                 <TextField fx:id="folgaX1" layoutX="30.0" layoutY="158.0" onKeyPressed="#setSumarioFolgaX1" onKeyReleased="#setSumarioFolgaX1" onKeyTyped="#setSumarioFolgaX1" prefWidth="59.0" />
+                <Label layoutX="8.0" layoutY="129.0" text="Folgas da Laje (cm)" underline="true" />
                 <Label layoutX="13.0" layoutY="187.0" text="X2:" />
                 <TextField fx:id="folgaX2" layoutX="30.0" layoutY="184.0" onKeyPressed="#setSumarioFolgaX2" onKeyReleased="#setSumarioFolgaX2" onKeyTyped="#setSumarioFolgaX2" prefWidth="59.0" />
                 <Label layoutX="100.0" layoutY="161.0" text="Y1:" />
@@ -186,11 +186,11 @@
             </AnchorPane>
           </content>
         </TitledPane>
-        <TitledPane fx:id="x5" text="Travessas em X">
+        <TitledPane fx:id="x5" text="Peças em X">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <TableView id="combinacaoTravessasP1" fx:id="travessasX" layoutX="10.0" layoutY="112.0" prefHeight="172.0" prefWidth="267.0">
+                <TableView id="combinacaoTravessasP1" fx:id="pecasX" layoutX="10.0" layoutY="112.0" prefHeight="172.0" prefWidth="267.0">
                   <columns>
                     <TableColumn resizable="false" text="Ordem">
                       <cellValueFactory>
@@ -218,32 +218,32 @@
                     </TableColumn>
                   </columns>
                 </TableView>
-                <ComboBox id="tipoPecaP1" fx:id="tiposTravessasX" layoutX="83.0" layoutY="17.0" onAction="#carregarTamanhoTravessasX" prefHeight="21.0" prefWidth="158.0" />
-                <Button layoutX="249.0" layoutY="46.0" mnemonicParsing="false" onAction="#adicionarTravessaX" text="+" />
+                <ComboBox id="tipoPecaP1" fx:id="tiposPecasX" layoutX="83.0" layoutY="17.0" onAction="#carregarTamanhoPecasX" prefHeight="21.0" prefWidth="158.0" />
+                <Button layoutX="249.0" layoutY="46.0" mnemonicParsing="false" onAction="#adicionarPecaX" text="+" />
                 <Label layoutX="8.0" layoutY="84.0" text="Combinação de Travessas:" underline="true" />
                 <Label layoutX="13.0" layoutY="300.0" text="Quantidade:" underline="true" />
-                <TextField fx:id="quantidadeTravessasX" disable="true" layoutX="83.0" layoutY="298.0" prefWidth="44.0" />
-                <Button layoutX="138.0" layoutY="298.0" mnemonicParsing="false" onAction="#limparDadosTravessasX" prefWidth="139.0" text="Limpar Dados" />
+                <TextField fx:id="quantidadePecasX" disable="true" layoutX="83.0" layoutY="298.0" prefWidth="44.0" />
+                <Button layoutX="138.0" layoutY="298.0" mnemonicParsing="false" onAction="#limparDadosPecasX" prefWidth="139.0" text="Limpar Dados" />
                 <Label layoutX="8.0" layoutY="20.0" prefWidth="75.0" text="Tipo da Peça:" underline="true" />
-                <ComboBox fx:id="tamanhosTravessasX" layoutX="83.0" layoutY="46.0" prefHeight="21.0" prefWidth="158.0" />
+                <ComboBox fx:id="tamanhosPecasX" layoutX="83.0" layoutY="46.0" prefHeight="21.0" prefWidth="158.0" />
                 <Label layoutX="7.0" layoutY="49.0" prefWidth="75.0" text="Tamanho:" underline="true" />
               </children>
             </AnchorPane>
           </content>
         </TitledPane>
-        <TitledPane fx:id="x9" text="Travessas em Y">
+        <TitledPane fx:id="x9" text="Peças em Y">
           <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
               <children>
-                <Button layoutX="250.0" layoutY="43.0" mnemonicParsing="false" onAction="#adicionarTravessaY" text="+" />
+                <Button layoutX="250.0" layoutY="43.0" mnemonicParsing="false" onAction="#adicionarPecaY" text="+" />
                 <Label layoutX="10.0" layoutY="81.0" text="Combinação de Travessas:" underline="true" />
                 <Label layoutX="14.0" layoutY="303.0" text="Quantidade:" underline="true" />
-                <TextField fx:id="quantidadeTravessasY" disable="true" layoutX="84.0" layoutY="300.0" prefWidth="44.0" />
-                <Button layoutX="140.0" layoutY="298.0" mnemonicParsing="false" onAction="#limparDadosTravessasY" prefWidth="139.0" text="Limpar Dados" />
+                <TextField fx:id="quantidadePecasY" disable="true" layoutX="84.0" layoutY="300.0" prefWidth="44.0" />
+                <Button layoutX="140.0" layoutY="298.0" mnemonicParsing="false" onAction="#limparDadosPecasY" prefWidth="139.0" text="Limpar Dados" />
                 <Label layoutX="10.0" layoutY="17.0" prefWidth="75.0" text="Tipo da Peça:" underline="true" />
-                <ComboBox fx:id="tamanhosTravessasY" layoutX="85.0" layoutY="43.0" prefHeight="21.0" prefWidth="158.0" />
+                <ComboBox fx:id="tamanhosPecasY" layoutX="85.0" layoutY="43.0" prefHeight="21.0" prefWidth="158.0" />
                 <Label layoutX="9.0" layoutY="46.0" prefWidth="75.0" text="Tamanho:" underline="true" />
-                <TableView fx:id="travessasY" layoutX="12.0" layoutY="109.0" prefHeight="176.0" prefWidth="267.0">
+                <TableView fx:id="pecasY" layoutX="12.0" layoutY="109.0" prefHeight="176.0" prefWidth="267.0">
                   <columns>
                     <TableColumn resizable="false" text="Ordem">
                       <cellValueFactory>
@@ -271,7 +271,7 @@
                     </TableColumn>
                   </columns>
                 </TableView>
-                <ComboBox fx:id="tiposTravessasY" layoutX="85.0" layoutY="14.0" onAction="#carregarTamanhoTravessasY" prefHeight="21.0" prefWidth="158.0" />
+                <ComboBox fx:id="tiposPecasY" layoutX="85.0" layoutY="14.0" onAction="#carregarTamanhoPecasY" prefHeight="21.0" prefWidth="158.0" />
               </children>
             </AnchorPane>
           </content>
