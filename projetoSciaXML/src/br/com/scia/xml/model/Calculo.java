@@ -3,6 +3,8 @@ package br.com.scia.xml.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.javafx.geom.Path2D.CornerPrefix;
+
 import br.com.scia.xml.entity.exception.CalculoException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
@@ -137,16 +139,20 @@ public class Calculo {
 		for (Double x : listaEixoX) {
 			for (Double y : listaEixoY) {
 				coordenada = new Coordenada();
-				coordenada.setX(x.doubleValue()/100.0);
-				coordenada.setY(y.doubleValue()/100.0);
+				coordenada.setX(x.doubleValue());
+				coordenada.setY(y.doubleValue());
 				coordenada.setZ(0.0);
 				listaCoordenadas.add(coordenada);
 			}			
 		}
 
 		for (Coordenada coordenadaNo : listaCoordenadas) { 
-			coordenadaNo.setId(String.valueOf(no++));
-			coordenadaNo.setName("N"+String.valueOf(no++));
+			coordenadaNo.setId(String.valueOf(no));
+			coordenadaNo.setName("N"+String.valueOf(no));
+			coordenadaNo.setX(coordenadaNo.getX()/100);
+			coordenadaNo.setY(coordenadaNo.getY()/100);
+			no++;
+			System.out.println(coordenadaNo.getId()+"-"+coordenadaNo.getName());
 		} 
 
 		return listaCoordenadas;
@@ -171,26 +177,27 @@ public class Calculo {
 		Peca peca4 = null;
 
 		for (int j = 0; j < dados.getPecasX().size(); j++) {
-			
-			peca1 = new Peca();
-			peca2 = new Peca();
-			peca3 = new Peca();
-			peca4 = new Peca();
-			
+					
 			for (int i = 1; i <= (dados.getPecasY().size() * 2);) {
+				
+				peca1 = new Peca();
+				peca2 = new Peca();
+				peca3 = new Peca();
+				peca4 = new Peca();
+				
 				no1 = posicaoCursor;
 				no2 = no1 + 1;
 				no3 = no1 +  (dados.getPecasY().size() * 2);
 				no4 = no3 + 1;
 				
 				peca1.setId(String.valueOf(idPeca));
-				peca1.setName("B"+String.valueOf(idPeca++));
-				peca2.setId(String.valueOf(idPeca));
-				peca2.setName("B"+String.valueOf(idPeca++));
-				peca3.setId(String.valueOf(idPeca));
-				peca3.setName("B"+String.valueOf(idPeca++));
-				peca4.setId(String.valueOf(idPeca));
-				peca4.setName("B"+String.valueOf(idPeca++));
+				peca1.setName("B"+String.valueOf(idPeca));
+				peca2.setId(String.valueOf(idPeca+1));
+				peca2.setName("B"+String.valueOf(idPeca+1));
+				peca3.setId(String.valueOf(idPeca+2));
+				peca3.setName("B"+String.valueOf(idPeca+2));
+				peca4.setId(String.valueOf(idPeca+3));
+				peca4.setName("B"+String.valueOf(idPeca+3));
 				
 				peca1.setTipo(dados.getPecasY().get(pecaEmY).getTipo());
 				peca2.setTipo(dados.getPecasX().get(j).getTipo());
@@ -211,15 +218,21 @@ public class Calculo {
 				pecas.add(peca3);
 				pecas.add(peca4);
 				
-				i=i+2;
-				posicaoCursor=i;
+				i = i + 2;
+				posicaoCursor= posicaoCursor + 2;
 				pecaEmY+=1;
+				idPeca+=4;
 			}
 			posicaoCursor = posicaoCursor + (dados.getPecasY().size() * 2);
 			pecaEmY=0;
 		}
 
 		dados.setPecasFinais(pecas);
+		
+		for (Peca peca : dados.getPecasFinais()) {
+			System.out.println("Peca "+ peca.getId() + " " + peca.getNoInicial() + "-"+ peca.getNoFinal() );
+			
+		}
 
 		return dados;
 	}
