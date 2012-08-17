@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
@@ -92,6 +93,12 @@ public class PrincipalController implements Initializable{
 	TableView<TipoPecaXY> pecasY;
 	@FXML
 	TextField quantidadePecasY;
+	@FXML
+	ToggleGroup posicaoConsole;
+	@FXML
+	CheckBox alterarTipoViga;
+	@FXML
+	ComboBox<String> tipoVigaConsole;
 	@FXML
 	ComboBox<String> tiposVigasPrincipais;
 	@FXML
@@ -286,7 +293,6 @@ public class PrincipalController implements Initializable{
 		}
 	}
 	
-
 	@FXML
 	public void carregarTamanhoPecasY(){
 		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Travessa")){
@@ -460,6 +466,14 @@ public class PrincipalController implements Initializable{
 	}
 		
 	@FXML
+	public void alterarTipoConsole(){
+		if (this.alterarTipoViga.isSelected())
+			this.tipoVigaConsole.setDisable(false);
+		else
+			this.tipoVigaConsole.setDisable(true);
+	}
+	
+	@FXML
 	public void gerarXML(ActionEvent e){		
 		if (!"".equals(this.totalPecas.getText())){		
 			FileChooser fc = new FileChooser();
@@ -478,7 +492,7 @@ public class PrincipalController implements Initializable{
 			
 			construirProject(s,f);			
 			
-			JOptionPane.showMessageDialog(null, "Arquivo .sxml salvo com sucesso.");
+			JOptionPane.showMessageDialog(null, "Arquivos .xml/.def salvos com sucesso.");
 		}	
 		else{
 			JOptionPane.showMessageDialog(null, "Nenhum arquivo de peça carregado no sistema.");
@@ -521,10 +535,14 @@ public class PrincipalController implements Initializable{
 			List<Peca> pecasX = new ArrayList<Peca>();
 			for (String tipo : travessasX) {
 				Peca peca = new Peca();
-				//Project project = RepositorioPecas.pecas.get(tipo);
+				Project project = RepositorioPecas.pecas.get(tipo);
 				peca.setTipo(tipo);
 				peca.setComprimentoPecaX(120.0);
 				peca.setComprimentoPecaY(170.0);
+				
+				System.out.println("ProjetoX " + project.getComprimentoX());
+				System.out.println("ProjetoY " + project.getComprimentoY());
+				
 				pecasX.add(peca);
 			}		
 			
@@ -532,10 +550,13 @@ public class PrincipalController implements Initializable{
 			List<Peca> pecasY = new ArrayList<Peca>();
 			for (String tipo : travessasY) {
 				Peca peca = new Peca();
-				//Project project = RepositorioPecas.pecas.get(tipo);		
+				Project project = RepositorioPecas.pecas.get(tipo);		
 				peca.setTipo(tipo);
 				peca.setComprimentoPecaX(120.0);
 				peca.setComprimentoPecaY(170.0);
+				
+				System.out.println("ProjetoX " + project.getComprimentoX());
+				System.out.println("ProjetoY " + project.getComprimentoY());
 				pecasY.add(peca);
 			}
 			
