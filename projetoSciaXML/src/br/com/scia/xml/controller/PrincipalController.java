@@ -306,33 +306,41 @@ public class PrincipalController implements Initializable{
 	}
 	
 	private Boolean validarRegrasPecasXY(TipoPecaXY tipo, String origem) {
-		Boolean retorno = false;
 		
-		if (tipo.getItem().startsWith(SciaXMLContantes.KID) && this.pecasX.getItems().size() == 0){
-			adicionarPecaY(tipo.getItem());
-			retorno = true;
-		}
-			
-		if (tipo.getItem().startsWith(SciaXMLContantes.KID) && this.pecasY.getItems().size() == 0){
-			adicionarPecaX(tipo.getItem());
-			retorno = true;
-		}
-		
-		if (tipo.getItem().startsWith(SciaXMLContantes.KIP) && "X".equals(origem)){
-			adicionarPecaY("-");
-			retorno = true;
-		}
-		
-		if (tipo.getItem().startsWith(SciaXMLContantes.KIP) && "Y".equals(origem)){
-			adicionarPecaX("-");
-			retorno = true;
-		}
+		if (tipo == null || "".equals(origem))
+			JOptionPane.showMessageDialog(null, "Favor informar o tamanho da peça");
 		
 		if (tipo.getItem().startsWith(SciaXMLContantes.KITRV)){
-			retorno = true;
+			return true;
+		}else{			
+			if ("X".equals(origem)){
+				if (tipo.getItem().startsWith(SciaXMLContantes.KID) && this.pecasX.getItems().size() == 0){
+					adicionarPecaY(tipo.getItem());
+					return true;
+				}
+				if (tipo.getItem().startsWith(SciaXMLContantes.KID)){
+					return true;
+				}
+				if (tipo.getItem().startsWith(SciaXMLContantes.KIP) && "X".equals(origem)){
+					adicionarPecaY("-");
+					return true;
+				}
+			}else if ("Y".equals(origem)){
+				if (tipo.getItem().startsWith(SciaXMLContantes.KID) && this.pecasY.getItems().size() == 0){
+					adicionarPecaX(tipo.getItem());
+					return true;
+				}
+				if (tipo.getItem().startsWith(SciaXMLContantes.KID)){
+					return true;
+				}
+				if (tipo.getItem().startsWith(SciaXMLContantes.KIP) && "Y".equals(origem)){
+					adicionarPecaX("-");
+					return true;
+				}
+			}
 		}
 		
-		return retorno;
+		return false;
 	}	
 	
 	@FXML
@@ -460,13 +468,10 @@ public class PrincipalController implements Initializable{
 			
 			SumarioDados s = popularSumarioDados();
 			
-			System.out.println("Entrada:\n"+s.toString());
-			
 			try {
 				// TODO: Revisar cálculo Marquinhos (hoje esta fixo para 3 peças em x e 2 em y)
 				s = Calculo.calculaEstrutura(s);
 				
-				System.out.println("Saída:\n"+s.toString());
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -485,12 +490,10 @@ public class PrincipalController implements Initializable{
 
 		// TODO: O método mais zica		
 		
-		String fileName = f.getAbsolutePath()+SciaXMLContantes.XML;
-		System.out.println(fileName);
-		Project p = new Project(s,fileName);
+		Project p = new Project(s,f.getName()+SciaXMLContantes.XML);
 		
 		try {
-			SciaXMLFileManager.project2XML(p, new File(fileName));
+			SciaXMLFileManager.project2XML(p, new File(f.getAbsolutePath()+SciaXMLContantes.XML));
 		} catch (SciaXMLFileManagerException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);

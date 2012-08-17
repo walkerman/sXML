@@ -68,6 +68,7 @@ public class SciaXMLContantes {
 	public static final String XMLNS = "http://www.scia.cz";
 	public static final String DEF = ".def";
 	public static final String XML = ".xml";
+	public static final String DEF_PADRAO = "padrao.xml.def";
 	
 	// Mensagens de validação
 	public static final String TITLE_VALIDACAO = "SciaXML Validação";
