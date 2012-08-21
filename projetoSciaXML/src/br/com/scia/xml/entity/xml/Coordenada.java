@@ -7,7 +7,12 @@ public class Coordenada {
 	private Double x;
 	private Double y;
 	private Double z;
-		
+	
+	public Coordenada(){
+		this.x = 0.0;
+		this.y = 0.0;
+		this.z = 0.0;
+	}		
 	
 	public String getId() {
 		return id;

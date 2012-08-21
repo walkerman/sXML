@@ -5,6 +5,10 @@ public class SciaXMLContantes {
 	// Calculo
 	public static final String EIXO_X = "EIXO_X";
 	public static final String EIXO_Y = "EIXO_Y";
+	public static final String INDEXADOR_NO = "N";
+	public static final String INDEXADOR_PECA = "B";
+	public static final Integer PRECISAO_ENVIO_COORDENADAS_XML = 100;
+
 	
 	// Tipos de Equipamento em tela
 	public static final String KIBLOC_LAJE = "tipoKIBLOCLaje";  
@@ -22,8 +26,8 @@ public class SciaXMLContantes {
 	public static final String VA = "VA";			// VIGAS
 	public static final String KID = "KID";			// DIAGONAIS VERTICAIS
 	public static final String KIDH = "KIDH";		// DIAGONAIS HORIZONTAIS
-	public static final String CRU = "CRU";			// CRUZETAS
-	public static final String ESC = "ESC";			// ESCORRAS
+	public static final String CRU = "Cru";			// CRUZETAS
+	public static final String ESC = "Esc";			// ESCORRAS
 	
 	// Código dos Containers
 	public static final String STRUCT_NODE = "StructNode";
@@ -75,6 +79,8 @@ public class SciaXMLContantes {
 	public static final String CAMPOS_EM_OBRIGATORIOS = "Favor verificar os campos em destaque antes de prosseguir.";
 	public static final String DIRETORIO_VALIDO = "O diretório informado é inválido.";
 	public static final String NENHUM_ARQUIVO_PECA = "Nenhum arquivo de peça carregado no sistema.";
+	public static final String LAJE_IMCOMPATIVEL = "Tamanho da LAJE insuficiente para os parâmetros.";
+	public static final String VAO_IMCOMPATIVEL = "Tamanho do VÃO insuficiente para os parâmetros.";
 	
 	// SciaXML CSS Classes
 	public static final String CSS_FIELD_OK = "validationFieldOK"; 

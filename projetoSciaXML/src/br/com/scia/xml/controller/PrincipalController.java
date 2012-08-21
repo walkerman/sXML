@@ -86,6 +86,34 @@ public class PrincipalController implements Initializable{
 	@FXML
 	TextField quantidadePecasX;
 	@FXML
+	AnchorPane areaCruzetaX;
+	@FXML
+	TextField alturaVigaEsquerdaX;
+	@FXML
+	TextField alturaVigaDireitaX;
+	@FXML
+	ToggleGroup tipoCruzetaX;
+	@FXML
+	AnchorPane areaEscoraX;
+	@FXML
+	ComboBox<String> tipoForcadoX;
+	@FXML
+	CheckBox tripeX;
+	@FXML
+	AnchorPane areaCruzetaY;
+	@FXML
+	TextField alturaVigaEsquerdaY;
+	@FXML
+	TextField alturaVigaDireitaY;
+	@FXML
+	ToggleGroup tipoCruzetaY;
+	@FXML
+	AnchorPane areaEscoraY;
+	@FXML
+	ComboBox<String> tipoForcadoY;
+	@FXML
+	CheckBox tripeY;
+	@FXML
 	ComboBox<String> tiposPecasY;
 	@FXML
 	ComboBox<TipoPecaXY> tamanhosPecasY;
@@ -241,7 +269,7 @@ public class PrincipalController implements Initializable{
 			this.tiposCruzetas = new ArrayList<TipoPecaXY>();
 			ordem = 1;
 			for (String peca : pecas) {
-				if (peca.startsWith(SciaXMLContantes.KIP))
+				if (peca.startsWith(SciaXMLContantes.CRU))
 				{
 					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
 					RepositorioPecas.tiposPecasXY.put(t.getItem(), t);
@@ -258,7 +286,7 @@ public class PrincipalController implements Initializable{
 			this.tiposEscoras = new ArrayList<TipoPecaXY>();
 			ordem = 1;
 			for (String peca : pecas) {
-				if (peca.startsWith(SciaXMLContantes.KID))
+				if (peca.startsWith(SciaXMLContantes.ESC))
 				{
 					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
 					RepositorioPecas.tiposPecasXY.put(t.getItem(), t);
@@ -295,17 +323,17 @@ public class PrincipalController implements Initializable{
 	
 	@FXML
 	public void carregarTamanhoPecasY(){
-		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Travessa")){
+		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0 && this.tiposPecasY.getSelectionModel().getSelectedItem().equals("Travessa")){
 			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposTravessas);				 
 			this.tamanhosPecasY.setItems(list);
 		}
 		
-		if (this.tiposCruzetas!=null && this.tiposCruzetas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Cruzeta")){
+		if (this.tiposCruzetas!=null && this.tiposCruzetas.size()>0 && this.tiposPecasY.getSelectionModel().getSelectedItem().equals("Cruzeta")){
 			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposCruzetas);				 
 			this.tamanhosPecasY.setItems(list);
 		}
 		
-		if (this.tiposEscoras!=null && this.tiposEscoras.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Escora")){
+		if (this.tiposEscoras!=null && this.tiposEscoras.size()>0 && this.tiposPecasY.getSelectionModel().getSelectedItem().equals("Escora")){
 			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposEscoras);				 
 			this.tamanhosPecasY.setItems(list);
 		}
@@ -313,34 +341,46 @@ public class PrincipalController implements Initializable{
 	
 	private Boolean validarRegrasPecasXY(TipoPecaXY tipo, String origem) {
 		
-		if (tipo == null || "".equals(origem))
+		if (tipo == null || "".equals(origem) || tipo.getItem() == null)
 			JOptionPane.showMessageDialog(null, "Favor informar o tamanho da peça");
 		
-		if (tipo.getItem().startsWith(SciaXMLContantes.KITRV)){
+		if (tipo != null && tipo.getItem() != null && tipo.getItem().startsWith(SciaXMLContantes.KITRV)){
 			return true;
 		}else{			
 			if ("X".equals(origem)){
-				if (tipo.getItem().startsWith(SciaXMLContantes.KID) && this.pecasX.getItems().size() == 0){
+				if (tipo.getItem().startsWith(SciaXMLContantes.ESC) && this.pecasX.getItems().size() == 0){
 					adicionarPecaY(tipo.getItem());
+					this.areaEscoraX.setDisable(false);
+					this.areaEscoraY.setDisable(false);
 					return true;
 				}
-				if (tipo.getItem().startsWith(SciaXMLContantes.KID)){
+				if (tipo.getItem().startsWith(SciaXMLContantes.ESC)){
+					this.areaEscoraY.setDisable(false);
+					this.areaEscoraX.setDisable(false);
 					return true;
 				}
-				if (tipo.getItem().startsWith(SciaXMLContantes.KIP) && "X".equals(origem)){
+				if (tipo.getItem().startsWith(SciaXMLContantes.CRU) && "X".equals(origem)){
 					adicionarPecaY("-");
+					this.areaCruzetaX.setDisable(false);
+					this.areaCruzetaY.setDisable(false);
 					return true;
 				}
 			}else if ("Y".equals(origem)){
-				if (tipo.getItem().startsWith(SciaXMLContantes.KID) && this.pecasY.getItems().size() == 0){
+				if (tipo.getItem().startsWith(SciaXMLContantes.ESC) && this.pecasY.getItems().size() == 0){
 					adicionarPecaX(tipo.getItem());
+					this.areaEscoraY.setDisable(false);
+					this.areaEscoraX.setDisable(false);
 					return true;
 				}
-				if (tipo.getItem().startsWith(SciaXMLContantes.KID)){
+				if (tipo.getItem().startsWith(SciaXMLContantes.ESC)){
+					this.areaEscoraY.setDisable(false);
+					this.areaEscoraX.setDisable(false);
 					return true;
 				}
-				if (tipo.getItem().startsWith(SciaXMLContantes.KIP) && "Y".equals(origem)){
+				if (tipo.getItem().startsWith(SciaXMLContantes.CRU) && "Y".equals(origem)){
 					adicionarPecaX("-");
+					this.areaCruzetaX.setDisable(false);
+					this.areaCruzetaY.setDisable(false);
 					return true;
 				}
 			}
@@ -348,6 +388,17 @@ public class PrincipalController implements Initializable{
 		
 		return false;
 	}	
+	
+	private Boolean validarQuantidadeCruzetas(List<TipoPecaXY> pecas){
+		Boolean retorno = false;
+		for (TipoPecaXY tipoPecaXY : pecas) {
+			if (tipoPecaXY.getItem().startsWith(SciaXMLContantes.CRU)){
+				retorno = true;				
+				break;
+			}
+		}
+		return retorno;
+	}
 	
 	@FXML
 	public void adicionarPecaX(){
@@ -394,6 +445,8 @@ public class PrincipalController implements Initializable{
 		this.pecasX.getItems().removeAll(this.pecasX.getItems());
 		this.quantidadePecasX.setText(String.valueOf(this.pecasX.getItems().size()));
 		this.sumarioTravessasX.getItems().removeAll(this.sumarioTravessasX.getItems());
+		this.areaCruzetaX.setDisable(true);
+		this.areaEscoraX.setDisable(true);
 	}
 	
 	@FXML
@@ -401,6 +454,8 @@ public class PrincipalController implements Initializable{
 		this.pecasY.getItems().removeAll(this.pecasY.getItems());
 		this.quantidadePecasY.setText(String.valueOf(this.pecasY.getItems().size()));
 		this.sumarioTravessasY.getItems().removeAll(this.sumarioTravessasY.getItems());
+		this.areaCruzetaY.setDisable(true);
+		this.areaEscoraY.setDisable(true);
 	}
 	
 	@FXML
@@ -537,11 +592,9 @@ public class PrincipalController implements Initializable{
 				Peca peca = new Peca();
 				Project project = RepositorioPecas.pecas.get(tipo);
 				peca.setTipo(tipo);
-				peca.setComprimentoPecaX(120.0);
-				peca.setComprimentoPecaY(170.0);
+				peca.setComprimentoPecaX(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);				
 				
-				System.out.println("ProjetoX " + project.getComprimentoX());
-				System.out.println("ProjetoY " + project.getComprimentoY());
+				System.out.println("ProjetoX " + peca.getComprimentoPecaX());
 				
 				pecasX.add(peca);
 			}		
@@ -552,11 +605,10 @@ public class PrincipalController implements Initializable{
 				Peca peca = new Peca();
 				Project project = RepositorioPecas.pecas.get(tipo);		
 				peca.setTipo(tipo);
-				peca.setComprimentoPecaX(120.0);
-				peca.setComprimentoPecaY(170.0);
+				peca.setComprimentoPecaY(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);
 				
-				System.out.println("ProjetoX " + project.getComprimentoX());
-				System.out.println("ProjetoY " + project.getComprimentoY());
+				System.out.println("ProjetoY " + peca.getComprimentoPecaY());
+
 				pecasY.add(peca);
 			}
 			
