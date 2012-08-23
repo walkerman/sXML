@@ -20,7 +20,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
@@ -41,10 +40,11 @@ import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.view.TipoPecaXY;
-import br.com.scia.xml.entity.xml.Project;
+import br.com.scia.xml.entity.view.TipoViga;
 import br.com.scia.xml.model.Calculo;
 import br.com.scia.xml.util.SciaXMLContantes;
 import br.com.scia.xml.util.SciaXMLFileManager;
+import br.com.scia.xml.util.SciaXMLUtils;
 import br.com.scia.xml.view.SciaXMLStarter;
 
 /**
@@ -52,150 +52,156 @@ import br.com.scia.xml.view.SciaXMLStarter;
  * @author louis
  */
 public class PrincipalController implements Initializable{
+		
+	public static final String fxml = "SciaXML.fxml";
+	public static Stage stage;
 	
 	@FXML
-	TitledPane abaDimensoesVigas; 
+	public TitledPane abaDimensoesVigas; 
 	@FXML
-	ToggleGroup tipos;
+	public ToggleGroup tipos;
 	@FXML
-	TextField coordenadaX;
+	public TextField coordenadaX;
 	@FXML
-	TextField coordenadaY;
+	public TextField coordenadaY;
 	@FXML
-	TextField coordenadaZ;
+	public TextField coordenadaZ;
 	@FXML
-	TextField medidaX;
+	public TextField medidaX;
 	@FXML
-	TextField medidaY;
+	public TextField medidaY;
 	@FXML
-	TextField espessura;
+	public TextField espessura;
 	@FXML
-	TextField folgaX1;
+	public TextField folgaX1;
 	@FXML
-	TextField folgaX2;
+	public TextField folgaX2;
 	@FXML
-	TextField folgaY1;
+	public TextField folgaY1;
 	@FXML
-	TextField folgaY2;
+	public TextField folgaY2;
 	@FXML
-	ComboBox<String> tiposPecasX;
+	public ComboBox<String> tiposPecasX;
 	@FXML
-	ComboBox<TipoPecaXY> tamanhosPecasX;
+	public ComboBox<TipoPecaXY> tamanhosPecasX;
 	@FXML
-	TableView<TipoPecaXY> pecasX;
+	public TableView<TipoPecaXY> pecasX;
 	@FXML
-	TextField quantidadePecasX;
+	public TextField quantidadePecasX;
 	@FXML
-	AnchorPane areaCruzetaX;
+	public AnchorPane areaCruzetaX;
 	@FXML
-	TextField alturaVigaEsquerdaX;
+	public TextField alturaVigaEsquerdaX;
 	@FXML
-	TextField alturaVigaDireitaX;
+	public TextField alturaVigaDireitaX;
 	@FXML
-	ToggleGroup tipoCruzetaX;
+	public ToggleGroup tipoCruzetaX;
 	@FXML
-	AnchorPane areaEscoraX;
+	public AnchorPane areaEscoraX;
 	@FXML
-	ComboBox<String> tipoForcadoX;
+	public ComboBox<String> tipoForcadoX;
 	@FXML
-	CheckBox tripeX;
+	public CheckBox tripeX;
 	@FXML
-	AnchorPane areaCruzetaY;
+	public AnchorPane areaCruzetaY;
 	@FXML
-	TextField alturaVigaEsquerdaY;
+	public TextField alturaVigaEsquerdaY;
 	@FXML
-	TextField alturaVigaDireitaY;
+	public TextField alturaVigaDireitaY;
 	@FXML
-	ToggleGroup tipoCruzetaY;
+	public ToggleGroup tipoCruzetaY;
 	@FXML
-	AnchorPane areaEscoraY;
+	public AnchorPane areaEscoraY;
 	@FXML
-	ComboBox<String> tipoForcadoY;
+	public ComboBox<String> tipoForcadoY;
 	@FXML
-	CheckBox tripeY;
+	public CheckBox tripeY;
 	@FXML
-	ComboBox<String> tiposPecasY;
+	public ComboBox<String> tiposPecasY;
 	@FXML
-	ComboBox<TipoPecaXY> tamanhosPecasY;
+	public ComboBox<TipoPecaXY> tamanhosPecasY;
 	@FXML
-	TableView<TipoPecaXY> pecasY;
+	public TableView<TipoPecaXY> pecasY;
 	@FXML
-	TextField quantidadePecasY;
+	public TextField quantidadePecasY;
 	@FXML
-	ToggleGroup posicaoConsole;
+	public ToggleGroup posicaoConsole;
 	@FXML
-	CheckBox alterarTipoViga;
+	public CheckBox alterarTipoViga;
 	@FXML
-	ComboBox<String> tipoVigaConsole;
+	public ComboBox<String> tipoVigaConsole;
 	@FXML
-	ComboBox<String> tiposVigasPrincipais;
+	public ComboBox<String> tiposVigasPrincipais;
 	@FXML
-	ListView<String> vigasPrincipais;
+	public TableView<TipoViga> vigasPrincipais;
 	@FXML
-	TextField transpassePrincipais;
+	public TextField transpassePrincipais;
 	@FXML
-	ComboBox<String> tiposVigasSecundarias;
+	public ComboBox<String> tiposVigasSecundarias;
 	@FXML
-	ComboBox<String> vigasSecundariasUsarDe;
+	public ComboBox<String> vigasSecundariasUsarDe;
 	@FXML
-	ListView<String> vigasSecundarias;
+	public TableView<TipoViga> vigasSecundarias;
 	@FXML
-	TextField transpasseSecundarias;
+	public AnchorPane areaVigasSecundarias;
 	@FXML
-	TextField composicao;
+	public TextField transpasseSecundarias;
 	@FXML
-	TextField peDireito;
+	public TextField composicao;
 	@FXML
-	ComboBox<String> macacos;
+	public TextField peDireito;
 	@FXML
-	ComboBox<String> forcados;
+	public ComboBox<String> macacos;
 	@FXML
-	ComboBox<String> postes;
+	public ComboBox<String> forcados;
 	@FXML
-	TextField sumarioTipo;
+	public ComboBox<String> postes;
 	@FXML
-	TextField sumarioCoordenadaX;
+	public TextField sumarioTipo;
 	@FXML
-	TextField sumarioCoordenadaY;
+	public TextField sumarioCoordenadaX;
 	@FXML
-	TextField sumarioCoordenadaZ;
+	public TextField sumarioCoordenadaY;
 	@FXML
-	TextField sumarioMedidaX;
+	public TextField sumarioCoordenadaZ;
 	@FXML
-	TextField sumarioMedidaY;
+	public TextField sumarioMedidaX;
 	@FXML
-	TextField sumarioEspessura;
+	public TextField sumarioMedidaY;
 	@FXML
-	TextField sumarioFolgaX1;
+	public TextField sumarioEspessura;
 	@FXML
-	TextField sumarioFolgaX2;
+	public TextField sumarioFolgaX1;
 	@FXML
-	TextField sumarioFolgaY1;
+	public TextField sumarioFolgaX2;
 	@FXML
-	TextField sumarioFolgaY2;
+	public TextField sumarioFolgaY1;
 	@FXML
-	ComboBox<String> sumarioTravessasX;
+	public TextField sumarioFolgaY2;
 	@FXML
-	ComboBox<String> sumarioTravessasY;
+	public ComboBox<String> sumarioTravessasX;
 	@FXML
-	ComboBox<String> sumarioVigasPrincipais;
+	public ComboBox<String> sumarioTravessasY;
 	@FXML
-	ComboBox<String> sumarioVigasSecundarias;
+	public ComboBox<String> sumarioVigasPrincipais;
 	@FXML
-	TextField sumarioComposicao;	
+	public ComboBox<String> sumarioVigasSecundarias;
 	@FXML
-	TextField totalPecas;
+	public TextField sumarioComposicao;	
 	@FXML
-	TextField diretorioPecas;
+	public TextField totalPecas;
 	@FXML
-	SplitPane split;
+	public TextField diretorioPecas;
+	@FXML
+	public SplitPane split;
 	
 	ArrayList<TipoPecaXY> tiposTravessas;
 	ArrayList<TipoPecaXY> tiposCruzetas;
 	ArrayList<TipoPecaXY> tiposEscoras;
-	
-	public static final String fxml = "SciaXML.fxml";
-	public static Stage stage;
+	ArrayList<TipoViga>   tiposVigasHT20;
+	ArrayList<TipoViga>   tiposVigasV75;
+	ArrayList<TipoViga>   tiposVigasV18;
+	ArrayList<TipoViga>   tiposVigasVA18;
 	
 	public static void loadPage(){
 		try{			
@@ -242,6 +248,82 @@ public class PrincipalController implements Initializable{
 	
 	private void inicializarComponentes(){
 		inicializarPecasXY();
+		inicializarVigas();
+	}
+		
+	private void inicializarVigas(){
+		if (RepositorioPecas.pecas != null){
+			Set<String> pecas = RepositorioPecas.pecas.keySet();
+			
+			// Iniciando o load de vigas HT20
+			this.tiposVigasHT20 = new ArrayList<TipoViga>();
+			int ordem = 1;
+			for (String peca : pecas) {
+				if (peca.startsWith(SciaXMLContantes.VM20))
+				{
+					TipoViga t = new TipoViga(String.valueOf(ordem), peca);
+					RepositorioPecas.vigas.put(t.getItem(), t);
+					this.tiposVigasHT20.add(t);
+				}
+				ordem++;	
+			}
+			if (this.tiposVigasHT20.size() > 0){
+				this.tiposVigasPrincipais.getItems().add(SciaXMLContantes.TIPO_VIGA_HT20);
+				this.tiposVigasSecundarias.getItems().add(SciaXMLContantes.TIPO_VIGA_HT20);
+			} 
+			
+			// Iniciando o load de vigas V75
+			this.tiposVigasV75 = new ArrayList<TipoViga>();
+			ordem = 1;
+			for (String peca : pecas) {
+				if (peca.startsWith(SciaXMLContantes.VI07))
+				{
+					TipoViga t = new TipoViga(String.valueOf(ordem), peca);
+					RepositorioPecas.vigas.put(t.getItem(), t);
+					this.tiposVigasV75.add(t);
+				}
+				ordem++;	
+			}
+			if (this.tiposVigasV75.size() > 0){
+				this.tiposVigasPrincipais.getItems().add(SciaXMLContantes.TIPO_VIGA_V75);
+				this.tiposVigasSecundarias.getItems().add(SciaXMLContantes.TIPO_VIGA_V75);
+			} 
+			
+			// Iniciando o load de vigas V18
+			this.tiposVigasV18 = new ArrayList<TipoViga>();
+			ordem = 1;
+			for (String peca : pecas) {
+				if (peca.startsWith(SciaXMLContantes.VI18))
+				{
+					TipoViga t = new TipoViga(String.valueOf(ordem), peca);
+					RepositorioPecas.vigas.put(t.getItem(), t);
+					this.tiposVigasV18.add(t);
+				}
+				ordem++;	
+			}
+			if (this.tiposVigasV18.size() > 0){
+				this.tiposVigasPrincipais.getItems().add(SciaXMLContantes.TIPO_VIGA_V18);
+				this.tiposVigasSecundarias.getItems().add(SciaXMLContantes.TIPO_VIGA_V18);
+			} 
+			
+			// Iniciando o load de vigas VA18
+			this.tiposVigasVA18 = new ArrayList<TipoViga>();
+			ordem = 1;
+			for (String peca : pecas) {
+				if (peca.startsWith(SciaXMLContantes.VA18))
+				{
+					TipoViga t = new TipoViga(String.valueOf(ordem), peca);
+					RepositorioPecas.vigas.put(t.getItem(), t);
+					this.tiposVigasVA18.add(t);
+				}
+				ordem++;	
+			}
+			if (this.tiposVigasVA18.size() > 0){
+				this.tiposVigasPrincipais.getItems().add(SciaXMLContantes.TIPO_VIGA_VA18);
+				this.tiposVigasSecundarias.getItems().add(SciaXMLContantes.TIPO_VIGA_VA18);
+			} 
+			 
+		}
 	}
 	
 	private void inicializarPecasXY(){
@@ -261,8 +343,8 @@ public class PrincipalController implements Initializable{
 				ordem++;	
 			}
 			if (this.tiposTravessas.size() > 0){
-				this.tiposPecasX.getItems().add("Travessa");
-				this.tiposPecasY.getItems().add("Travessa");
+				this.tiposPecasX.getItems().add(SciaXMLContantes.TIPO_TRAVESSA);
+				this.tiposPecasY.getItems().add(SciaXMLContantes.TIPO_TRAVESSA);
 			} 
 			
 			// Iniciando o load de cruzetas
@@ -278,8 +360,8 @@ public class PrincipalController implements Initializable{
 				ordem++;	
 			}
 			if (this.tiposCruzetas.size() > 0){
-				this.tiposPecasX.getItems().add("Cruzeta");
-				this.tiposPecasY.getItems().add("Cruzeta");
+				this.tiposPecasX.getItems().add(SciaXMLContantes.TIPO_CRUZETA);
+				this.tiposPecasY.getItems().add(SciaXMLContantes.TIPO_CRUZETA);
 			} 
 			
 			// Iniciando o load de escoras
@@ -295,8 +377,8 @@ public class PrincipalController implements Initializable{
 				ordem++;	
 			}
 			if (this.tiposEscoras.size() > 0){
-				this.tiposPecasX.getItems().add("Escora");
-				this.tiposPecasY.getItems().add("Escora");
+				this.tiposPecasX.getItems().add(SciaXMLContantes.TIPO_ESCORA);
+				this.tiposPecasY.getItems().add(SciaXMLContantes.TIPO_ESCORA);
 			} 
 			 
 		}
@@ -305,17 +387,17 @@ public class PrincipalController implements Initializable{
 	
 	@FXML
 	public void carregarTamanhoPecasX(){
-		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Travessa")){
+		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_TRAVESSA)){
 			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposTravessas);				 
 			this.tamanhosPecasX.setItems(list);
 		}
 		
-		if (this.tiposCruzetas!=null && this.tiposCruzetas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Cruzeta")){
+		if (this.tiposCruzetas!=null && this.tiposCruzetas.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_CRUZETA)){
 			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposCruzetas);				 
 			this.tamanhosPecasX.setItems(list);
 		}
 		
-		if (this.tiposEscoras!=null && this.tiposEscoras.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals("Escora")){
+		if (this.tiposEscoras!=null && this.tiposEscoras.size()>0 && this.tiposPecasX.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_ESCORA)){
 			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposEscoras);				 
 			this.tamanhosPecasX.setItems(list);
 		}
@@ -323,21 +405,45 @@ public class PrincipalController implements Initializable{
 	
 	@FXML
 	public void carregarTamanhoPecasY(){
-		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0 && this.tiposPecasY.getSelectionModel().getSelectedItem().equals("Travessa")){
+		if (this.tiposTravessas!=null && this.tiposTravessas.size()>0 && this.tiposPecasY.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_TRAVESSA)){
 			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposTravessas);				 
 			this.tamanhosPecasY.setItems(list);
 		}
 		
-		if (this.tiposCruzetas!=null && this.tiposCruzetas.size()>0 && this.tiposPecasY.getSelectionModel().getSelectedItem().equals("Cruzeta")){
+		if (this.tiposCruzetas!=null && this.tiposCruzetas.size()>0 && this.tiposPecasY.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_CRUZETA)){
 			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposCruzetas);				 
 			this.tamanhosPecasY.setItems(list);
 		}
 		
-		if (this.tiposEscoras!=null && this.tiposEscoras.size()>0 && this.tiposPecasY.getSelectionModel().getSelectedItem().equals("Escora")){
+		if (this.tiposEscoras!=null && this.tiposEscoras.size()>0 && this.tiposPecasY.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_ESCORA)){
 			ObservableList<TipoPecaXY> list = FXCollections.observableArrayList(this.tiposEscoras);				 
 			this.tamanhosPecasY.setItems(list);
 		}
 	}
+	
+	@FXML
+	public void carregarVigasPrincipais(){
+		if (this.tiposVigasHT20!=null && this.tiposVigasHT20.size()>0 && this.tiposVigasPrincipais.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_VIGA_HT20)){
+			ObservableList<TipoViga> list = FXCollections.observableArrayList(this.tiposVigasHT20);		
+			this.vigasPrincipais.setItems(list);
+			
+		}
+		if (this.tiposVigasV18!=null && this.tiposVigasV18.size()>0 && this.tiposVigasPrincipais.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_VIGA_V18)){
+			ObservableList<TipoViga> list = FXCollections.observableArrayList(this.tiposVigasV18);	
+			this.vigasPrincipais.setItems(list);
+		}
+		if (this.tiposVigasV75!=null && this.tiposVigasV75.size()>0 && this.tiposVigasPrincipais.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_VIGA_V75)){
+			ObservableList<TipoViga> list = FXCollections.observableArrayList(this.tiposVigasV75);	
+			this.vigasPrincipais.setItems(list);
+		}
+		if (this.tiposVigasVA18!=null && this.tiposVigasVA18.size()>0 && this.tiposVigasPrincipais.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_VIGA_VA18)){
+			ObservableList<TipoViga> list = FXCollections.observableArrayList(this.tiposVigasVA18);	
+			this.vigasPrincipais.setItems(list);
+		}
+	}
+	
+	@FXML
+	public void carregarVigasSecundarias(){}
 	
 	private Boolean validarRegrasPecasXY(TipoPecaXY tipo, String origem) {
 		
@@ -347,7 +453,7 @@ public class PrincipalController implements Initializable{
 		if (tipo != null && tipo.getItem() != null && tipo.getItem().startsWith(SciaXMLContantes.KITRV)){
 			return true;
 		}else{			
-			if ("X".equals(origem)){
+			if (SciaXMLContantes.ORIGEM_X.equals(origem)){
 				if (tipo.getItem().startsWith(SciaXMLContantes.ESC) && this.pecasX.getItems().size() == 0){
 					adicionarPecaY(tipo.getItem());
 					this.areaEscoraX.setDisable(false);
@@ -359,13 +465,18 @@ public class PrincipalController implements Initializable{
 					this.areaEscoraX.setDisable(false);
 					return true;
 				}
-				if (tipo.getItem().startsWith(SciaXMLContantes.CRU) && "X".equals(origem)){
-					adicionarPecaY("-");
-					this.areaCruzetaX.setDisable(false);
-					this.areaCruzetaY.setDisable(false);
-					return true;
+				if (tipo.getItem().startsWith(SciaXMLContantes.CRU) && SciaXMLContantes.ORIGEM_X.equals(origem)){
+					if (!validarQuantidadeCruzetas(this.pecasY.getItems())){
+						adicionarPecaY("-");
+						this.areaCruzetaX.setDisable(false);
+						this.areaCruzetaY.setDisable(false);
+						return true;
+					}else{
+						JOptionPane.showMessageDialog(null, "Eixo Y já possui cruzetas.");
+					}
+						
 				}
-			}else if ("Y".equals(origem)){
+			}else if (SciaXMLContantes.ORIGEM_Y.equals(origem)){
 				if (tipo.getItem().startsWith(SciaXMLContantes.ESC) && this.pecasY.getItems().size() == 0){
 					adicionarPecaX(tipo.getItem());
 					this.areaEscoraY.setDisable(false);
@@ -377,11 +488,15 @@ public class PrincipalController implements Initializable{
 					this.areaEscoraX.setDisable(false);
 					return true;
 				}
-				if (tipo.getItem().startsWith(SciaXMLContantes.CRU) && "Y".equals(origem)){
-					adicionarPecaX("-");
-					this.areaCruzetaX.setDisable(false);
-					this.areaCruzetaY.setDisable(false);
-					return true;
+				if (tipo.getItem().startsWith(SciaXMLContantes.CRU) && SciaXMLContantes.ORIGEM_Y.equals(origem)){
+					if (!validarQuantidadeCruzetas(this.pecasX.getItems())){
+						adicionarPecaX("-");
+						this.areaCruzetaX.setDisable(false);
+						this.areaCruzetaY.setDisable(false);
+						return true;
+					}else{
+						JOptionPane.showMessageDialog(null, "Eixo X já possui cruzetas.");
+					}
 				}
 			}
 		}
@@ -403,7 +518,7 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public void adicionarPecaX(){
 		TipoPecaXY selecao = this.tamanhosPecasX.getSelectionModel().getSelectedItem();
-		if (validarRegrasPecasXY(selecao, "X"))
+		if (validarRegrasPecasXY(selecao, SciaXMLContantes.ORIGEM_X))
 			adicionarPecaX(selecao.getItem());
 	}
 	
@@ -423,7 +538,7 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public void adicionarPecaY(){
 		TipoPecaXY selecao = this.tamanhosPecasY.getSelectionModel().getSelectedItem();
-		if (validarRegrasPecasXY(selecao, "Y"))
+		if (validarRegrasPecasXY(selecao, SciaXMLContantes.ORIGEM_Y))
 			adicionarPecaY(selecao.getItem());
 	}
 	
@@ -535,17 +650,17 @@ public class PrincipalController implements Initializable{
 			fc.setTitle("Informe o nome do arquivo");
 			File f = fc.showSaveDialog(null);
 			
-			SumarioDados s = popularSumarioDados();
+			SumarioDados sumario = SciaXMLUtils.popularSumarioDados(this);
 			
 			try {
 				// TODO: Revisar cálculo Marquinhos (hoje esta fixo para 3 peças em x e 2 em y)
-				s = Calculo.calculaEstrutura(s);
+				sumario = Calculo.calculaEstrutura(sumario);
 				
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 			
-			construirProject(s,f);			
+			SciaXMLUtils.construirProject(sumario,f);			
 			
 			JOptionPane.showMessageDialog(null, "Arquivos .xml/.def salvos com sucesso.");
 		}	
@@ -554,107 +669,13 @@ public class PrincipalController implements Initializable{
 		}
 			
 	}
-	
-	private void construirProject(SumarioDados s, File f) {
-
-		// TODO: O método mais zica		
 		
-		Project p = new Project(s,f.getName()+SciaXMLContantes.XML);
-		
-		try {
-			SciaXMLFileManager.project2XML(p, new File(f.getAbsolutePath()+SciaXMLContantes.XML));
-		} catch (SciaXMLFileManagerException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
-		}
-		
-	}
-
-	private SumarioDados popularSumarioDados(){
-				
-		try{
-			String tipoEquipamento = this.sumarioTipo.getText();
-			String totalPecas = this.totalPecas.getText();
-			String espessura   = this.sumarioEspessura.getText();
-			String medidaLageX = this.sumarioMedidaX.getText();
-			String medidaLageY = this.sumarioMedidaY.getText();
-			String folgaLajeX1 = this.sumarioFolgaX1.getText();
-			String folgaLajeX2 = this.sumarioFolgaX2.getText();
-			String folgaLajeY1 = this.sumarioFolgaY1.getText();
-			String folgaLajeY2 = this.sumarioFolgaY2.getText();
-			String coordenadaX = this.sumarioCoordenadaX.getText();
-			String coordenadaY = this.sumarioCoordenadaY.getText();
-			String coordenadaZ = this.sumarioCoordenadaZ.getText();
-			
-			List<String> travessasX = this.sumarioTravessasX.getItems();
-			List<Peca> pecasX = new ArrayList<Peca>();
-			for (String tipo : travessasX) {
-				Peca peca = new Peca();
-				Project project = RepositorioPecas.pecas.get(tipo);
-				peca.setTipo(tipo);
-				peca.setComprimentoPecaX(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);				
-				
-				System.out.println("ProjetoX " + peca.getComprimentoPecaX());
-				
-				pecasX.add(peca);
-			}		
-			
-			List<String> travessasY = this.sumarioTravessasY.getItems();
-			List<Peca> pecasY = new ArrayList<Peca>();
-			for (String tipo : travessasY) {
-				Peca peca = new Peca();
-				Project project = RepositorioPecas.pecas.get(tipo);		
-				peca.setTipo(tipo);
-				peca.setComprimentoPecaY(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);
-				
-				System.out.println("ProjetoY " + peca.getComprimentoPecaY());
-
-				pecasY.add(peca);
-			}
-			
-			String kidI = null;
-			String kidH = null;
-			List<String> vigasPrincipais = null;
-			List<String> vigasSecundarias = null;
-			String composicaoTorres = null;
-			
-			RepositorioProjeto.projeto.setTotalPecas(totalPecas);
-			RepositorioProjeto.projeto.setTipoEquipamento(tipoEquipamento);
-			RepositorioProjeto.projeto.setMedidaLageX(medidaLageX);
-			RepositorioProjeto.projeto.setMedidaLageY(medidaLageY);
-			RepositorioProjeto.projeto.setEspessura(espessura);
-			RepositorioProjeto.projeto.setFolgaLajeX1(folgaLajeX1);
-			RepositorioProjeto.projeto.setFolgaLajeX2(folgaLajeX2);
-			RepositorioProjeto.projeto.setFolgaLajeY1(folgaLajeY1);
-			RepositorioProjeto.projeto.setFolgaLajeY2(folgaLajeY2);
-			RepositorioProjeto.projeto.setPecasX(pecasX);
-			RepositorioProjeto.projeto.setPecasY(pecasY);
-			RepositorioProjeto.projeto.setKidH(kidH);
-			RepositorioProjeto.projeto.setKidI(kidI);
-			RepositorioProjeto.projeto.setVigasPrincipais(vigasPrincipais);
-			RepositorioProjeto.projeto.setVigasSecundarias(vigasSecundarias);
-			RepositorioProjeto.projeto.setComposicaoTorres(composicaoTorres);
-			RepositorioProjeto.projeto.setCoordenadaX(coordenadaX);
-			RepositorioProjeto.projeto.setCoordenadaY(coordenadaY);
-			RepositorioProjeto.projeto.setCoordenadaZ(coordenadaZ);
-			
-		}catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Problemas durante a conversão dos dados. " +
-					"Por favor, verifique os dados informados", "SciaXML",JOptionPane.ERROR_MESSAGE);
-		}
-		
-		return RepositorioProjeto.projeto;
-	}
-	
 	@FXML
-	public void habilitarViga(ActionEvent e){
-		String selecao = this.vigasPrincipais.getSelectionModel().getSelectedItem();
-		JOptionPane.showMessageDialog(null, "Habilitar a viga: " + selecao + "?");
-	}
+	public void usarLajePre(){}
 	
 	@FXML
 	public void salvarProjeto(){
-		popularSumarioDados();
+		SciaXMLUtils.popularSumarioDados(this);
 		try {
 			SciaXMLFileManager.salvarProjeto(new File(RepositorioProjeto.projeto.getNomeArquivo()));
 			JOptionPane.showMessageDialog(null,"Projeto salvo com sucesso.");
@@ -680,13 +701,6 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public void sair(){}
 	
-    private String checkString (String s){
-    	if (s != null && !"".equals(s))
-    		return s;
-    	else
-    		return "";
-    }
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		if (RepositorioProjeto.projeto != null  && RepositorioPecas.pecas.size() > 0 ){
@@ -705,27 +719,27 @@ public class PrincipalController implements Initializable{
 				}
 			}
 			
-			this.coordenadaX.setText(checkString(RepositorioProjeto.projeto.getCoordenadaX()));
-    		this.coordenadaY.setText(checkString(RepositorioProjeto.projeto.getCoordenadaY()));
-    		this.coordenadaZ.setText(checkString(RepositorioProjeto.projeto.getCoordenadaZ()));
-			this.medidaX.setText(checkString(RepositorioProjeto.projeto.getMedidaLageX()));
-    		this.medidaY.setText(checkString(RepositorioProjeto.projeto.getMedidaLageY()));
-    		this.folgaX1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeX1()));
-    		this.folgaX2.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeX2()));
-    		this.folgaY1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeY1()));
-    		this.folgaY2.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeY2()));
-    		this.espessura.setText(checkString(RepositorioProjeto.projeto.getEspessura()));
+			this.coordenadaX.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaX()));
+    		this.coordenadaY.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaY()));
+    		this.coordenadaZ.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaZ()));
+			this.medidaX.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getMedidaLageX()));
+    		this.medidaY.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getMedidaLageY()));
+    		this.folgaX1.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeX1()));
+    		this.folgaX2.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeX2()));
+    		this.folgaY1.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeY1()));
+    		this.folgaY2.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeY2()));
+    		this.espessura.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getEspessura()));
     		
-    		this.sumarioCoordenadaX.setText(checkString(RepositorioProjeto.projeto.getCoordenadaX()));
-    		this.sumarioCoordenadaY.setText(checkString(RepositorioProjeto.projeto.getCoordenadaY()));
-    		this.sumarioCoordenadaZ.setText(checkString(RepositorioProjeto.projeto.getCoordenadaZ()));
-    		this.sumarioMedidaX.setText(checkString(RepositorioProjeto.projeto.getMedidaLageX()));
-    		this.sumarioMedidaY.setText(checkString(RepositorioProjeto.projeto.getMedidaLageY()));
-    		this.sumarioFolgaX1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeX1()));
-    		this.sumarioFolgaX2.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeX2()));
-    		this.sumarioFolgaY1.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeY1()));
-    		this.sumarioFolgaY2.setText(checkString(RepositorioProjeto.projeto.getFolgaLajeY2()));
-    		this.sumarioEspessura.setText(checkString(RepositorioProjeto.projeto.getEspessura()));
+    		this.sumarioCoordenadaX.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaX()));
+    		this.sumarioCoordenadaY.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaY()));
+    		this.sumarioCoordenadaZ.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaZ()));
+    		this.sumarioMedidaX.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getMedidaLageX()));
+    		this.sumarioMedidaY.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getMedidaLageY()));
+    		this.sumarioFolgaX1.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeX1()));
+    		this.sumarioFolgaX2.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeX2()));
+    		this.sumarioFolgaY1.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeY1()));
+    		this.sumarioFolgaY2.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeY2()));
+    		this.sumarioEspessura.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getEspessura()));
     		
     		List<Peca> pecasX = RepositorioProjeto.projeto.getPecasX();
     		if (pecasX != null && pecasX.size() > 0)

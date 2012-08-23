@@ -182,6 +182,8 @@
                 <TextField disable="true" layoutX="100.0" layoutY="40.0" prefWidth="82.0" />
                 <TextField disable="true" layoutX="100.0" layoutY="67.0" prefWidth="82.0" />
                 <Separator layoutX="12.0" layoutY="106.0" prefWidth="267.0" />
+                <Label layoutX="16.0" layoutY="122.0" text="Excentricidade:" />
+                <TextField fx:id="excentricidade" disable="true" layoutX="100.0" layoutY="119.0" prefWidth="82.0" />
               </children>
             </AnchorPane>
           </content>
@@ -363,14 +365,31 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <TextField id="transpassePrincipal" fx:id="transpassePrincipais" layoutX="116.0" layoutY="235.0" prefWidth="82.0" />
+                <TextField id="transpassePrincipal" fx:id="transpassePrincipais" layoutX="118.0" layoutY="308.0" prefWidth="82.0" />
                 <Label layoutX="8.0" layoutY="12.0" text="Tipo:" underline="true" />
                 <ComboBox fx:id="tiposVigasPrincipais" layoutX="42.0" layoutY="10.0" prefHeight="21.0" prefWidth="148.0" />
-                <ListView fx:id="vigasPrincipais" layoutX="7.0" layoutY="46.0" prefHeight="135.0" prefWidth="267.0" />
-                <Button layoutX="8.0" layoutY="191.0" mnemonicParsing="false" onAction="#habilitarViga" prefWidth="89.0" text="Habilitar" />
-                <Button layoutX="100.0" layoutY="191.0" mnemonicParsing="false" prefWidth="89.0" text="Desabilitar" />
-                <Separator layoutX="7.0" layoutY="226.0" prefWidth="267.0" />
-                <Label layoutX="8.0" layoutY="238.0" text="Transpasse Minimo:" />
+                <Separator layoutX="7.0" layoutY="293.0" prefWidth="267.0" />
+                <Label layoutX="7.0" layoutY="311.0" text="Transpasse Mínimo:" />
+                <TableView id="combinacaoTravessasP1" fx:id="vigasPrincipais" layoutX="8.0" layoutY="41.0" prefHeight="240.0" prefWidth="267.0">
+                  <columns>
+                    <TableColumn resizable="false" text="Item">
+                      <cellValueFactory>
+                        <PropertyValueFactory property="item" />
+                      </cellValueFactory>
+                      <prefWidth>
+                        <Long fx:value="120" />
+                      </prefWidth>
+                    </TableColumn>
+                    <TableColumn resizable="false" text="Habilitar?">
+                      <cellValueFactory>
+                        <PropertyValueFactory property="habilitar" />
+                      </cellValueFactory>
+                      <prefWidth>
+                        <Long fx:value="70" />
+                      </prefWidth>
+                    </TableColumn>
+                  </columns>
+                </TableView>
               </children>
             </AnchorPane>
           </content>
@@ -379,21 +398,36 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <Label layoutX="10.0" layoutY="311.0" text="Transpasse Minimo:" />
-                <Button layoutX="10.0" layoutY="261.0" mnemonicParsing="false" prefWidth="87.0" text="Habilitar" />
-                <ToggleButton layoutX="11.0" layoutY="14.0" mnemonicParsing="false" prefWidth="181.0" text="Não Usar (Laje Pré)">
-                  <toggleGroup>
-                    <ToggleGroup fx:id="x4" />
-                  </toggleGroup>
-                </ToggleButton>
-                <Label layoutX="10.0" layoutY="48.0" text="Tipo:" underline="true" />
-                <ComboBox fx:id="tiposVigasSecundarias" layoutX="62.0" layoutY="46.0" prefHeight="21.0" prefWidth="129.8294677734375" />
-                <ListView fx:id="vigasSecundarias" layoutX="10.0" layoutY="105.0" prefHeight="145.0" prefWidth="267.0" />
-                <Label layoutX="10.0" layoutY="75.0" text="Usar de:" underline="true" />
-                <ComboBox fx:id="vigasSecundariasUsarDe" layoutX="62.0" layoutY="73.0" prefHeight="21.0" prefWidth="129.8294677734375" />
-                <Button layoutX="100.0" layoutY="261.0" mnemonicParsing="false" prefWidth="87.0" text="Desabilitar" />
-                <Separator layoutX="12.0" layoutY="297.0" prefWidth="267.0" />
-                <TextField id="transpassePrincipal" fx:id="transpasseSecundarias" layoutX="118.0" layoutY="308.0" prefWidth="82.0" />
+                <Label layoutX="10.0" layoutY="347.0" text="Transpasse Minimo:" />
+                <ToggleButton layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#usarLajePre" prefWidth="181.0" text="Não Usar (Laje Pré)" />
+                <AnchorPane id="AnchorPane" fx:id="areaVigasSecundarias" layoutX="10.0" layoutY="46.0">
+                  <children>
+                    <Label layoutY="2.0" text="Tipo:" underline="true" />
+                    <ComboBox fx:id="tiposVigasSecundarias" layoutX="52.0" prefHeight="21.0" prefWidth="129.8294677734375" />
+                    <TableView id="combinacaoTravessasP1" fx:id="vigasSecundarias" layoutX="1.0" layoutY="32.0" prefHeight="240.0" prefWidth="267.0">
+                      <columns>
+                        <TableColumn resizable="false" text="Item">
+                          <cellValueFactory>
+                            <PropertyValueFactory property="item" />
+                          </cellValueFactory>
+                          <prefWidth>
+                            <Long fx:value="120" />
+                          </prefWidth>
+                        </TableColumn>
+                        <TableColumn resizable="false" text="Habilitar?">
+                          <cellValueFactory>
+                            <PropertyValueFactory property="habilitar" />
+                          </cellValueFactory>
+                          <prefWidth>
+                            <Long fx:value="70" />
+                          </prefWidth>
+                        </TableColumn>
+                      </columns>
+                    </TableView>
+                  </children>
+                </AnchorPane>
+                <Separator layoutX="12.0" layoutY="329.0" prefWidth="267.0" />
+                <TextField id="transpassePrincipal" fx:id="transpasseSecundarias" layoutX="118.0" layoutY="344.0" prefWidth="82.0" />
               </children>
             </AnchorPane>
           </content>
@@ -455,7 +489,7 @@
     <Text fill="$x6" font="$x7" layoutX="308.0" layoutY="643.0" strokeType="OUTSIDE" strokeWidth="4.0" text="Diretorio de Peças" />
     <TextField fx:id="diretorioPecas" disable="true" layoutX="308.0" layoutY="659.0" prefWidth="238.0" />
     <Button layoutX="549.0" layoutY="659.0" mnemonicParsing="false" onAction="#importarArquivos" prefWidth="36.0" text="..." />
-    <ToolBar layoutX="1.0" layoutY="22.0" prefWidth="850.0000999999975">
+    <ToolBar layoutX="1.0" layoutY="22.0" prefWidth="850.0">
       <items>
         <Button fx:id="btnAbrir" mnemonicParsing="false" onAction="#abrirProjeto" text="Abrir Projeto">
           <graphic>

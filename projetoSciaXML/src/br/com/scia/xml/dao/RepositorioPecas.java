@@ -12,6 +12,7 @@ import java.util.List;
 
 import br.com.scia.xml.entity.exception.RepositorioPecasException;
 import br.com.scia.xml.entity.view.TipoPecaXY;
+import br.com.scia.xml.entity.view.TipoViga;
 import br.com.scia.xml.entity.xml.Container;
 import br.com.scia.xml.entity.xml.Object;
 import br.com.scia.xml.entity.xml.Project;
@@ -24,6 +25,7 @@ public class RepositorioPecas {
 
 	public static HashMap<String, Project> pecas;
 	public static HashMap<String, TipoPecaXY> tiposPecasXY;
+	public static HashMap<String, TipoViga> vigas;
 	
 	static{
 		if (pecas == null)
@@ -31,6 +33,9 @@ public class RepositorioPecas {
 			
 		if (tiposPecasXY == null)
 			RepositorioPecas.tiposPecasXY = new HashMap<>();
+			
+		if (vigas == null)
+			RepositorioPecas.vigas = new HashMap<>();
 	}
 	
 	public static void addPeca(File f) throws RepositorioPecasException{

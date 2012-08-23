@@ -8,7 +8,6 @@ public class SciaXMLContantes {
 	public static final String INDEXADOR_NO = "N";
 	public static final String INDEXADOR_PECA = "B";
 	public static final Integer PRECISAO_ENVIO_COORDENADAS_XML = 100;
-
 	
 	// Tipos de Equipamento em tela
 	public static final String KIBLOC_LAJE = "tipoKIBLOCLaje";  
@@ -16,20 +15,36 @@ public class SciaXMLContantes {
 	public static final String ALUTOP = "tipoALUTOP";  
 	public static final String ETEM = "tipoETEM";
 	
+	// Tipos de Peças em tela
+	public static final String TIPO_TRAVESSA = "Travessa";  
+	public static final String TIPO_ESCORA = "Escora";  
+	public static final String TIPO_CRUZETA = "Cruzeta";  
+	public static final String TIPO_VIGA_HT20 = "HT20";
+	public static final String TIPO_VIGA_V75 = "V7.5";
+	public static final String TIPO_VIGA_V18 = "V18";
+	public static final String TIPO_VIGA_VA18 = "VA18";
+	
+	// Validações em tela
+	public static final String ORIGEM_X = "X";  
+	public static final String ORIGEM_Y = "Y";  
+	
 	// Código das Peças
 	public static final String KITRV = "KITRV";		// TRAVESSAS
 	public static final String MACACO = "MACACO";	// MACACO
 	public static final String FORCADO = "FORCADO"; // FORCADO
 	public static final String KIP = "KIP";			// POSTES
-	public static final String VM = "VM";			// VIGAS
-	public static final String VI = "VI";			// VIGAS
-	public static final String VA = "VA";			// VIGAS
+	public static final String VM20 = "VM20";		// VIGAS TIPO HT20
+	public static final String VI07 = "VI07";		// VIGAS TIPO V75
+	public static final String VI18 = "VI18";		// VIGAS TIPO V18
+	public static final String VA18 = "VA18";		// VIGAS TIPO VA18
 	public static final String KID = "KID";			// DIAGONAIS VERTICAIS
 	public static final String KIDH = "KIDH";		// DIAGONAIS HORIZONTAIS
 	public static final String CRU = "Cru";			// CRUZETAS
 	public static final String ESC = "Esc";			// ESCORRAS
 	
 	// Código dos Containers
+	
+	// Container de Nós
 	public static final String STRUCT_NODE = "StructNode";
 	public static final String STRUCT_NODE_TITLE = "EP_DSG_Elements.EP_StructNode.1";
 	public static final String STRUCT_NODE_ID = "{39A7F468-A0D4-4DFF-8E5C-5843E1807D13}";
@@ -41,6 +56,7 @@ public class SciaXMLContantes {
 	public static final String STRUCT_NODE_TABLE_ID = "C4D79AFB-6512-4D56-BD04-E1BEA1C3B085";
 	public static final String STRUCT_NODE_TABLE_NAME = "Node";
 	
+	// Container de Peças
 	public static final String BEAM = "Beam";
 	public static final String BEAM_TITLE = "EP_DSG_Elements.EP_Beam.1";
 	public static final String BEAM_ID = "{ECB5D684-7357-11D4-9F6C-00104BC3B443}";
