@@ -5,6 +5,7 @@ public class SciaXMLContantes {
 	// Calculo
 	public static final String EIXO_X = "EIXO_X";
 	public static final String EIXO_Y = "EIXO_Y";
+	public static final String AMBOS_OS_EIXOS = "AMBOS_OS_EIXOS";
 	public static final String INDEXADOR_NO = "N";
 	public static final String INDEXADOR_PECA = "B";
 	public static final Integer PRECISAO_ENVIO_COORDENADAS_XML = 100;
@@ -29,21 +30,32 @@ public class SciaXMLContantes {
 	public static final String ORIGEM_Y = "Y";  
 	
 	// Código das Peças
-	public static final String KITRV = "KITRV";		// TRAVESSAS
-	public static final String MACACO = "MACACO";	// MACACO
-	public static final String FORCADO = "FORCADO"; // FORCADO
-	public static final String KIP = "KIP";			// POSTES
-	public static final String VM20 = "VM20";		// VIGAS TIPO HT20
-	public static final String VI07 = "VI07";		// VIGAS TIPO V75
-	public static final String VI18 = "VI18";		// VIGAS TIPO V18
-	public static final String VA18 = "VA18";		// VIGAS TIPO VA18
-	public static final String KID = "KID";			// DIAGONAIS VERTICAIS
-	public static final String KIDH = "KIDH";		// DIAGONAIS HORIZONTAIS
-	public static final String CRU = "Cru";			// CRUZETAS
-	public static final String ESC = "Esc";			// ESCORRAS
+	public static final String KITRV = "KITRV";			// TRAVESSAS
+	public static final String MACACO = "MACACO";		// MACACO
+	public static final String FORCADO = "FORCADO"; 	// FORCADO
+	public static final String KIP = "KIP";				// POSTES
+	public static final String VM20 = "VM20";			// VIGAS TIPO HT20
+	public static final String VI07 = "VI07";			// VIGAS TIPO V75
+	public static final String VI18 = "VI18";			// VIGAS TIPO V18
+	public static final String VA18 = "VA18";			// VIGAS TIPO VA18
+	public static final String KID = "KID";				// DIAGONAIS VERTICAIS
+	public static final String KIDH = "KIDH";			// DIAGONAIS HORIZONTAIS
+	public static final String CRU = "Cru";				// CRUZETAS
+	public static final String ESC = "Esc";				// ESCORRAS
+	public static final String FORC = "FORC";			// FORCADOS
+	public static final String KIP025RE = "KIP025RE";	// POSTE_ESPECIAL
+	public static final String KIP037R1 = "KIP037R1";	// POSTE_ESPECIAL
+	public static final String KIP037R2 = "KIP037R2";	// POSTE_ESPECIAL
+	public static final String KIP050RE = "KIP050RE";	// POSTE_ESPECIAL
+	public static final String KIP070R2 = "KIP070R2";	// POSTE_ESPECIAL
+	public static final String KIP025R1 = "KIP025R1";	// POSTE
+	public static final String KIP050R1 = "KIP050R1";	// POSTE
+	public static final String KIP100R2 = "KIP100R2";	// POSTE
+	public static final String KIP150R3 = "KIP150R3";	// POSTE
+	public static final String KIP200R4 = "KIP200R4";	// POSTE
+	public static final String KIP300R6 = "KIP300R6";	// POSTE
 	
 	// Código dos Containers
-	
 	// Container de Nós
 	public static final String STRUCT_NODE = "StructNode";
 	public static final String STRUCT_NODE_TITLE = "EP_DSG_Elements.EP_StructNode.1";

@@ -3,6 +3,7 @@ package br.com.scia.xml.entity.view;
 import java.util.List;
 
 import br.com.scia.xml.entity.xml.Coordenada;
+import br.com.scia.xml.util.SciaXMLContantes;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -31,13 +32,86 @@ public class SumarioDados {
 	private List<Coordenada> listaDeNos;
 	private String kidI;
 	private String kidH;
-	private List<String> vigasPrincipais;
-	private List<String> vigasSecundarias;
+	private String tipoVigaPrincipal;
+	private List<Peca> vigasPrincipais;
+	private String tipoVigaSecundaria;
+	private List<Peca> vigasSecundarias;
 	private String composicaoTorres;
 	private Double vaoDeApoioX;
 	private Double vaoDeApoioY;
 	private List<Peca> pecasFinais;
+	private String alturaVigaEsquerdaX;
+	private String alturaVigaDireitaX;
+	private String distanciaCruzetasX;
+	private String alturaVigaEsquerdaY;
+	private String alturaVigaDireitaY;
+	private String distanciaCruzetasY;
 	
+	public Double getComprimentoTotalEixoX(){		
+		Double comprimento = 0.0;
+		
+		for (Peca peca : this.getPecasX()) {
+			comprimento += peca.getComprimento();			
+		}
+		
+		return comprimento;		
+	}
+	
+	public Double getComprimentoTotalEixoY(){		
+		Double comprimento = 0.0;
+		
+		for (Peca peca : this.getPecasY()) {
+			comprimento += peca.getComprimento();			
+		}
+		
+		return comprimento;		
+	}
+
+	public Double getComprimentoTotalEixoXViga(){		
+		Double comprimento = 0.0;
+		
+		for (Peca peca : this.getPecasX()) {
+			if (peca.getTipo().contains(SciaXMLContantes.KITRV))
+				comprimento += peca.getComprimento();
+			if (peca.getTipo().contains(SciaXMLContantes.ESC))
+				comprimento += (peca.getComprimento() + (vaoDeApoioX*2));
+			if (peca.getTipo().contains(SciaXMLContantes.CRU))
+				comprimento += (peca.getComprimento() + (vaoDeApoioX*2));
+		}
+		
+		return comprimento;		
+	}
+	
+	public Double getComprimentoTotalEixoYViga(){		
+		Double comprimento = 0.0;
+		
+		for (Peca peca : this.getPecasY()) {
+			if (peca.getTipo().contains(SciaXMLContantes.KITRV))
+				comprimento += peca.getComprimento();
+			if (peca.getTipo().contains(SciaXMLContantes.ESC))
+				comprimento += (peca.getComprimento() + (vaoDeApoioY*2));
+			if (peca.getTipo().contains(SciaXMLContantes.CRU))
+				comprimento += (peca.getComprimento() + (vaoDeApoioY*2));
+		}
+		
+		return comprimento;		
+	}
+	
+	public String getTipoVigaPrincipal() {
+		return tipoVigaPrincipal;
+	}
+
+	public void setTipoVigaPrincipal(String tipoVigaPrincipal) {
+		this.tipoVigaPrincipal = tipoVigaPrincipal;
+	}
+
+	public String getTipoVigaSecundaria() {
+		return tipoVigaSecundaria;
+	}
+
+	public void setTipoVigaSecundaria(String tipoVigaSecundaria) {
+		this.tipoVigaSecundaria = tipoVigaSecundaria;
+	}
 	public String getTotalPecas() {
 		return totalPecas;
 	}
@@ -104,16 +178,16 @@ public class SumarioDados {
 	public void setKidH(String kidH) {
 		this.kidH = kidH;
 	}
-	public List<String> getVigasPrincipais() {
+	public List<Peca> getVigasPrincipais() {
 		return vigasPrincipais;
 	}
-	public void setVigasPrincipais(List<String> vigasPrincipais) {
+	public void setVigasPrincipais(List<Peca> vigasPrincipais) {
 		this.vigasPrincipais = vigasPrincipais;
 	}
-	public List<String> getVigasSecundarias() {
+	public List<Peca> getVigasSecundarias() {
 		return vigasSecundarias;
 	}
-	public void setVigasSecundarias(List<String> vigasSecundarias) {
+	public void setVigasSecundarias(List<Peca> vigasSecundarias) {
 		this.vigasSecundarias = vigasSecundarias;
 	}
 	public String getComposicaoTorres() {
@@ -170,28 +244,6 @@ public class SumarioDados {
 	public void setDiretorioPecas(String diretorioPecas) {
 		this.diretorioPecas = diretorioPecas;
 	}
-	
-
-	public Double getComprimentoTotalEixoX(){		
-		Double comprimento = 0.0;
-		
-		for (Peca peca : this.getPecasX()) {
-			comprimento += peca.getComprimentoPecaX();			
-		}
-		
-		return comprimento;		
-	}
-	
-	public Double getComprimentoTotalEixoY(){		
-		Double comprimento = 0.0;
-		
-		for (Peca peca : this.getPecasY()) {
-			comprimento += peca.getComprimentoPecaY();			
-		}
-		
-		return comprimento;		
-	}	
-	
 	public String getNomeArquivo() {
 		return nomeArquivo;
 	}
@@ -215,6 +267,48 @@ public class SumarioDados {
 	}
 	public void setCoordenadaZ(String coordenadaZ) {
 		this.coordenadaZ = coordenadaZ;
+	}
+	public List<Peca> getPecasFinais() {
+		return pecasFinais;
+	}
+	public void setPecasFinais(List<Peca> pecasFinais) {
+		this.pecasFinais = pecasFinais;
+	}
+	public String getAlturaVigaEsquerdaX() {
+		return alturaVigaEsquerdaX;
+	}
+	public void setAlturaVigaEsquerdaX(String alturaVigaEsquerdaX) {
+		this.alturaVigaEsquerdaX = alturaVigaEsquerdaX;
+	}
+	public String getAlturaVigaDireitaX() {
+		return alturaVigaDireitaX;
+	}
+	public void setAlturaVigaDireitaX(String alturaVigaDireitaX) {
+		this.alturaVigaDireitaX = alturaVigaDireitaX;
+	}
+	public String getDistanciaCruzetasX() {
+		return distanciaCruzetasX;
+	}
+	public void setDistanciaCruzetasX(String distanciaCruzetasX) {
+		this.distanciaCruzetasX = distanciaCruzetasX;
+	}
+	public String getAlturaVigaEsquerdaY() {
+		return alturaVigaEsquerdaY;
+	}
+	public void setAlturaVigaEsquerdaY(String alturaVigaEsquerdaY) {
+		this.alturaVigaEsquerdaY = alturaVigaEsquerdaY;
+	}
+	public String getAlturaVigaDireitaY() {
+		return alturaVigaDireitaY;
+	}
+	public void setAlturaVigaDireitaY(String alturaVigaDireitaY) {
+		this.alturaVigaDireitaY = alturaVigaDireitaY;
+	}
+	public String getDistanciaCruzetasY() {
+		return distanciaCruzetasY;
+	}
+	public void setDistanciaCruzetasY(String distanciaCruzetasY) {
+		this.distanciaCruzetasY = distanciaCruzetasY;
 	}
 	@Override
 	public String toString() {
@@ -271,18 +365,21 @@ public class SumarioDados {
 		builder.append(vaoDeApoioX);
 		builder.append(", vaoDeApoioY=");
 		builder.append(vaoDeApoioY);
+		builder.append(", pecasFinais=");
+		builder.append(pecasFinais);
+		builder.append(", alturaVigaEsquerdaX=");
+		builder.append(alturaVigaEsquerdaX);
+		builder.append(", alturaVigaDireitaX=");
+		builder.append(alturaVigaDireitaX);
+		builder.append(", distanciaCruzetasX=");
+		builder.append(distanciaCruzetasX);
+		builder.append(", alturaVigaEsquerdaY=");
+		builder.append(alturaVigaEsquerdaY);
+		builder.append(", alturaVigaDireitaY=");
+		builder.append(alturaVigaDireitaY);
+		builder.append(", distanciaCruzetasY=");
+		builder.append(distanciaCruzetasY);
 		builder.append("]");
 		return builder.toString();
 	}
-	public List<Peca> getPecasFinais() {
-		return pecasFinais;
-	}
-	public void setPecasFinais(List<Peca> pecasFinais) {
-		this.pecasFinais = pecasFinais;
-	}
-	
-	
-	
-	
-	
 }

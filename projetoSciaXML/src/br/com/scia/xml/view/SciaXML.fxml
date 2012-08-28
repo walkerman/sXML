@@ -45,10 +45,10 @@
             <TextField fx:id="sumarioMedidaY" disable="true" layoutX="199.0" layoutY="184.0" prefWidth="43.0" />
             <Label layoutX="51.0" layoutY="212.0" text="Espessura:" />
             <TextField id="sumarioEspacamento" fx:id="sumarioEspessura" disable="true" layoutX="112.0" layoutY="209.0" prefWidth="43.0" />
-            <ComboBox fx:id="sumarioTravessasX" layoutX="161.0" layoutY="326.0" prefHeight="21.0" prefWidth="99.490234375" />
-            <Label layoutX="71.0" layoutY="328.0" text="Travessas em X:" underline="true" />
-            <ComboBox fx:id="sumarioTravessasY" layoutX="161.0" layoutY="354.0" prefHeight="21.0" prefWidth="100.0" />
-            <Label layoutX="70.0" layoutY="356.0" text="Travessas em Y:" underline="true" />
+            <ComboBox fx:id="sumarioPecasX" layoutX="161.0" layoutY="326.0" prefHeight="21.0" prefWidth="99.490234375" />
+            <Label layoutX="92.0" layoutY="328.0" text="Peças em X:" underline="true" />
+            <ComboBox fx:id="sumarioPecasY" layoutX="161.0" layoutY="354.0" prefHeight="21.0" prefWidth="100.0" />
+            <Label layoutX="91.0" layoutY="356.0" text="Peças em Y:" underline="true" />
             <ComboBox fx:id="sumarioVigasPrincipais" layoutX="161.0" layoutY="464.0" prefHeight="21.0" prefWidth="99.490234375" />
             <Label layoutX="69.0" layoutY="467.0" text="Vigas Principais:" underline="true" />
             <ComboBox fx:id="sumarioVigasSecundarias" layoutX="161.0" layoutY="493.0" prefHeight="21.0" prefWidth="100.0" />
@@ -76,38 +76,43 @@
         </AnchorPane>
         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="131.0" prefWidth="136.0">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" layoutX="14.0" layoutY="183.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="4.4" strokeType="INSIDE" strokeWidth="0.5" width="223.00003051757812" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 50.0%, 0xffffffff 50.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="205.0" />
-            <Text layoutX="19.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo B:" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0xff0000ff 0.0%, 0xff0000ff 80.0%, 0xffffffff 80.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="242.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="205.0" />
-            <Label layoutX="14.0" layoutY="163.0" text="Vigas Principais" underline="true" />
-            <Label layoutX="14.0" layoutY="278.0" text="Vigas Secundárias" underline="true" />
-            <Text layoutX="19.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo A:" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="91.0" layoutX="14.0" layoutY="297.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="4.4" strokeType="INSIDE" strokeWidth="0.5" width="223.00003051757812" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0xff0000ff 0.0%, 0xff0000ff 80.0%, 0xffffffff 80.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="325.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="205.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="19.0" layoutY="361.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="204.0" />
-            <Text layoutX="19.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo C:" />
-            <Text layoutX="19.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo A:" />
+            <Label layoutX="14.0" layoutY="289.0" text="Vigas" underline="true" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="91.0" layoutX="14.0" layoutY="308.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="4.4" strokeType="INSIDE" strokeWidth="0.5" width="223.00003051757812" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0xff0000ff 0.0%, 0xff0000ff 80.0%, 0xffffffff 80.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="336.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="205.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="19.0" layoutY="372.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="204.0" />
+            <Text layoutX="19.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo C:" />
+            <Text layoutX="19.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo A:" />
             <Text fill="$x6" font="$x7" layoutX="10.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="4.0" text="Dados Calculados" />
             <Separator layoutX="10.0" layoutY="36.0" prefWidth="229.0" />
-            <Label layoutX="14.0" layoutY="400.0" text="Cargas" underline="true" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" layoutX="14.0" layoutY="419.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="4.4" strokeType="INSIDE" strokeWidth="0.5" width="223.00003051757812" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 50.0%, 0xffffffff 50.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="442.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="204.0" />
-            <Text layoutX="19.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo B:" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0xff0000ff 0.0%, 0xff0000ff 80.0%, 0xffffffff 80.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="480.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="204.0" />
-            <Text layoutX="19.0" layoutY="436.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo A:" />
+            <Label layoutX="14.0" layoutY="414.0" text="Cargas" underline="true" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" layoutX="14.0" layoutY="433.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="4.4" strokeType="INSIDE" strokeWidth="0.5" width="223.00003051757812" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 50.0%, 0xffffffff 50.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="456.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="204.0" />
+            <Text layoutX="19.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo B:" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0xff0000ff 0.0%, 0xff0000ff 80.0%, 0xffffffff 80.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="494.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="204.0" />
+            <Text layoutX="19.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo A:" />
             <Label layoutX="14.0" layoutY="50.0" text="Peso" underline="true" />
             <Label layoutX="27.0" layoutY="77.0" text="Viga:" />
-            <Label layoutX="27.0" layoutY="127.0" text="Viga + I. Laje:" />
+            <Label layoutX="27.0" layoutY="125.0" text="Viga + I. Laje:" />
             <Label layoutX="27.0" layoutY="101.0" text="Laje:" />
-            <TextField disable="true" layoutX="101.0" layoutY="74.0" prefWidth="59.0" />
-            <TextField disable="true" layoutX="101.0" layoutY="98.0" prefWidth="59.0" />
-            <TextField disable="true" layoutX="101.0" layoutY="124.0" prefWidth="59.0" />
+            <TextField fx:id="calculoViga" disable="true" layoutX="101.0" layoutY="74.0" prefWidth="59.0" />
+            <TextField fx:id="calculoLaje" disable="true" layoutX="101.0" layoutY="98.0" prefWidth="59.0" />
+            <TextField fx:id="calculoVigaLaje" disable="true" layoutX="101.0" layoutY="122.0" prefWidth="59.0" />
             <ImageView fitHeight="38.55737704918033" fitWidth="49.0" layoutX="214.0" layoutY="14.0" onMouseClicked="#hideCalc" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="file:/C:/Scia/img/noChart.png" preserveRatio="false" smooth="false" />
               </image>
             </ImageView>
+            <Label layoutX="14.0" layoutY="157.0" text="Postes" underline="true" />
+            <Label layoutX="27.0" layoutY="184.0" text="Piso a Fundo:" />
+            <Label layoutX="27.0" layoutY="234.0" text="Ajuste Total:" />
+            <Label layoutX="27.0" layoutY="209.0" text="Altura Útil:" />
+            <TextField fx:id="calculoPiso" disable="true" layoutX="101.0" layoutY="181.0" prefWidth="59.0" />
+            <TextField fx:id="calculoAltura" disable="true" layoutX="101.0" layoutY="206.0" prefWidth="59.0" />
+            <TextField fx:id="calculoAjuste" disable="true" layoutX="101.0" layoutY="231.0" prefWidth="59.0" />
+            <Label layoutX="27.0" layoutY="259.0" text="Inferior/Superior:" />
+            <TextField fx:id="calculoInferior" layoutX="121.0" layoutY="256.0" prefWidth="39.0" />
+            <Label layoutX="167.0" layoutY="259.0" text="/" />
+            <TextField fx:id="calculoSuperior" layoutX="177.0" layoutY="256.0" prefWidth="39.0" />
           </children>
         </AnchorPane>
       </items>
@@ -167,6 +172,9 @@
                 <Separator layoutX="12.0" layoutY="226.0" prefWidth="267.0" />
                 <Label layoutX="16.0" layoutY="90.0" text="Espessura:" />
                 <TextField fx:id="espessura" layoutX="79.0" layoutY="87.0" onKeyPressed="#setSumarioEspessura" onKeyReleased="#setSumarioEspessura" onKeyTyped="#setSumarioEspessura" prefWidth="98.0" />
+                <Label layoutX="8.0" layoutY="239.0" text="Compensado" underline="true" />
+                <Label layoutX="16.0" layoutY="265.0" text="Espessura:" />
+                <TextField id="medidaX" fx:id="espessuraCompensado" layoutX="81.0" layoutY="262.0" onKeyPressed="#setSumarioMedidaX" onKeyReleased="#setSumarioMedidaX" onKeyTyped="#setSumarioMedidaX" prefWidth="96.0" />
               </children>
             </AnchorPane>
           </content>
@@ -229,27 +237,23 @@
                 <Label layoutX="8.0" layoutY="20.0" prefWidth="75.0" text="Tipo da Peça:" underline="true" />
                 <ComboBox fx:id="tamanhosPecasX" layoutX="83.0" layoutY="46.0" prefHeight="21.0" prefWidth="158.0" />
                 <Label layoutX="7.0" layoutY="49.0" prefWidth="75.0" text="Tamanho:" underline="true" />
-                <AnchorPane id="AnchorPane" fx:id="areaCruzetaX" disable="true" layoutX="7.0" layoutY="267.0" prefHeight="100.0" prefWidth="267.0">
+                <AnchorPane id="AnchorPane" fx:id="areaCruzetaX" disable="true" layoutX="7.0" layoutY="271.0" prefHeight="100.0" prefWidth="267.0">
                   <children>
                     <Label text="Configuração de Cruzeta" underline="true" />
-                    <Label layoutX="5.0" layoutY="25.0" text="Altura viga esquerda:" />
-                    <Label layoutX="20.0" layoutY="48.0" text="Altura viga direita:" />
-                    <TextField id="medidaY" layoutX="122.0" layoutY="45.0" onKeyPressed="#setSumarioMedidaY" onKeyReleased="#setSumarioMedidaY" onKeyTyped="#setSumarioMedidaY" prefWidth="96.0" />
-                    <TextField id="medidaX" layoutX="122.0" layoutY="22.0" onKeyPressed="#setSumarioMedidaX" onKeyReleased="#setSumarioMedidaX" onKeyTyped="#setSumarioMedidaX" prefWidth="96.0" />
-                    <RadioButton id="tipoKIBLOCLaje" layoutX="5.0" layoutY="78.0" mnemonicParsing="false" onAction="#escolherTipoEquipamento" text="Normal">
-                      <toggleGroup>
-                        <ToggleGroup fx:id="x12" />
-                      </toggleGroup>
-                    </RadioButton>
-                    <RadioButton id="tipoKIBLOCLaje" layoutX="84.0" layoutY="78.0" mnemonicParsing="false" onAction="#escolherTipoEquipamento" text="Invertido" toggleGroup="$x12" />
+                    <Label layoutX="22.0" layoutY="25.0" text="Altura viga esquerda:" />
+                    <Label layoutX="37.0" layoutY="48.0" text="Altura viga direita:" />
+                    <Label layoutX="5.0" layoutY="73.0" text="Distância entre cruzetas:" />
+                    <TextField id="medidaX" fx:id="alturaVigaEsquerdaX" layoutX="139.0" layoutY="22.0" onKeyPressed="#setSumarioMedidaX" onKeyReleased="#setSumarioMedidaX" onKeyTyped="#setSumarioMedidaX" prefWidth="96.0" />
+                    <TextField id="medidaY" fx:id="alturaVigaDireitaX" layoutX="139.0" layoutY="45.0" onKeyPressed="#setSumarioMedidaY" onKeyReleased="#setSumarioMedidaY" onKeyTyped="#setSumarioMedidaY" prefWidth="96.0" />
+                    <TextField id="medidaY" fx:id="distanciaCruzetasX" layoutX="139.0" layoutY="70.0" onKeyPressed="#setSumarioMedidaY" onKeyReleased="#setSumarioMedidaY" onKeyTyped="#setSumarioMedidaY" prefWidth="96.0" />
                   </children>
                 </AnchorPane>
-                <AnchorPane id="AnchorPane" fx:id="areaEscoraX" disable="true" layoutX="7.0" layoutY="384.0" prefHeight="47.0" prefWidth="267.0">
+                <AnchorPane id="AnchorPane" fx:id="areaEscoraX" disable="true" layoutX="7.0" layoutY="382.0" prefHeight="47.0" prefWidth="267.0">
                   <children>
                     <Label layoutY="-11.0" prefHeight="27.0" text="Configuração de Escora" underline="true" />
-                    <ComboBox id="tamanhosPecasX" layoutX="55.0" layoutY="23.0" prefHeight="21.0" prefWidth="96.0" />
+                    <ComboBox id="tamanhosPecasX" fx:id="forcadosX" layoutX="55.0" layoutY="23.0" prefHeight="21.0" prefWidth="96.0" />
                     <Label layoutY="24.0" prefWidth="75.0" text="Forcado:" underline="true" />
-                    <CheckBox id="tripe" layoutX="179.0" layoutY="26.0" mnemonicParsing="false" text="Tripé" />
+                    <CheckBox id="tripe" fx:id="tripeX" layoutX="179.0" layoutY="26.0" mnemonicParsing="false" text="Tripé" />
                   </children>
                 </AnchorPane>
               </children>
@@ -297,25 +301,21 @@
                   </columns>
                 </TableView>
                 <ComboBox fx:id="tiposPecasY" layoutX="85.0" layoutY="14.0" onAction="#carregarTamanhoPecasY" prefHeight="21.0" prefWidth="158.0" />
-                <AnchorPane id="AnchorPane" fx:id="areaCruzetaY" disable="true" layoutX="10.0" layoutY="264.0" prefHeight="100.0" prefWidth="267.0">
+                <AnchorPane id="AnchorPane" fx:id="areaCruzetaY" disable="true" layoutX="10.0" layoutY="270.0" prefHeight="100.0" prefWidth="267.0">
                   <children>
                     <Label text="Configuração de Cruzeta" underline="true" />
-                    <Label layoutX="5.0" layoutY="25.0" text="Altura viga esquerda:" />
-                    <Label layoutX="20.0" layoutY="48.0" text="Altura viga direita:" />
-                    <TextField id="medidaY" fx:id="alturaVigaDireitaY" layoutX="122.0" layoutY="45.0" onKeyPressed="#setSumarioMedidaY" onKeyReleased="#setSumarioMedidaY" onKeyTyped="#setSumarioMedidaY" prefWidth="96.0" />
-                    <RadioButton id="tipoKIBLOCLaje" layoutX="5.0" layoutY="78.0" mnemonicParsing="false" onAction="#escolherTipoEquipamento" text="Normal">
-                      <toggleGroup>
-                        <ToggleGroup fx:id="tipoCruzetaY" />
-                      </toggleGroup>
-                    </RadioButton>
-                    <RadioButton id="tipoKIBLOCLaje" layoutX="84.0" layoutY="78.0" mnemonicParsing="false" onAction="#escolherTipoEquipamento" text="Invertido" toggleGroup="$tipoCruzetaY" />
-                    <TextField id="medidaY" fx:id="alturaVigaEsquerdaY" layoutX="122.0" layoutY="22.0" onKeyPressed="#setSumarioMedidaY" onKeyReleased="#setSumarioMedidaY" onKeyTyped="#setSumarioMedidaY" prefWidth="96.0" />
+                    <Label layoutX="22.0" layoutY="25.0" text="Altura viga esquerda:" />
+                    <Label layoutX="37.0" layoutY="48.0" text="Altura viga direita:" />
+                    <Label layoutX="5.0" layoutY="72.0" text="Distância entre cruzetas:" />
+                    <TextField id="medidaY" fx:id="alturaVigaEsquerdaY" layoutX="139.0" layoutY="22.0" onKeyPressed="#setSumarioMedidaY" onKeyReleased="#setSumarioMedidaY" onKeyTyped="#setSumarioMedidaY" prefWidth="96.0" />
+                    <TextField id="medidaY" fx:id="alturaVigaDireitaY" layoutX="139.0" layoutY="45.0" onKeyPressed="#setSumarioMedidaY" onKeyReleased="#setSumarioMedidaY" onKeyTyped="#setSumarioMedidaY" prefWidth="96.0" />
+                    <TextField id="medidaY" fx:id="distanciaCruzetasY" layoutX="139.0" layoutY="69.0" onKeyPressed="#setSumarioMedidaY" onKeyReleased="#setSumarioMedidaY" onKeyTyped="#setSumarioMedidaY" prefWidth="96.0" />
                   </children>
                 </AnchorPane>
-                <AnchorPane id="AnchorPane" fx:id="areaEscoraY" disable="true" layoutX="10.0" layoutY="381.0" prefHeight="47.0" prefWidth="267.0">
+                <AnchorPane id="AnchorPane" fx:id="areaEscoraY" disable="true" layoutX="8.0" layoutY="378.0" prefHeight="47.0" prefWidth="267.0">
                   <children>
                     <Label layoutY="-11.0" prefHeight="27.0" text="Configuração de Escora" underline="true" />
-                    <ComboBox id="tamanhosPecasX" fx:id="tipoForcadoY" layoutX="55.0" layoutY="23.0" prefHeight="21.0" prefWidth="96.0" />
+                    <ComboBox id="tamanhosPecasX" fx:id="forcadosY" layoutX="55.0" layoutY="23.0" prefHeight="21.0" prefWidth="96.0" />
                     <Label layoutY="24.0" prefWidth="75.0" text="Forcado:" underline="true" />
                     <CheckBox id="tripe" fx:id="tripeY" layoutX="179.0" layoutY="26.0" mnemonicParsing="false" text="Tripé" />
                   </children>
@@ -338,25 +338,32 @@
                 <RadioButton id="tipoKIBLOCViga" layoutX="131.0" layoutY="40.0" mnemonicParsing="false" onAction="#escolherTipoEquipamento" text="Direita" toggleGroup="$posicaoConsole" />
                 <CheckBox id="alterarViga" fx:id="alterarTipoViga" layoutX="14.0" layoutY="71.0" mnemonicParsing="false" onAction="#alterarTipoConsole" text="Alterar viga principal?" />
                 <Label layoutX="12.0" layoutY="104.0" text="Tipo:" underline="true" />
-                <ComboBox id="tiposVigasPrincipais" fx:id="tipoVigaConsole" layoutX="46.0" layoutY="102.0" prefHeight="21.0" prefWidth="148.0" />
+                <ComboBox id="tiposVigasPrincipais" fx:id="tipoVigaConsole" disable="true" layoutX="46.0" layoutY="102.0" prefHeight="21.0" prefWidth="148.0" />
               </children>
             </AnchorPane>
           </content>
         </TitledPane>
-        <TitledPane text="Travessas Diagonais">
+        <TitledPane fx:id="x4" text="Configuração de Travessas">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <Label layoutX="14.0" layoutY="14.0" prefHeight="17.089752197265625" prefWidth="75.0" text="KIDI (Vertical)" underline="true" />
-                <RadioButton layoutX="52.0" layoutY="44.0" mnemonicParsing="false" text="Cimbr. Leve">
+                <Label layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="125.0" text="Travessas Diagonais" underline="true" />
+                <RadioButton layoutX="52.0" layoutY="67.0" mnemonicParsing="false" text="Cimbr. Leve">
                   <toggleGroup>
                     <ToggleGroup fx:id="kidi" />
                   </toggleGroup>
                 </RadioButton>
-                <RadioButton layoutX="52.0" layoutY="67.0" mnemonicParsing="false" text="Cimbr. Normal" toggleGroup="$kidi" />
+                <RadioButton layoutX="52.0" layoutY="90.0" mnemonicParsing="false" text="Cimbr. Normal" toggleGroup="$kidi" />
                 <CheckBox layoutX="14.0" layoutY="114.0" mnemonicParsing="false" text="KIDH (Horizontal)" textAlignment="RIGHT" />
-                <Separator layoutX="12.0" layoutY="97.0" prefWidth="267.0" />
                 <Separator layoutX="12.0" layoutY="148.0" prefWidth="267.0" />
+                <Label layoutX="14.0" layoutY="42.0" prefHeight="17.089752197265625" prefWidth="75.0" text="KIDI (Vertical)" />
+                <Label layoutX="14.0" layoutY="159.0" prefHeight="18.0" prefWidth="125.0" text="Entre KITRV" underline="true" />
+                <RadioButton layoutX="52.0" layoutY="190.0" mnemonicParsing="false" text="150">
+                  <toggleGroup>
+                    <ToggleGroup fx:id="entreTravessas" />
+                  </toggleGroup>
+                </RadioButton>
+                <RadioButton layoutX="52.0" layoutY="213.0" mnemonicParsing="false" text="200" toggleGroup="$entreTravessas" />
               </children>
             </AnchorPane>
           </content>
@@ -367,7 +374,7 @@
               <children>
                 <TextField id="transpassePrincipal" fx:id="transpassePrincipais" layoutX="118.0" layoutY="308.0" prefWidth="82.0" />
                 <Label layoutX="8.0" layoutY="12.0" text="Tipo:" underline="true" />
-                <ComboBox fx:id="tiposVigasPrincipais" layoutX="42.0" layoutY="10.0" prefHeight="21.0" prefWidth="148.0" />
+                <ComboBox fx:id="tiposVigasPrincipais" layoutX="42.0" layoutY="10.0" onAction="#carregarVigasPrincipais" prefHeight="21.0" prefWidth="148.0" />
                 <Separator layoutX="7.0" layoutY="293.0" prefWidth="267.0" />
                 <Label layoutX="7.0" layoutY="311.0" text="Transpasse Mínimo:" />
                 <TableView id="combinacaoTravessasP1" fx:id="vigasPrincipais" layoutX="8.0" layoutY="41.0" prefHeight="240.0" prefWidth="267.0">
@@ -377,7 +384,7 @@
                         <PropertyValueFactory property="item" />
                       </cellValueFactory>
                       <prefWidth>
-                        <Long fx:value="120" />
+                        <Long fx:value="160" />
                       </prefWidth>
                     </TableColumn>
                     <TableColumn resizable="false" text="Habilitar?">
@@ -385,7 +392,7 @@
                         <PropertyValueFactory property="habilitar" />
                       </cellValueFactory>
                       <prefWidth>
-                        <Long fx:value="70" />
+                        <Long fx:value="100" />
                       </prefWidth>
                     </TableColumn>
                   </columns>
@@ -398,12 +405,11 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <Label layoutX="10.0" layoutY="347.0" text="Transpasse Minimo:" />
-                <ToggleButton layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#usarLajePre" prefWidth="181.0" text="Não Usar (Laje Pré)" />
-                <AnchorPane id="AnchorPane" fx:id="areaVigasSecundarias" layoutX="10.0" layoutY="46.0">
+                <ToggleButton fx:id="lajePre" layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#usarLajePre" prefWidth="181.0" text="Não Usar (Laje Pré)" />
+                <AnchorPane id="AnchorPane" fx:id="areaVigasSecundarias" layoutX="10.0" layoutY="46.0" prefHeight="347.0">
                   <children>
                     <Label layoutY="2.0" text="Tipo:" underline="true" />
-                    <ComboBox fx:id="tiposVigasSecundarias" layoutX="52.0" prefHeight="21.0" prefWidth="129.8294677734375" />
+                    <ComboBox fx:id="tiposVigasSecundarias" layoutX="52.0" onAction="#carregarVigasSecundarias" prefHeight="21.0" prefWidth="129.8294677734375" />
                     <TableView id="combinacaoTravessasP1" fx:id="vigasSecundarias" layoutX="1.0" layoutY="32.0" prefHeight="240.0" prefWidth="267.0">
                       <columns>
                         <TableColumn resizable="false" text="Item">
@@ -411,7 +417,7 @@
                             <PropertyValueFactory property="item" />
                           </cellValueFactory>
                           <prefWidth>
-                            <Long fx:value="120" />
+                            <Long fx:value="160" />
                           </prefWidth>
                         </TableColumn>
                         <TableColumn resizable="false" text="Habilitar?">
@@ -419,15 +425,16 @@
                             <PropertyValueFactory property="habilitar" />
                           </cellValueFactory>
                           <prefWidth>
-                            <Long fx:value="70" />
+                            <Long fx:value="100" />
                           </prefWidth>
                         </TableColumn>
                       </columns>
                     </TableView>
+                    <Label layoutY="302.0" text="Transpasse Minimo:" />
+                    <Separator layoutX="2.0" layoutY="284.0" prefWidth="267.0" />
+                    <TextField id="transpassePrincipal" layoutX="108.0" layoutY="299.0" prefWidth="82.0" />
                   </children>
                 </AnchorPane>
-                <Separator layoutX="12.0" layoutY="329.0" prefWidth="267.0" />
-                <TextField id="transpassePrincipal" fx:id="transpasseSecundarias" layoutX="118.0" layoutY="344.0" prefWidth="82.0" />
               </children>
             </AnchorPane>
           </content>
@@ -436,23 +443,37 @@
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
-                <Label layoutX="58.0" layoutY="131.0" text="Base:" />
-                <CheckBox layoutX="16.0" layoutY="14.0" mnemonicParsing="false" text="300 (A)" />
-                <CheckBox layoutX="90.0" layoutY="14.0" mnemonicParsing="false" text="200 (B)" />
-                <CheckBox layoutX="166.0" layoutY="14.0" mnemonicParsing="false" text="150 (C)" />
-                <CheckBox layoutX="16.0" layoutY="40.0" mnemonicParsing="false" text="100 (D)" />
-                <CheckBox layoutX="90.0" layoutY="40.0" mnemonicParsing="false" text="  50 (E)" />
-                <CheckBox layoutX="166.0" layoutY="40.0" mnemonicParsing="false" prefWidth="56.0001220703125" text="  25 (F)" />
-                <TextField layoutX="89.0" layoutY="68.0" prefWidth="100.0" />
-                <Separator layoutX="13.0" layoutY="227.0" prefWidth="267.0" />
-                <Label layoutX="16.0" layoutY="71.0" text="Composição:" />
-                <TextField fx:id="peDireito" layoutX="90.0" layoutY="97.0" prefWidth="100.0" />
-                <Label layoutX="30.0" layoutY="100.0" text="Pé Direito:" />
-                <ComboBox id="sumarioTravessasX" fx:id="macacos" layoutX="89.0" layoutY="129.0" prefHeight="21.0" prefWidth="99.490234375" />
-                <Label layoutX="54.0" layoutY="160.0" text="Topo:" />
-                <Label layoutX="22.0" layoutY="188.0" text="Poste Topo:" />
-                <ComboBox id="sumarioTravessasX" fx:id="forcados" layoutX="89.0" layoutY="158.0" prefHeight="21.0" prefWidth="99.490234375" />
-                <ComboBox id="sumarioTravessasX" fx:id="postes" layoutX="89.0" layoutY="186.0" prefHeight="21.0" prefWidth="99.490234375" />
+                <Label layoutX="59.0" layoutY="284.0" text="Base:" />
+                <TextField layoutX="90.0" layoutY="221.0" prefWidth="100.0" />
+                <Separator layoutX="14.0" layoutY="380.0" prefWidth="267.0" />
+                <Label layoutX="17.0" layoutY="224.0" text="Composição:" />
+                <TextField fx:id="peDireito" layoutX="91.0" layoutY="250.0" prefWidth="100.0" />
+                <Label layoutX="31.0" layoutY="253.0" text="Pé Direito:" />
+                <ComboBox id="sumarioTravessasX" fx:id="macacos" layoutX="90.0" layoutY="284.0" prefHeight="21.0" prefWidth="99.490234375" />
+                <Label layoutX="55.0" layoutY="313.0" text="Topo:" />
+                <Label layoutX="23.0" layoutY="341.0" text="Poste Topo:" />
+                <ComboBox fx:id="forcados" layoutX="90.0" layoutY="311.0" prefHeight="21.0" prefWidth="99.490234375" />
+                <ComboBox fx:id="postesEspeciais" layoutX="90.0" layoutY="339.0" prefHeight="21.0" prefWidth="99.490234375" />
+                <TableView fx:id="postes" layoutX="9.0" layoutY="12.0" prefHeight="191.05078125" prefWidth="267.0">
+                  <columns>
+                    <TableColumn resizable="false" text="Item">
+                      <cellValueFactory>
+                        <PropertyValueFactory property="item" />
+                      </cellValueFactory>
+                      <prefWidth>
+                        <Long fx:value="160" />
+                      </prefWidth>
+                    </TableColumn>
+                    <TableColumn resizable="false" text="Habilitar?">
+                      <cellValueFactory>
+                        <PropertyValueFactory property="habilitar" />
+                      </cellValueFactory>
+                      <prefWidth>
+                        <Long fx:value="100" />
+                      </prefWidth>
+                    </TableColumn>
+                  </columns>
+                </TableView>
               </children>
             </AnchorPane>
           </content>

@@ -39,19 +39,21 @@ public class SciaXMLFileManager {
 		}
 	}
 
-	public static void carregarProjeto(File arquivo)
+	public static SumarioDados carregarProjeto(File arquivo)
 			throws SciaXMLFileManagerException {
 		try {
 			if (arquivo != null) {
 				XStream xs = new XStream();
 				xs.processAnnotations(SumarioDados.class);
-				RepositorioProjeto.projeto = (SumarioDados) xs.fromXML(arquivo);
+				SumarioDados sumario = (SumarioDados) xs.fromXML(arquivo);
+				return sumario;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new SciaXMLFileManagerException(
 					"Problemas para carregar o arquivo.");
 		}
+		return null;
 	}
 
 	public static void project2XML(Project p, File f)

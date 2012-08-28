@@ -12,6 +12,8 @@ import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
+import br.com.scia.xml.entity.view.Tipo;
+import br.com.scia.xml.entity.view.TipoViga;
 import br.com.scia.xml.entity.xml.Project;
 
 public class SciaXMLUtils {
@@ -25,47 +27,67 @@ public class SciaXMLUtils {
     
     public static SumarioDados popularSumarioDados(PrincipalController controller){
 		try{
-			String tipoEquipamento = controller.sumarioTipo.getText(); 
-			String totalPecas = controller.totalPecas.getText();
-			String espessura   = controller.sumarioEspessura.getText();
-			String medidaLageX = controller.sumarioMedidaX.getText();
-			String medidaLageY = controller.sumarioMedidaY.getText();
-			String folgaLajeX1 = controller.sumarioFolgaX1.getText();
-			String folgaLajeX2 = controller.sumarioFolgaX2.getText();
-			String folgaLajeY1 = controller.sumarioFolgaY1.getText();
-			String folgaLajeY2 = controller.sumarioFolgaY2.getText();
-			String coordenadaX = controller.sumarioCoordenadaX.getText(); 
-			String coordenadaY = controller.sumarioCoordenadaY.getText();
-			String coordenadaZ = controller.sumarioCoordenadaZ.getText();
+			String tipoEquipamento = checkString(controller.sumarioTipo.getText()); 
+			String totalPecas  = checkString(controller.totalPecas.getText());
+			String espessura   = checkString(controller.sumarioEspessura.getText());
+			String medidaLageX = checkString(controller.sumarioMedidaX.getText());
+			String medidaLageY = checkString(controller.sumarioMedidaY.getText());
+			String folgaLajeX1 = checkString(controller.sumarioFolgaX1.getText());
+			String folgaLajeX2 = checkString(controller.sumarioFolgaX2.getText());
+			String folgaLajeY1 = checkString(controller.sumarioFolgaY1.getText());
+			String folgaLajeY2 = checkString(controller.sumarioFolgaY2.getText());
+			String coordenadaX = checkString(controller.sumarioCoordenadaX.getText()); 
+			String coordenadaY = checkString(controller.sumarioCoordenadaY.getText());
+			String coordenadaZ = checkString(controller.sumarioCoordenadaZ.getText());
+			String tipoVigaPrincipal = checkString(controller.tiposVigasPrincipais.getSelectionModel().getSelectedItem());
+			String tipoVigaSecundaria = checkString(controller.tiposVigasSecundarias.getSelectionModel().getSelectedItem());
+			String alturaVigaEsquerdaX = checkString(controller.alturaVigaEsquerdaX.getText());
+			String alturaVigaDireitaX = checkString(controller.alturaVigaDireitaX.getText());
+			String distanciaCruzetasX = checkString(controller.distanciaCruzetasX.getText());
+			String alturaVigaEsquerdaY = checkString(controller.alturaVigaEsquerdaY.getText());
+			String alturaVigaDireitaY = checkString(controller.alturaVigaDireitaY.getText());
+			String distanciaCruzetasY = checkString(controller.distanciaCruzetasY.getText());
 			
-			List<String> travessasX = controller.sumarioTravessasX.getItems();
+			List<String> travessasX = controller.sumarioPecasX.getItems();
 			List<Peca> pecasX = new ArrayList<Peca>();
 			for (String tipo : travessasX) {
 				Peca peca = new Peca();
 				peca.setTipo(tipo);
-				peca.setComprimentoPecaX(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);				
-				
-				System.out.println("ProjetoX " + peca.getComprimentoPecaX());
-				
+				peca.setComprimento(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);				
+								
 				pecasX.add(peca);
 			}		
 			
-			List<String> travessasY = controller.sumarioTravessasY.getItems();
+			List<String> travessasY = controller.sumarioPecasY.getItems();
 			List<Peca> pecasY = new ArrayList<Peca>();
 			for (String tipo : travessasY) {
 				Peca peca = new Peca();
 				peca.setTipo(tipo);
-				peca.setComprimentoPecaY(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);
+				peca.setComprimento(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);
 				
-				System.out.println("ProjetoY " + peca.getComprimentoPecaY());
-
 				pecasY.add(peca);
+			}
+			
+			List<String> vigasPrincipais = controller.sumarioVigasPrincipais.getItems();
+			List<Peca> vigasP = new ArrayList<Peca>();
+			for (String tipo : vigasPrincipais) {
+				Peca peca = new Peca();
+				peca.setTipo(tipo);
+				peca.setComprimento(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);		
+				vigasP.add(peca);
+			}		
+			
+			List<String> vigasSecundarias = controller.sumarioVigasSecundarias.getItems();
+			List<Peca> vigasS = new ArrayList<Peca>();
+			for (String tipo : vigasSecundarias) {
+				Peca peca = new Peca();
+				peca.setTipo(tipo);
+				peca.setComprimento(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);		
+				vigasS.add(peca);
 			}
 			
 			String kidI = null;
 			String kidH = null;
-			List<String> vigasPrincipais = null;
-			List<String> vigasSecundarias = null;
 			String composicaoTorres = null;
 			
 			RepositorioProjeto.projeto.setTotalPecas(totalPecas);
@@ -81,14 +103,23 @@ public class SciaXMLUtils {
 			RepositorioProjeto.projeto.setPecasY(pecasY);
 			RepositorioProjeto.projeto.setKidH(kidH);
 			RepositorioProjeto.projeto.setKidI(kidI);
-			RepositorioProjeto.projeto.setVigasPrincipais(vigasPrincipais);
-			RepositorioProjeto.projeto.setVigasSecundarias(vigasSecundarias);
+			RepositorioProjeto.projeto.setVigasPrincipais(vigasP);
+			RepositorioProjeto.projeto.setTipoVigaPrincipal(tipoVigaPrincipal);
+			RepositorioProjeto.projeto.setTipoVigaSecundaria(tipoVigaSecundaria);
+			RepositorioProjeto.projeto.setVigasSecundarias(vigasS);
 			RepositorioProjeto.projeto.setComposicaoTorres(composicaoTorres);
 			RepositorioProjeto.projeto.setCoordenadaX(coordenadaX);
 			RepositorioProjeto.projeto.setCoordenadaY(coordenadaY);
-			RepositorioProjeto.projeto.setCoordenadaZ(coordenadaZ);
+			RepositorioProjeto.projeto.setCoordenadaZ(coordenadaZ);			
+			RepositorioProjeto.projeto.setAlturaVigaEsquerdaX(alturaVigaEsquerdaX);
+			RepositorioProjeto.projeto.setAlturaVigaDireitaX(alturaVigaDireitaX);
+			RepositorioProjeto.projeto.setDistanciaCruzetasX(distanciaCruzetasX);
+			RepositorioProjeto.projeto.setAlturaVigaEsquerdaY(alturaVigaEsquerdaY);
+			RepositorioProjeto.projeto.setAlturaVigaDireitaY(alturaVigaDireitaY);
+			RepositorioProjeto.projeto.setDistanciaCruzetasY(distanciaCruzetasY);
 			
 		}catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Problemas durante a conversão dos dados. " +
 					"Por favor, verifique os dados informados", "SciaXML",JOptionPane.ERROR_MESSAGE);
 		}
@@ -110,4 +141,42 @@ public class SciaXMLUtils {
 		}
 		
 	}
+
+    public static ArrayList<String> getItensTipo (ArrayList<Tipo> tipo){
+    	ArrayList<String> retorno = new ArrayList<String>();
+    	
+    	for (Tipo t : tipo) {
+    		if (t instanceof TipoViga){
+    			if (((TipoViga) t).getHabilitar().isSelected())
+    				retorno.add(t.getItem());
+    		}else{
+    			retorno.add(t.getItem());
+    		}
+		}
+    	
+    	return retorno;
+    }
+    
+    public static ArrayList<Peca> getComposicaoPostes (PrincipalController controller){
+    	ArrayList<Peca> retorno = null;
+    	
+    	return retorno;
+    }
+    
+    public static void getSelectedTiposViga (List<Tipo> vigas, List<Peca> pecas){
+    	List<Tipo> retorno = new ArrayList<Tipo>();
+    	for (Tipo tipoViga : vigas) {
+			((TipoViga) tipoViga).getHabilitar().setSelected(false);
+			
+			for (Peca peca : pecas) {
+				if (tipoViga.getItem().equals(peca.getTipo())){
+					((TipoViga) tipoViga).getHabilitar().setSelected(true);
+					break;
+				}
+			}
+			
+			retorno.add(tipoViga);
+		}
+    	vigas = retorno;
+    }
 }

@@ -81,7 +81,7 @@ public class SplashController implements Initializable{
         
         if (file != null){
         	try {
-				SciaXMLFileManager.carregarProjeto(file);
+				RepositorioProjeto.projeto = SciaXMLFileManager.carregarProjeto(file);
 				
 				if (RepositorioProjeto.projeto != null){
 					this.nome.setText(RepositorioProjeto.projeto.getNomeProjeto());
