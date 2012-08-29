@@ -40,7 +40,9 @@ public class SciaXMLUtils {
 			String coordenadaY = checkString(controller.sumarioCoordenadaY.getText());
 			String coordenadaZ = checkString(controller.sumarioCoordenadaZ.getText());
 			String tipoVigaPrincipal = checkString(controller.tiposVigasPrincipais.getSelectionModel().getSelectedItem());
+			String transpassePrincipais = checkString(controller.transpassePrincipais.getText());
 			String tipoVigaSecundaria = checkString(controller.tiposVigasSecundarias.getSelectionModel().getSelectedItem());
+			String transpasseSecundarias = checkString(controller.transpasseSecundarias.getText());
 			String alturaVigaEsquerdaX = checkString(controller.alturaVigaEsquerdaX.getText());
 			String alturaVigaDireitaX = checkString(controller.alturaVigaDireitaX.getText());
 			String distanciaCruzetasX = checkString(controller.distanciaCruzetasX.getText());
@@ -73,7 +75,7 @@ public class SciaXMLUtils {
 			for (String tipo : vigasPrincipais) {
 				Peca peca = new Peca();
 				peca.setTipo(tipo);
-				peca.setComprimento(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);		
+				peca.setComprimento(RepositorioPecas.pecas.get(tipo).getComprimentoX());		
 				vigasP.add(peca);
 			}		
 			
@@ -82,7 +84,7 @@ public class SciaXMLUtils {
 			for (String tipo : vigasSecundarias) {
 				Peca peca = new Peca();
 				peca.setTipo(tipo);
-				peca.setComprimento(RepositorioPecas.pecas.get(tipo).getComprimentoX()*100);		
+				peca.setComprimento(RepositorioPecas.pecas.get(tipo).getComprimentoX());		
 				vigasS.add(peca);
 			}
 			
@@ -105,7 +107,9 @@ public class SciaXMLUtils {
 			RepositorioProjeto.projeto.setKidI(kidI);
 			RepositorioProjeto.projeto.setVigasPrincipais(vigasP);
 			RepositorioProjeto.projeto.setTipoVigaPrincipal(tipoVigaPrincipal);
+			RepositorioProjeto.projeto.setTranspassePrincipais(transpassePrincipais);
 			RepositorioProjeto.projeto.setTipoVigaSecundaria(tipoVigaSecundaria);
+			RepositorioProjeto.projeto.setTranspasseSecundarias(transpasseSecundarias);
 			RepositorioProjeto.projeto.setVigasSecundarias(vigasS);
 			RepositorioProjeto.projeto.setComposicaoTorres(composicaoTorres);
 			RepositorioProjeto.projeto.setCoordenadaX(coordenadaX);

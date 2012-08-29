@@ -34,8 +34,10 @@ public class SumarioDados {
 	private String kidH;
 	private String tipoVigaPrincipal;
 	private List<Peca> vigasPrincipais;
+	private String transpassePrincipais;
 	private String tipoVigaSecundaria;
 	private List<Peca> vigasSecundarias;
+	private String transpasseSecundarias;
 	private String composicaoTorres;
 	private Double vaoDeApoioX;
 	private Double vaoDeApoioY;
@@ -310,6 +312,23 @@ public class SumarioDados {
 	public void setDistanciaCruzetasY(String distanciaCruzetasY) {
 		this.distanciaCruzetasY = distanciaCruzetasY;
 	}
+	
+	public String getTranspassePrincipais() {
+		return transpassePrincipais;
+	}
+
+	public void setTranspassePrincipais(String transpassePrincipais) {
+		this.transpassePrincipais = transpassePrincipais;
+	}
+
+	public String getTranspasseSecundarias() {
+		return transpasseSecundarias;
+	}
+
+	public void setTranspasseSecundarias(String transpasseSecundarias) {
+		this.transpasseSecundarias = transpasseSecundarias;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

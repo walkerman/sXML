@@ -8,8 +8,8 @@ public class Peca {
 	private String id;
 	private String name;
 	private String tipo;
-	private Integer noInicial;
-	private Integer noFinal;
+	private String noInicial;
+	private String noFinal;
 	private Double comprimento;
 		
 	public Peca() {
@@ -36,16 +36,16 @@ public class Peca {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public Integer getNoInicial() {
+	public String getNoInicial() {
 		return noInicial;
 	}
-	public void setNoInicial(Integer noInicial) {
+	public void setNoInicial(String noInicial) {
 		this.noInicial = noInicial;
 	}
-	public Integer getNoFinal() {
+	public String getNoFinal() {
 		return noFinal;
 	}
-	public void setNoFinal(Integer noFinal) {
+	public void setNoFinal(String noFinal) {
 		this.noFinal = noFinal;
 	}
 
@@ -56,4 +56,25 @@ public class Peca {
 	public void setComprimento(Double comprimento) {
 		this.comprimento = comprimento;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Peca [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", tipo=");
+		builder.append(tipo);
+		builder.append(", noInicial=");
+		builder.append(noInicial);
+		builder.append(", noFinal=");
+		builder.append(noFinal);
+		builder.append(", comprimento=");
+		builder.append(comprimento);
+		builder.append("]\n");
+		return builder.toString();
+	}
+	
+	
 }

@@ -1,6 +1,6 @@
 package br.com.scia.xml.entity.xml;
 
-public class Coordenada {
+public class Coordenada{
 	
 	private String id;
 	private String name;
@@ -45,4 +45,20 @@ public class Coordenada {
 		this.z = z;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Coordenada [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", x=");
+		builder.append(x);
+		builder.append(", y=");
+		builder.append(y);
+		builder.append(", z=");
+		builder.append(z);
+		builder.append("]\n");
+		return builder.toString();
+	}	
 }
