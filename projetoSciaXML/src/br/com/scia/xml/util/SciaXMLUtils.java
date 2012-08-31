@@ -13,6 +13,7 @@ import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.view.Tipo;
+import br.com.scia.xml.entity.view.TipoPoste;
 import br.com.scia.xml.entity.view.TipoViga;
 import br.com.scia.xml.entity.xml.Project;
 
@@ -49,6 +50,16 @@ public class SciaXMLUtils {
 			String alturaVigaEsquerdaY = checkString(controller.alturaVigaEsquerdaY.getText());
 			String alturaVigaDireitaY = checkString(controller.alturaVigaDireitaY.getText());
 			String distanciaCruzetasY = checkString(controller.distanciaCruzetasY.getText());
+			String peDireito = checkString(controller.peDireito.getText());
+			String espessuraCompensado = checkString(controller.espessuraCompensado.getText());
+			String composicaoTorres = checkString(controller.sumarioComposicao.getText());
+			
+			String postesEspeciais = controller.postesEspeciais.getSelectionModel() != null ? checkString(controller.postesEspeciais.getSelectionModel().getSelectedItem()) : null;
+			String forcados = controller.forcados.getSelectionModel() != null ? checkString(controller.forcados.getSelectionModel().getSelectedItem()) : null;
+			String macacos = controller.macacos.getSelectionModel() != null ? checkString(controller.macacos.getSelectionModel().getSelectedItem()) : null;
+			//String kidI = controller.postesEspeciais.getSelectionModel() != null ? checkString(controller.kidI.getSelectionModel().getSelectedItem()) : null;
+			//String kidH = controller.postesEspeciais.getSelectionModel() != null ? checkString(controller.kidH.getSelectionModel().getSelectedItem()) : null;
+			
 			
 			List<String> travessasX = controller.sumarioPecasX.getItems();
 			List<Peca> pecasX = new ArrayList<Peca>();
@@ -88,9 +99,20 @@ public class SciaXMLUtils {
 				vigasS.add(peca);
 			}
 			
-			String kidI = null;
-			String kidH = null;
-			String composicaoTorres = null;
+			List<Tipo> postesSelecionados = controller.postes.getItems();
+			List<Peca> postes = new ArrayList<Peca>();
+			for (Tipo tipo : postesSelecionados) {
+				if (tipo instanceof TipoPoste){
+					TipoPoste tipoPoste = (TipoPoste) tipo;
+					
+					if (tipoPoste.getHabilitar().isSelected()){
+						Peca peca = new Peca();
+						peca.setTipo(tipo.getItem());
+						peca.setComprimento(RepositorioPecas.pecas.get(tipo.getItem()).getComprimentoZ());		
+						postes.add(peca);
+					}
+				}
+			}
 			
 			RepositorioProjeto.projeto.setTotalPecas(totalPecas);
 			RepositorioProjeto.projeto.setTipoEquipamento(tipoEquipamento);
@@ -103,8 +125,6 @@ public class SciaXMLUtils {
 			RepositorioProjeto.projeto.setFolgaLajeY2(folgaLajeY2);
 			RepositorioProjeto.projeto.setPecasX(pecasX);
 			RepositorioProjeto.projeto.setPecasY(pecasY);
-			RepositorioProjeto.projeto.setKidH(kidH);
-			RepositorioProjeto.projeto.setKidI(kidI);
 			RepositorioProjeto.projeto.setVigasPrincipais(vigasP);
 			RepositorioProjeto.projeto.setTipoVigaPrincipal(tipoVigaPrincipal);
 			RepositorioProjeto.projeto.setTranspassePrincipais(transpassePrincipais);
@@ -121,6 +141,24 @@ public class SciaXMLUtils {
 			RepositorioProjeto.projeto.setAlturaVigaEsquerdaY(alturaVigaEsquerdaY);
 			RepositorioProjeto.projeto.setAlturaVigaDireitaY(alturaVigaDireitaY);
 			RepositorioProjeto.projeto.setDistanciaCruzetasY(distanciaCruzetasY);
+			RepositorioProjeto.projeto.setPeDireito(peDireito);
+			RepositorioProjeto.projeto.setEspessuraCompensado(espessuraCompensado);
+			RepositorioProjeto.projeto.setPostes(postes);
+			
+			Peca posteEspecial = new Peca();
+			posteEspecial.setTipo(postesEspeciais);
+			RepositorioProjeto.projeto.setPosteEspecial(posteEspecial);
+			
+			Peca forcado = new Peca();
+			forcado.setTipo(forcados);
+			RepositorioProjeto.projeto.setForcado(forcado);
+			
+			Peca macaco = new Peca();
+			macaco.setTipo(macacos);
+			RepositorioProjeto.projeto.setMacaco(macaco);
+			
+//			RepositorioProjeto.projeto.setKidH(kidH);
+//			RepositorioProjeto.projeto.setKidI(kidI);
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -157,12 +195,6 @@ public class SciaXMLUtils {
     			retorno.add(t.getItem());
     		}
 		}
-    	
-    	return retorno;
-    }
-    
-    public static ArrayList<Peca> getComposicaoPostes (PrincipalController controller){
-    	ArrayList<Peca> retorno = null;
     	
     	return retorno;
     }

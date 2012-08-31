@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import br.com.scia.xml.entity.xml.Container;
 import br.com.scia.xml.entity.xml.Object;
 import br.com.scia.xml.entity.xml.Project;
 import br.com.scia.xml.entity.xml.TableNode;
+import br.com.scia.xml.util.ObjectSorter;
 import br.com.scia.xml.util.SciaXMLContantes;
 
 import com.thoughtworks.xstream.XStream;
@@ -125,6 +127,7 @@ public class RepositorioPecas {
 					
 					if (t != null){
 						List<Object> objetos = t.getObjects();
+						Collections.sort(objetos, new ObjectSorter());
 						
 						if (objetos != null && objetos.size() > 1){
 							
@@ -132,14 +135,22 @@ public class RepositorioPecas {
 							Object noFinal = objetos.get(1);
 														
 							try{
-								double noInicialP1 = Double.parseDouble(noInicial.getP1().getV());
-								double noFinalP1 = Double.parseDouble(noFinal.getP1().getV());
+								double noInicialX = Double.parseDouble(noInicial.getP1().getV());
+								double noFinalX = Double.parseDouble(noFinal.getP1().getV());
 								
-								double noInicialP2 = Double.parseDouble(noInicial.getP2().getV());
-								double noFinalP2 = Double.parseDouble(noFinal.getP2().getV());
+								double noInicialY = Double.parseDouble(noInicial.getP2().getV());
+								double noFinalY = Double.parseDouble(noFinal.getP2().getV());
 								
-								project.setComprimentoX(noFinalP1 - noInicialP1);
-								project.setComprimentoY(noFinalP2 - noInicialP2);
+								double noInicialZ = Double.parseDouble(noInicial.getP3().getV());
+								double noFinalZ = Double.parseDouble(noFinal.getP3().getV());
+								
+								double x = (noFinalX - noInicialX);
+								double y = (noFinalY - noInicialY);
+								double z = (noFinalZ - noInicialZ);
+								
+								project.setComprimentoX(x);
+								project.setComprimentoY(y);
+								project.setComprimentoZ(z);
 							}catch (Exception e) {
 								e.printStackTrace();
 								System.out.println("Problemas durante o calculo.");

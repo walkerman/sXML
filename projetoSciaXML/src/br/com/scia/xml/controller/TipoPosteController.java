@@ -45,10 +45,7 @@ public class TipoPosteController extends TipoController{
 	}
 
 	@Override
-	public void carregar() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void carregar() {}
 
 	
 }

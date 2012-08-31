@@ -34,6 +34,9 @@ public class Project {
 	@XStreamOmitField
 	private Double comprimentoY;
 	
+	@XStreamOmitField
+	private Double comprimentoZ;
+	
 	public Project(SumarioDados sumarioDados, String fileName) {
 		
 		if (sumarioDados != null){
@@ -221,6 +224,14 @@ public class Project {
 
 	public void setComprimentoY(Double comprimentoY) {
 		this.comprimentoY = comprimentoY;
+	}
+
+	public Double getComprimentoZ() {
+		return comprimentoZ;
+	}
+
+	public void setComprimentoZ(Double comprimentoZ) {
+		this.comprimentoZ = comprimentoZ;
 	}
 
 	

@@ -41,6 +41,7 @@ import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.view.Tipo;
 import br.com.scia.xml.entity.view.TipoPecaXY;
+import br.com.scia.xml.entity.view.TipoPoste;
 import br.com.scia.xml.model.Calculo;
 import br.com.scia.xml.util.SciaXMLContantes;
 import br.com.scia.xml.util.SciaXMLFileManager;
@@ -151,7 +152,7 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public TableView<Tipo> postes;
 	@FXML
-	public TextField composicao;
+	public TextField composicaoTorres;
 	@FXML
 	public TextField peDireito;
 	@FXML
@@ -590,6 +591,11 @@ public class PrincipalController implements Initializable{
     		this.folgaY1.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeY1()));
     		this.folgaY2.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeY2()));
     		this.espessura.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getEspessura()));
+    		this.peDireito.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getPeDireito()));
+    		this.espessuraCompensado.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getEspessuraCompensado()));
+    		this.transpassePrincipais.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getTranspassePrincipais()));
+    		this.transpasseSecundarias.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getTranspasseSecundarias()));
+    		this.composicaoTorres.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getComposicaoTorres()));
     		
     		this.sumarioCoordenadaX.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaX()));
     		this.sumarioCoordenadaY.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaY()));
@@ -601,6 +607,7 @@ public class PrincipalController implements Initializable{
     		this.sumarioFolgaY1.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeY1()));
     		this.sumarioFolgaY2.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeY2()));
     		this.sumarioEspessura.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getEspessura()));
+    		this.sumarioComposicao.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getComposicaoTorres()));
     		
     		List<Peca> pecasX = RepositorioProjeto.projeto.getPecasX();
     		if (pecasX != null && pecasX.size() > 0)
@@ -659,6 +666,29 @@ public class PrincipalController implements Initializable{
     		
     		this.tiposVigasSecundarias.getSelectionModel().select(RepositorioProjeto.projeto.getTipoVigaSecundaria());
     		carregarVigasSecundarias();
+    		
+    		List<Peca> postesSelecionados = RepositorioProjeto.projeto.getPostes();
+    		List<Tipo> postes = this.postes.getItems();
+    		
+    		if (postesSelecionados != null){
+				for (Tipo tipo : postes) {
+					((TipoPoste) tipo).getHabilitar().setSelected(false);
+					for (Peca peca : postesSelecionados) {
+						if (tipo.getItem().equals(peca.getTipo())){
+							((TipoPoste) tipo).getHabilitar().setSelected(true);
+							break;
+						}
+					}
+				}	
+			}
+    		
+    		if (RepositorioProjeto.projeto.getPosteEspecial() != null)
+    			this.postesEspeciais.getSelectionModel().select(RepositorioProjeto.projeto.getPosteEspecial().getTipo());
+    		if (RepositorioProjeto.projeto.getMacaco() != null)
+	    		this.macacos.getSelectionModel().select(RepositorioProjeto.projeto.getMacaco().getTipo());
+    		if (RepositorioProjeto.projeto.getForcado() != null)
+    			this.forcados.getSelectionModel().select(RepositorioProjeto.projeto.getForcado().getTipo());
+    		
     	}
 	}
 }

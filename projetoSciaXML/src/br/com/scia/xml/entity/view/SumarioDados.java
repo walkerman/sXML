@@ -27,27 +27,33 @@ public class SumarioDados {
 	private String folgaLajeX2;
 	private String folgaLajeY1;
 	private String folgaLajeY2;
-	private List<Peca> pecasX;
-	private List<Peca> pecasY;
-	private List<Coordenada> listaDeNos;
-	private String kidI;
-	private String kidH;
 	private String tipoVigaPrincipal;
-	private List<Peca> vigasPrincipais;
 	private String transpassePrincipais;
 	private String tipoVigaSecundaria;
-	private List<Peca> vigasSecundarias;
 	private String transpasseSecundarias;
 	private String composicaoTorres;
-	private Double vaoDeApoioX;
-	private Double vaoDeApoioY;
-	private List<Peca> pecasFinais;
 	private String alturaVigaEsquerdaX;
 	private String alturaVigaDireitaX;
 	private String distanciaCruzetasX;
 	private String alturaVigaEsquerdaY;
 	private String alturaVigaDireitaY;
 	private String distanciaCruzetasY;
+	private String peDireito;
+	private String espessuraCompensado;
+	private Double vaoDeApoioX;
+	private Double vaoDeApoioY;		
+	private Peca kidI;
+	private Peca kidH;
+	private Peca posteEspecial;
+	private Peca macaco;
+	private Peca forcado;
+	private List<Peca> pecasX;
+	private List<Peca> pecasY;
+	private List<Peca> vigasPrincipais;
+	private List<Peca> vigasSecundarias;
+	private List<Peca> postes;
+	private List<Peca> pecasFinais;
+	private List<Coordenada> listaDeNos;
 	
 	public Double getComprimentoTotalEixoX(){		
 		Double comprimento = 0.0;
@@ -168,16 +174,16 @@ public class SumarioDados {
 	public void setFolgaLajeY2(String folgaLajeY2) {
 		this.folgaLajeY2 = folgaLajeY2;
 	}
-	public String getKidI() {
+	public Peca getKidI() {
 		return kidI;
 	}
-	public void setKidI(String kidI) {
+	public void setKidI(Peca kidI) {
 		this.kidI = kidI;
 	}
-	public String getKidH() {
+	public Peca getKidH() {
 		return kidH;
 	}
-	public void setKidH(String kidH) {
+	public void setKidH(Peca kidH) {
 		this.kidH = kidH;
 	}
 	public List<Peca> getVigasPrincipais() {
@@ -329,76 +335,53 @@ public class SumarioDados {
 		this.transpasseSecundarias = transpasseSecundarias;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("SumarioDados [nomeArquivo=");
-		builder.append(nomeArquivo);
-		builder.append(", nomeProjeto=");
-		builder.append(nomeProjeto);
-		builder.append(", siglaProjeto=");
-		builder.append(siglaProjeto);
-		builder.append(", diretorioPecas=");
-		builder.append(diretorioPecas);
-		builder.append(", totalPecas=");
-		builder.append(totalPecas);
-		builder.append(", coordenadaX=");
-		builder.append(coordenadaX);
-		builder.append(", coordenadaY=");
-		builder.append(coordenadaY);
-		builder.append(", coordenadaZ=");
-		builder.append(coordenadaZ);
-		builder.append(", tipoEquipamento=");
-		builder.append(tipoEquipamento);
-		builder.append(", medidaLageX=");
-		builder.append(medidaLageX);
-		builder.append(", medidaLageY=");
-		builder.append(medidaLageY);
-		builder.append(", espessura=");
-		builder.append(espessura);
-		builder.append(", folgaLajeX1=");
-		builder.append(folgaLajeX1);
-		builder.append(", folgaLajeX2=");
-		builder.append(folgaLajeX2);
-		builder.append(", folgaLajeY1=");
-		builder.append(folgaLajeY1);
-		builder.append(", folgaLajeY2=");
-		builder.append(folgaLajeY2);
-		builder.append(", pecasX=");
-		builder.append(pecasX);
-		builder.append(", pecasY=");
-		builder.append(pecasY);
-		builder.append(", listaDeNos=");
-		builder.append(listaDeNos);
-		builder.append(", kidI=");
-		builder.append(kidI);
-		builder.append(", kidH=");
-		builder.append(kidH);
-		builder.append(", vigasPrincipais=");
-		builder.append(vigasPrincipais);
-		builder.append(", vigasSecundarias=");
-		builder.append(vigasSecundarias);
-		builder.append(", composicaoTorres=");
-		builder.append(composicaoTorres);
-		builder.append(", vaoDeApoioX=");
-		builder.append(vaoDeApoioX);
-		builder.append(", vaoDeApoioY=");
-		builder.append(vaoDeApoioY);
-		builder.append(", pecasFinais=");
-		builder.append(pecasFinais);
-		builder.append(", alturaVigaEsquerdaX=");
-		builder.append(alturaVigaEsquerdaX);
-		builder.append(", alturaVigaDireitaX=");
-		builder.append(alturaVigaDireitaX);
-		builder.append(", distanciaCruzetasX=");
-		builder.append(distanciaCruzetasX);
-		builder.append(", alturaVigaEsquerdaY=");
-		builder.append(alturaVigaEsquerdaY);
-		builder.append(", alturaVigaDireitaY=");
-		builder.append(alturaVigaDireitaY);
-		builder.append(", distanciaCruzetasY=");
-		builder.append(distanciaCruzetasY);
-		builder.append("]");
-		return builder.toString();
+	
+	public String getPeDireito() {
+		return peDireito;
 	}
+
+	public void setPeDireito(String peDireito) {
+		this.peDireito = peDireito;
+	}
+
+	public String getEspessuraCompensado() {
+		return espessuraCompensado;
+	}
+
+	public void setEspessuraCompensado(String espessuraCompensado) {
+		this.espessuraCompensado = espessuraCompensado;
+	}
+
+	public Peca getPosteEspecial() {
+		return posteEspecial;
+	}
+
+	public void setPosteEspecial(Peca posteEspecial) {
+		this.posteEspecial = posteEspecial;
+	}
+
+	public Peca getMacaco() {
+		return macaco;
+	}
+
+	public void setMacaco(Peca macaco) {
+		this.macaco = macaco;
+	}
+
+	public Peca getForcado() {
+		return forcado;
+	}
+
+	public void setForcado(Peca forcado) {
+		this.forcado = forcado;
+	}
+
+	public List<Peca> getPostes() {
+		return postes;
+	}
+
+	public void setPostes(List<Peca> postes) {
+		this.postes = postes;
+	}
+	
 }

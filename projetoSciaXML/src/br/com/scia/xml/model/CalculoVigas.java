@@ -19,17 +19,24 @@ public class CalculoVigas {
 
 	private SumarioDados sumarioDados;
 	private List<Peca> vigasPrincipaisFinais;
+	private Integer identificadorPecas;
+	private Integer identificadorNos;
 	
 	public CalculoVigas(SumarioDados sumario) {
 		this.sumarioDados = sumario;
-		
+				
 		if (this.sumarioDados != null){
-			realizarCalculo(this.sumarioDados.getPecasFinais());
+			this.identificadorNos = this.sumarioDados.getListaDeNos().size();
+			this.identificadorPecas = this.sumarioDados.getPecasFinais().size();
 		}
 	}
 	
-	public void realizarCalculo (List<Peca> pecas){
+	public void realizarCalculo (){
+		List<Peca> pecas = this.sumarioDados.getPecasFinais();
+		
 		if (pecas != null && pecas.size() > 0){
+			System.out.println("########## Cálculo de Vigas ##########");
+			
 			List<Coordenada> coordenadasInicioVigas = getNosY(pecas);
 			Collections.sort(coordenadasInicioVigas,new CoordenadaSorterY());
 			System.out.println("Coordenadas Y = \n" + coordenadasInicioVigas);
@@ -45,7 +52,7 @@ public class CalculoVigas {
 			// Calculo pans (inicia a varredura para descobrir quais as vigas que serão utilizadas);
 			Double pontoXInicialEstrutura = Double.parseDouble(this.sumarioDados.getCoordenadaX());
 					
-			calcularVigasX(pontoXInicialEstrutura,1,1);
+			calcularVigasX(pontoXInicialEstrutura,this.identificadorNos,this.identificadorPecas);
 			
 			if (this.vigasPrincipaisFinais != null){
 				Double total = 0.0;
@@ -57,9 +64,12 @@ public class CalculoVigas {
 				Collections.sort(nosX,new CoordenadaSorterX());
 				
 				if (total < nosX.get(0).getX()){
-					System.out.println("Fudeu");
+					//TODO: enviar exceção para interface 
+					System.out.println("Não foi possível encontrar composição de vigas principais.");
 				}
 			}
+			
+			
 			
 			System.out.println("Vigas Selecionadas = \n" + this.vigasPrincipaisFinais);
 		}
@@ -203,31 +213,46 @@ public class CalculoVigas {
 						Double xInicial = (pontoInicial-transpasse);
 						Double xFinal = (pontoInicial-transpasse+peca.getComprimento());
 						
-						Coordenada coordenada1 = new Coordenada(); 
-						Coordenada coordenada2 = new Coordenada();
+						//TODO: obter desvio correto da peça de entrada (como garantir a criação das vigas apenas um x, inicialmente?)
+						// Double desvioY = 0.08;
 						
-						coordenada1.setId(150+identificacaoNo.toString());
-						coordenada1.setName("VP"+SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
-						coordenada1.setX(xInicial);
-						coordenada1.setY(5.0);
-
-						coordenada2.setId(150+identificacaoNo.toString());
-						coordenada2.setName("VP"+SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
-						coordenada2.setX(xFinal);
-						coordenada2.setY(5.0);		
-						 
-						Peca peca1 = new Peca();
+						List<Coordenada> coordenadasY = getCoordenadasY(this.sumarioDados.getListaDeNos());
 						
-						peca1.setId("VP"+String.valueOf(identificacaoPeca));
-						peca1.setName("VP"+SciaXMLContantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca++));
-						peca1.setTipo(peca.getTipo());
-						peca1.setNoInicial(coordenada1.getId());
-						peca1.setNoFinal(coordenada2.getId());
-						
-						this.sumarioDados.getListaDeNos().add(coordenada1);
-						this.sumarioDados.getListaDeNos().add(coordenada2);
-						
-						this.sumarioDados.getPecasFinais().add(peca1);	
+						for (Coordenada coordY : coordenadasY) {
+							Coordenada coordenada1 = new Coordenada(); 
+							Coordenada coordenada2 = new Coordenada();
+							
+							Double peDireto = !"".equals(SciaXMLUtils.checkString(this.sumarioDados.getPeDireito())) ? Double.parseDouble(this.sumarioDados.getPeDireito())/100.0 : 0.0;
+							Double espessuraLaje = !"".equals(SciaXMLUtils.checkString(this.sumarioDados.getEspessura())) ? Double.parseDouble(this.sumarioDados.getEspessura())/100.0 : 0.0;
+							Double espessuraCompensado = !"".equals(SciaXMLUtils.checkString(this.sumarioDados.getEspessuraCompensado())) ? Double.parseDouble(this.sumarioDados.getEspessuraCompensado())/100.0 : 0.0;
+							
+							Double altura =  peDireto - espessuraLaje - espessuraCompensado;
+							
+							coordenada1.setId(identificacaoNo.toString());
+							coordenada1.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
+							coordenada1.setX(xInicial);
+							coordenada1.setY(coordY.getY());
+							coordenada1.setZ(altura);
+							
+							coordenada2.setId(identificacaoNo.toString());
+							coordenada2.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
+							coordenada2.setX(xFinal);
+							coordenada2.setY(coordY.getY());
+							coordenada2.setZ(altura);
+							 
+							Peca peca1 = new Peca();
+							
+							peca1.setId(String.valueOf(identificacaoPeca));
+							peca1.setName(SciaXMLContantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca++));
+							peca1.setTipo(peca.getTipo());
+							peca1.setNoInicial(coordenada1.getId());
+							peca1.setNoFinal(coordenada2.getId());
+							
+							this.sumarioDados.getListaDeNos().add(coordenada1);
+							this.sumarioDados.getListaDeNos().add(coordenada2);
+							
+							this.sumarioDados.getPecasFinais().add(peca1);	
+						}
 						
 						achou = true;
 						break;
@@ -249,4 +274,5 @@ public class CalculoVigas {
 	public void setVigasPrincipaisFinais(List<Peca> vigasPrincipaisFinais) {
 		this.vigasPrincipaisFinais = vigasPrincipaisFinais;
 	}
+	
 }

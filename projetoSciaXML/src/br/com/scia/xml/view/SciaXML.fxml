@@ -444,7 +444,7 @@
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
                 <Label layoutX="59.0" layoutY="284.0" text="Base:" />
-                <TextField layoutX="90.0" layoutY="221.0" prefWidth="100.0" />
+                <TextField fx:id="composicaoTorres" layoutX="90.0" layoutY="221.0" prefWidth="100.0" />
                 <Separator layoutX="14.0" layoutY="380.0" prefWidth="267.0" />
                 <Label layoutX="17.0" layoutY="224.0" text="Composição:" />
                 <TextField fx:id="peDireito" layoutX="91.0" layoutY="250.0" prefWidth="100.0" />

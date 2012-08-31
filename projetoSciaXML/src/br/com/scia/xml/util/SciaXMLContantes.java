@@ -9,6 +9,8 @@ public class SciaXMLContantes {
 	public static final String INDEXADOR_NO = "N";
 	public static final String INDEXADOR_PECA = "B";
 	public static final Integer PRECISAO_ENVIO_COORDENADAS_XML = 100;
+	public static final Double VALOR_ALTURA_MAX = 0.2;
+	public static final Double VALOR_ALTURA_MIN = 0.5;
 	
 	// Tipos de Equipamento em tela
 	public static final String KIBLOC_LAJE = "tipoKIBLOCLaje";  
