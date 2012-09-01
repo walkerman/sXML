@@ -147,14 +147,17 @@ public class SciaXMLUtils {
 			
 			Peca posteEspecial = new Peca();
 			posteEspecial.setTipo(postesEspeciais);
+			posteEspecial.setComprimento(RepositorioPecas.pecas.get(posteEspecial.getTipo()).getComprimentoZ());
 			RepositorioProjeto.projeto.setPosteEspecial(posteEspecial);
 			
 			Peca forcado = new Peca();
 			forcado.setTipo(forcados);
+			forcado.setComprimento(RepositorioPecas.pecas.get(forcado.getTipo()).getComprimentoZ());
 			RepositorioProjeto.projeto.setForcado(forcado);
 			
 			Peca macaco = new Peca();
 			macaco.setTipo(macacos);
+			macaco.setComprimento(RepositorioPecas.pecas.get(macaco.getTipo()).getComprimentoZ());
 			RepositorioProjeto.projeto.setMacaco(macaco);
 			
 //			RepositorioProjeto.projeto.setKidH(kidH);

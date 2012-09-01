@@ -2,7 +2,9 @@ package br.com.scia.xml.entity.xml;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Peca;
@@ -46,6 +48,7 @@ public class Project {
 			this.containers = new ArrayList<Container>();
 			this.containers.add(getContainerNos(sumarioDados));
 			this.containers.add(getContainerPecas(sumarioDados));
+			this.containers.add(getContainerCamadas(sumarioDados));
 		}
 		
 	}
@@ -90,9 +93,67 @@ public class Project {
 											SciaXMLContantes.BEAM_TABLE, 
 											SciaXMLContantes.BEAM_TABLE_NAME, header, objects);
 		
-		containerPecas = new Container(SciaXMLContantes.BEAM_ID, SciaXMLContantes.BEAM, tabelaPecas);
+		containerPecas = new Container(SciaXMLContantes.BEAM_ID, SciaXMLContantes.BEAM_TITLE, tabelaPecas);
 		
 		return containerPecas;
+	}
+	
+	private Container getContainerCamadas(SumarioDados sumarioDados) {
+		Container containerPecas = null;
+		
+		List<Object> objects = new ArrayList<Object>();
+		objects.addAll(getCamadas(sumarioDados.getPecasFinais()));
+			
+		Header header = getDefaultDataLayerNodeHeader();
+		TableNode tabelaPecas = new TableNode(SciaXMLContantes.DATA_LAYER_TABLE_ID, 
+											SciaXMLContantes.DATA_LAYER_TABLE, 
+											SciaXMLContantes.DATA_LAYER_TABLE_NAME, header, objects);
+		
+		containerPecas = new Container(SciaXMLContantes.DATA_LAYER_ID, SciaXMLContantes.DATA_LAYER_TITLE, tabelaPecas);
+		
+		return containerPecas;
+	}
+	
+	private Collection<Object> getCamadas(List<Peca> pecas) {
+		List<Object> retorno = new ArrayList<Object>();
+		
+		Set<String> pecasUnicas = new HashSet<String>();
+		
+		// Removendo os itens repetidos
+		for (Peca peca : pecas) {
+			pecasUnicas.add(peca.getTipo());
+		}
+		
+		if (pecasUnicas != null && pecasUnicas.size() > 0){
+			int counterID = 1;
+			for (String peca : pecasUnicas) {
+				Project pecaOrigem = RepositorioPecas.pecas.get(peca);
+				
+				Object o = new Object();				
+				Container containerOrigem = null;
+				List<Container> listaContainer = pecaOrigem.getContainers();
+				
+				for (Container container : listaContainer) {
+					if (container.getT().contains(SciaXMLContantes.DATA_LAYER)){
+						containerOrigem = container;
+						break;
+					}
+				}
+				
+				// Um arquivo de peça só possui um object/peça no container Beam
+				Object objectOrigem = containerOrigem.getTable().getObjects().get(0);
+				
+				o.setId(String.valueOf(counterID));
+				o.setNm(peca);
+				o.setP0(new ObjectItem(peca, null, null, null, null, null));
+				o.setP1(objectOrigem.getP1());
+				
+				retorno.add(o);
+				counterID++;
+			} 
+		}
+		
+		return retorno;
 	}
 	
 	private Collection<Object> getPecas(List<Peca> pecas) {
@@ -163,6 +224,13 @@ public class Project {
 		retorno.setH1(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H1));
 		retorno.setH2(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H2));
 		retorno.setH3(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H3));
+		return retorno;
+	}
+	
+	private Header getDefaultDataLayerNodeHeader() {
+		Header retorno = new Header();
+		retorno.setH0(new HeaderItem(SciaXMLContantes.DATA_LAYER_HEADER_H0));
+		retorno.setH1(new HeaderItem(SciaXMLContantes.DATA_LAYER_HEADER_H1));
 		return retorno;
 	}
 

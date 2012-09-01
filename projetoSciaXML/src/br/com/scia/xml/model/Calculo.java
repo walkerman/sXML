@@ -17,24 +17,27 @@ public class Calculo {
 
 	public static List<Coordenada> listaCoordenadas = null;
 	public static List<Peca> listaPecasFinais = null;
-
+	public static SumarioDados dados;
+	
 	public static SumarioDados calculaEstrutura(SumarioDados dados) throws CalculoException{
 
+		Calculo.dados = dados;
+		
 		HashMap<String, String> map = Calculo.vinculaTipoPecas(dados);	
 
-		calculaVaoDeApoio(dados, SciaXMLContantes.AMBOS_OS_EIXOS);
+		calculaVaoDeApoio(Calculo.dados, SciaXMLContantes.AMBOS_OS_EIXOS);
 
-		if (!Calculo.isLajeCompativel(dados)){
+		if (!Calculo.isLajeCompativel(Calculo.dados)){
 			throw new CalculoException(SciaXMLContantes.LAJE_IMCOMPATIVEL);
 		}
 
-		dados = Calculo.calculaCoordenadas(dados, map);
+		Calculo.dados = Calculo.calculaCoordenadas(Calculo.dados, map);
 	
-		CalculoVigas calculoVigas = new CalculoVigas(dados);
-		calculoVigas.realizarCalculo();
-			
-		CalculoPostes calculoPostes = new CalculoPostes(dados);
+		CalculoPostes calculoPostes = new CalculoPostes();
 		calculoPostes.realizarCalculo();
+		
+		CalculoVigas calculoVigas = new CalculoVigas();
+		calculoVigas.realizarCalculo();
 		
 		//	Calculo.aninhaNo(dados, map);
 
@@ -550,5 +553,20 @@ public class Calculo {
 		
 		return retorno;
 	}
+	
+	public static Double getAlturaUtil(){
+		Double altura = 0.0;
+		if (!"".equals(SciaXMLUtils.checkString(Calculo.dados.getPeDireito()))){
+    		Double peDireito = Double.parseDouble(Calculo.dados.getPeDireito())/100.0;
+    		Double espessuraLaje = Double.parseDouble(Calculo.dados.getEspessura())/100.0;
+    		Double espessuraCompensado = Double.parseDouble(Calculo.dados.getEspessuraCompensado())/100.0;
+    		Double espessuraVigaPrincipal = CalculoVigas.getAlturaViga();
+    		Double espessuraVigaSecundaria = CalculoVigas.getAlturaViga();  //TODO: alterar para viga secundaria
+    		Double tamanhoPosteEspecial = Calculo.dados.getPosteEspecial().getComprimento();
+    		
+    		altura = peDireito - espessuraCompensado - espessuraLaje - espessuraVigaPrincipal - espessuraVigaSecundaria - tamanhoPosteEspecial;
+    	}
+		return altura;
+	} 
 
 }

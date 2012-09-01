@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.xml.Coordenada;
@@ -16,14 +15,14 @@ import br.com.scia.xml.util.PecaSorter;
 import br.com.scia.xml.util.SciaXMLContantes;
 import br.com.scia.xml.util.SciaXMLUtils;
 
-public class CalculoVigas {
+public class CalculoVigasSecundarias {
 
 	private SumarioDados sumarioDados;
-	private List<Peca> vigasPrincipaisFinais;
+	private List<Peca> vigasSecundariasFinais;
 	private Integer identificadorPecas;
 	private Integer identificadorNos;
 	
-	public CalculoVigas() {
+	public CalculoVigasSecundarias() {
 		this.sumarioDados = Calculo.dados;
 				
 		if (this.sumarioDados != null){
@@ -36,7 +35,7 @@ public class CalculoVigas {
 		List<Peca> pecas = this.sumarioDados.getPecasFinais();
 		
 		if (pecas != null && pecas.size() > 0){
-			System.out.println("########## Cálculo de Vigas ##########");
+			System.out.println("########## Cálculo de Vigas Secundarias ##########");
 			
 			List<Coordenada> coordenadasInicioVigas = getNosY(pecas);
 			Collections.sort(coordenadasInicioVigas,new CoordenadaSorterY());
@@ -55,9 +54,9 @@ public class CalculoVigas {
 					
 			calcularVigasX(pontoXInicialEstrutura,this.identificadorNos,this.identificadorPecas);
 			
-			if (this.vigasPrincipaisFinais != null){
+			if (this.vigasSecundariasFinais != null){
 				Double total = 0.0;
-				for (Peca peca : this.vigasPrincipaisFinais) {
+				for (Peca peca : this.vigasSecundariasFinais) {
 					total += peca.getComprimento();
 				}
 				
@@ -72,11 +71,10 @@ public class CalculoVigas {
 			
 			
 			
-			System.out.println("Vigas Selecionadas = \n" + this.vigasPrincipaisFinais);
+			System.out.println("Vigas Selecionadas = \n" + this.vigasSecundariasFinais);
 		}
 	}
 	
-	// Método responsável por obter todos os nós gerados em y (com exceção de cruzetas)
 	private List<Coordenada> getNosY(List<Peca> pecas){
 		List<Coordenada> retorno = null;
 		
@@ -103,7 +101,6 @@ public class CalculoVigas {
 		return getCoordenadasY(retorno);
 	}
 	
-	// Método responsável por obter todos os nós gerados em x
 	private List<Coordenada> getNosX(List<Peca> pecas){
 		List<Coordenada> retorno = null;
 		
@@ -129,7 +126,6 @@ public class CalculoVigas {
 		return getCoordenadasX(retorno);
 	}
 		
-	// Método responsável por tirar as duplicidades de nós em y
 	private List<Coordenada> getCoordenadasY (List<Coordenada> coordenadas){
 		List<Coordenada> retorno = null;
 		Set<Double> valoresY = new HashSet<Double>();
@@ -151,7 +147,6 @@ public class CalculoVigas {
 		return retorno;
 	}
 	
-	// Método responsável por tirar as duplicidades de nós em X
 	private List<Coordenada> getCoordenadasX (List<Coordenada> coordenadas){
 		List<Coordenada> retorno = null;
 		Set<Double> valoresX = new HashSet<Double>();
@@ -183,13 +178,13 @@ public class CalculoVigas {
 			List<Coordenada> nosX = getNosX(this.sumarioDados.getPecasFinais());
 			Collections.sort(nosX,new CoordenadaSorterX());
 			
-			if (this.vigasPrincipaisFinais == null)
-				this.vigasPrincipaisFinais  = new ArrayList<Peca>();
+			if (this.vigasSecundariasFinais == null)
+				this.vigasSecundariasFinais  = new ArrayList<Peca>();
 			
 			for (Coordenada coordenada : nosX) {
-				if (this.vigasPrincipaisFinais != null && this.vigasPrincipaisFinais.size() > 0){
+				if (this.vigasSecundariasFinais != null && this.vigasSecundariasFinais.size() > 0){
 					Double total = 0.0;
-					for (Peca peca : this.vigasPrincipaisFinais) {
+					for (Peca peca : this.vigasSecundariasFinais) {
 						total += peca.getComprimento();
 					}
 					
@@ -209,7 +204,7 @@ public class CalculoVigas {
 				boolean achou = false;
 				for (Peca peca : vigas) {
 					if (peca.getComprimento() >= x){
-						this.vigasPrincipaisFinais.add(peca);
+						this.vigasSecundariasFinais.add(peca);
 						
 						Double xInicial = (pontoInicial-transpasse);
 						Double xFinal = (pontoInicial-transpasse+peca.getComprimento());
@@ -223,8 +218,7 @@ public class CalculoVigas {
 							Coordenada coordenada1 = new Coordenada(); 
 							Coordenada coordenada2 = new Coordenada();
 							
-							Double posteEspecial = this.sumarioDados.getPosteEspecial().getComprimento();
-							Double altura =  Calculo.getAlturaUtil() + posteEspecial;
+							Double altura =  Calculo.getAlturaUtil();
 							
 							coordenada1.setId(identificacaoNo.toString());
 							coordenada1.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
@@ -264,31 +258,13 @@ public class CalculoVigas {
 			}
 		}
 	}
-	
-	public static Double getAlturaViga (){
-		Double retorno = 0.0;
-		
-		String tipoViga = RepositorioProjeto.projeto.getTipoVigaPrincipal();
-		
-		if (SciaXMLContantes.TIPO_VIGA_HT20.equals(tipoViga))
-			retorno = 0.2;
-		if (SciaXMLContantes.TIPO_VIGA_V18.equals(tipoViga))
-			retorno = 0.18;
-		if (SciaXMLContantes.TIPO_VIGA_V75.equals(tipoViga))
-			retorno = 0.075;
-		if (SciaXMLContantes.TIPO_VIGA_VA18.equals(tipoViga))
-			retorno = 0.18;
-		
-		return retorno;
-		
+
+	public List<Peca> getVigasSecundariasFinais() {
+		return vigasSecundariasFinais;
 	}
 
-	public List<Peca> getVigasPrincipaisFinais() {
-		return vigasPrincipaisFinais;
-	}
-
-	public void setVigasPrincipaisFinais(List<Peca> vigasPrincipaisFinais) {
-		this.vigasPrincipaisFinais = vigasPrincipaisFinais;
+	public void setVigasSecundariasFinais(List<Peca> vigasSecundariasFinais) {
+		this.vigasSecundariasFinais = vigasSecundariasFinais;
 	}
 	
 }

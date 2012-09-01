@@ -91,8 +91,15 @@ public class SciaXMLContantes {
 	public static final String BEAM_TABLE_ID = "C803A5AE-8F20-4D47-BC52-1685A71CB594";
 	public static final String BEAM_TABLE_NAME = "Member 1D";
 	
-	public static final String DATA_LAYER = "DataLayer";
-	public static final String LAYER = "Layer";
+	public static final String DATA_LAYER = "Layer";
+	public static final String DATA_LAYER_TITLE = "EP_DSG_Elements.EP_DataLayer.1";
+	public static final String DATA_LAYER_ID = "{D3885EC4-BAE5-11D4-B3FA-00104BC3B531}";
+	public static final String DATA_LAYER_HEADER_H0 = "Name";
+	public static final String DATA_LAYER_HEADER_H1 = "Structural model only";
+	public static final String DATA_LAYER_TABLE = "EP_DSG_Elements.EP_DataLayer.1";
+	public static final String DATA_LAYER_TABLE_ID = "E751D264-310F-4636-9FCB-A27B096B0ABC";
+	public static final String DATA_LAYER_TABLE_NAME = "Layers";
+	
 	
 	// SciaXML File
 	public static final String SXML = ".sxml";
