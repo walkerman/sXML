@@ -11,11 +11,10 @@ public class Peca {
 	private String noInicial;
 	private String noFinal;
 	private Double comprimento;
-		
-	public Peca() {
-		
+	
+	public Peca() {		
 		super();
-		this.setComprimento(0.0);
+		this.comprimento = 0.0;
 	}
 	
 	public String getId() {
@@ -50,7 +49,7 @@ public class Peca {
 	}
 
 	public Double getComprimento() {
-		return comprimento;
+		return this.comprimento;
 	}
 
 	public void setComprimento(Double comprimento) {

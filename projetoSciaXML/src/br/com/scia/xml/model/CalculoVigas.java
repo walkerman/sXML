@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.scia.xml.dao.RepositorioProjeto;
+import br.com.scia.xml.entity.exception.CalculoException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterX;
-import br.com.scia.xml.util.CoordenadaSorterY;
 import br.com.scia.xml.util.PecaSorter;
 import br.com.scia.xml.util.SciaXMLContantes;
 import br.com.scia.xml.util.SciaXMLUtils;
@@ -27,30 +27,15 @@ public class CalculoVigas {
 		this.sumarioDados = Calculo.dados;
 				
 		if (this.sumarioDados != null){
-			this.identificadorNos = this.sumarioDados.getListaDeNos().size();
-			this.identificadorPecas = this.sumarioDados.getPecasFinais().size();
+			this.identificadorNos = this.sumarioDados.getListaDeNos().size()+1;
+			this.identificadorPecas = this.sumarioDados.getPecasFinais().size()+1;
 		}
 	}
 	
-	public void realizarCalculo (){
+	public void realizarCalculo () throws CalculoException{
 		List<Peca> pecas = this.sumarioDados.getPecasFinais();
 		
 		if (pecas != null && pecas.size() > 0){
-			System.out.println("########## Cálculo de Vigas ##########");
-			
-			List<Coordenada> coordenadasInicioVigas = getNosY(pecas);
-			Collections.sort(coordenadasInicioVigas,new CoordenadaSorterY());
-			System.out.println("Coordenadas Y = \n" + coordenadasInicioVigas);
-			
-			
-			List<Coordenada> coordenadasXVigas = getNosX(pecas);
-			Collections.sort(coordenadasXVigas,new CoordenadaSorterX());
-			System.out.println("Coordenadas X = \n" + coordenadasXVigas);
-			
-			if (this.sumarioDados.getVigasPrincipais() != null && this.sumarioDados.getVigasPrincipais().size() > 0)
-				System.out.println("Vigas = \n" + this.sumarioDados.getVigasPrincipais());
-			
-			// Calculo pans (inicia a varredura para descobrir quais as vigas que serão utilizadas);
 			Double pontoXInicialEstrutura = Double.parseDouble(this.sumarioDados.getCoordenadaX());
 					
 			calcularVigasX(pontoXInicialEstrutura,this.identificadorNos,this.identificadorPecas);
@@ -65,44 +50,12 @@ public class CalculoVigas {
 				Collections.sort(nosX,new CoordenadaSorterX());
 				
 				if (total < nosX.get(0).getX()){
-					//TODO: enviar exceção para interface 
-					System.out.println("Não foi possível encontrar composição de vigas principais.");
+					throw new CalculoException(SciaXMLContantes.COMBINACAO_DE_VIGAS_PRINCIPAIS_NAO_ENCONTRADA);
 				}
 			}
-			
-			
-			
-			System.out.println("Vigas Selecionadas = \n" + this.vigasPrincipaisFinais);
 		}
 	}
-	
-	// Método responsável por obter todos os nós gerados em y (com exceção de cruzetas)
-	private List<Coordenada> getNosY(List<Peca> pecas){
-		List<Coordenada> retorno = null;
 		
-		List<String> nosIniciais = new ArrayList<String>();		
-		for (Peca peca : pecas) {
-			if (!peca.getTipo().startsWith(SciaXMLContantes.CRU))
-				nosIniciais.add(peca.getNoInicial());
-		}
-		
-		List<Coordenada> listaCoordenadas = this.sumarioDados.getListaDeNos();
-		
-		if (listaCoordenadas != null && listaCoordenadas.size() > 0){
-			retorno = new ArrayList<Coordenada>();
-			for (Coordenada coordenada : listaCoordenadas) {
-				for (String c : nosIniciais) {
-					if (c.toString().equals(coordenada.getId())){
-						retorno.add(coordenada);
-					}
-				}
-				
-			}
-		}
-		
-		return getCoordenadasY(retorno);
-	}
-	
 	// Método responsável por obter todos os nós gerados em x
 	private List<Coordenada> getNosX(List<Peca> pecas){
 		List<Coordenada> retorno = null;
@@ -224,7 +177,7 @@ public class CalculoVigas {
 							Coordenada coordenada2 = new Coordenada();
 							
 							Double posteEspecial = this.sumarioDados.getPosteEspecial().getComprimento();
-							Double altura =  Calculo.getAlturaUtil() + posteEspecial;
+							Double altura =  Calculo.getAlturaUtil() + CalculoPostes.getAlturaMacacoEForcado() + posteEspecial;
 							
 							coordenada1.setId(identificacaoNo.toString());
 							coordenada1.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					

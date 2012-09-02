@@ -180,7 +180,15 @@ public class Project {
 			o.setP0(new ObjectItem(peca.getId(), null, null, null, null, null));
 			o.setP1(new ObjectItem(null,String.valueOf(peca.getNoInicial()),String.valueOf(peca.getNoInicial()),null,null,null));
 			o.setP2(new ObjectItem(null,String.valueOf(peca.getNoFinal()),String.valueOf(peca.getNoFinal()),null,null,null));
-			o.setP3(objectOrigem.getP3());
+			
+			ObjectItem item = new ObjectItem();
+			item.setV(peca.getId());
+			if (objectOrigem.getP3() != null){
+				String valor = objectOrigem.getP3().getN().substring(0, objectOrigem.getP3().getN().indexOf("-")-1);
+				item.setN(valor);
+			}
+			o.setP3(item);			
+			
 			o.setP4(objectOrigem.getP4());
 			o.setP5(objectOrigem.getP5());
 			o.setP6(objectOrigem.getP6());

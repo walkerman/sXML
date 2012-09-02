@@ -125,7 +125,6 @@ public class TipoVigaController extends TipoController{
 				{
 					Tipo t = new TipoViga(peca);
 					t.setSumarioReference(this.principal.sumarioVigasPrincipais);
-					RepositorioPecas.vigas.put(t.getItem(), t);
 					this.principal.tiposVigasPrincipaisHT20.add(t);
 				}
 			}
@@ -141,7 +140,6 @@ public class TipoVigaController extends TipoController{
 				{
 					Tipo t = new TipoViga(peca);
 					t.setSumarioReference(this.principal.sumarioVigasPrincipais);
-					RepositorioPecas.vigas.put(t.getItem(), t);
 					this.principal.tiposVigasPrincipaisV75.add(t);
 				}
 			}
@@ -157,7 +155,6 @@ public class TipoVigaController extends TipoController{
 				{
 					Tipo t = new TipoViga(peca);
 					t.setSumarioReference(this.principal.sumarioVigasPrincipais);
-					RepositorioPecas.vigas.put(t.getItem(), t);
 					this.principal.tiposVigasPrincipaisV18.add(t);
 				}
 			}
@@ -173,7 +170,6 @@ public class TipoVigaController extends TipoController{
 				{
 					TipoViga t = new TipoViga( peca);
 					t.setSumarioReference(this.principal.sumarioVigasPrincipais);
-					RepositorioPecas.vigas.put(t.getItem(), t);
 					this.principal.tiposVigasPrincipaisVA18.add(t);
 				}
 			}
@@ -196,7 +192,6 @@ public class TipoVigaController extends TipoController{
 				{
 					TipoViga t = new TipoViga(peca);
 					t.setSumarioReference(this.principal.sumarioVigasSecundarias);
-					RepositorioPecas.vigas.put(t.getItem(), t);
 					this.principal.tiposVigasSecundariasHT20.add(t);
 				}
 			}
@@ -211,7 +206,6 @@ public class TipoVigaController extends TipoController{
 				{
 					TipoViga t = new TipoViga(peca);
 					t.setSumarioReference(this.principal.sumarioVigasSecundarias);
-					RepositorioPecas.vigas.put(t.getItem(), t);
 					this.principal.tiposVigasSecundariasV75.add(t);
 				}
 			}
@@ -226,7 +220,6 @@ public class TipoVigaController extends TipoController{
 				{
 					TipoViga t = new TipoViga(peca);
 					t.setSumarioReference(this.principal.sumarioVigasSecundarias);
-					RepositorioPecas.vigas.put(t.getItem(), t);
 					this.principal.tiposVigasSecundariasV18.add(t);
 				}
 			}
@@ -241,7 +234,6 @@ public class TipoVigaController extends TipoController{
 				{
 					TipoViga t = new TipoViga(peca);
 					t.setSumarioReference(this.principal.sumarioVigasSecundarias);
-					RepositorioPecas.vigas.put(t.getItem(), t);
 					this.principal.tiposVigasSecundariasVA18.add(t);
 				}
 			}

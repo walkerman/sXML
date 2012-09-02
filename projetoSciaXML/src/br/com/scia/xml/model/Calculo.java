@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.scia.xml.dao.RepositorioPecas;
+import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.exception.CalculoException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
@@ -18,6 +19,8 @@ public class Calculo {
 	public static List<Coordenada> listaCoordenadas = null;
 	public static List<Peca> listaPecasFinais = null;
 	public static SumarioDados dados;
+	public static Double eixoX;
+	public static Double eixoY;
 	
 	public static SumarioDados calculaEstrutura(SumarioDados dados) throws CalculoException{
 
@@ -39,6 +42,12 @@ public class Calculo {
 		CalculoVigas calculoVigas = new CalculoVigas();
 		calculoVigas.realizarCalculo();
 		
+		CalculoVigasSecundarias calculoVigasSecundarias = new CalculoVigasSecundarias();
+		calculoVigasSecundarias.realizarCalculo();
+		
+		CalculoTravessas calculoTravessas = new CalculoTravessas();
+		calculoTravessas.replicarTravessas();
+				
 		//	Calculo.aninhaNo(dados, map);
 
 		return dados;
@@ -214,6 +223,11 @@ public class Calculo {
 					listaPecasFinais.add(peca3);			
 					listaPecasFinais.add(peca4);
 
+					RepositorioPecas.listaTravessas.add(peca1);
+					RepositorioPecas.listaTravessas.add(peca2);					
+					RepositorioPecas.listaTravessas.add(peca3);			
+					RepositorioPecas.listaTravessas.add(peca4);
+					
 					identificacaoPeca = identificacaoPeca + 4;
 				}
 
@@ -561,12 +575,26 @@ public class Calculo {
     		Double espessuraLaje = Double.parseDouble(Calculo.dados.getEspessura())/100.0;
     		Double espessuraCompensado = Double.parseDouble(Calculo.dados.getEspessuraCompensado())/100.0;
     		Double espessuraVigaPrincipal = CalculoVigas.getAlturaViga();
-    		Double espessuraVigaSecundaria = CalculoVigas.getAlturaViga();  //TODO: alterar para viga secundaria
+    		Double espessuraVigaSecundaria = CalculoVigasSecundarias.getAlturaViga();
     		Double tamanhoPosteEspecial = Calculo.dados.getPosteEspecial().getComprimento();
     		
     		altura = peDireito - espessuraCompensado - espessuraLaje - espessuraVigaPrincipal - espessuraVigaSecundaria - tamanhoPosteEspecial;
     	}
 		return altura;
 	} 
+	
+	public static Coordenada getNo (String idNo){
+		Coordenada retorno = null;
+		
+		for (Coordenada c : RepositorioProjeto.projeto.getListaDeNos()) {
+			if (c.getId().equals(idNo)){
+				retorno = c;
+				break;
+			}
+			
+		}
+		
+		return retorno;
+	}
 
 }

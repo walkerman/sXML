@@ -72,6 +72,11 @@ public class ObjectItem {
 		this.row = row;
 	}
 
+	
+	public ObjectItem() {
+		super();
+	}
+
 	public ObjectItem(String v, String i, String n, String t, Header h,
 			List<Row> row) {
 		super();

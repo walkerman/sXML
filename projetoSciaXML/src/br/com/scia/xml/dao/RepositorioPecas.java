@@ -12,10 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import br.com.scia.xml.entity.exception.RepositorioPecasException;
-import br.com.scia.xml.entity.view.Tipo;
-import br.com.scia.xml.entity.view.TipoForcado;
-import br.com.scia.xml.entity.view.TipoPecaXY;
-import br.com.scia.xml.entity.view.TipoPoste;
+import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.xml.Container;
 import br.com.scia.xml.entity.xml.Object;
 import br.com.scia.xml.entity.xml.Project;
@@ -28,30 +25,22 @@ import com.thoughtworks.xstream.XStream;
 public class RepositorioPecas {
 
 	public static HashMap<String, Project> pecas;
-	public static HashMap<String, TipoPecaXY> tiposPecasXY;
-	public static HashMap<String, Tipo> vigas;
-	public static HashMap<String, TipoForcado> forcados;
-	public static HashMap<String, TipoPoste> postesEspeciais;
-	public static HashMap<String, TipoPoste> postes;
+	public static List<Peca> listaTravessas;
+	public static List<Peca> listaRosaceas;
+	public static List<Peca> listaPostes;
 	
 	static{
 		if (RepositorioPecas.pecas == null)
 			RepositorioPecas.pecas = new HashMap<>();
 			
-		if (RepositorioPecas.tiposPecasXY == null)
-			RepositorioPecas.tiposPecasXY = new HashMap<>();
+		if (RepositorioPecas.listaTravessas == null)
+			RepositorioPecas.listaTravessas = new ArrayList<>();
+				
+		if (RepositorioPecas.listaRosaceas == null)
+			RepositorioPecas.listaRosaceas = new ArrayList<>();
 			
-		if (RepositorioPecas.vigas == null)
-			RepositorioPecas.vigas = new HashMap<>();
-			
-		if (RepositorioPecas.forcados == null)
-			RepositorioPecas.forcados = new HashMap<>();
-			
-		if (RepositorioPecas.postesEspeciais == null)
-			RepositorioPecas.postesEspeciais = new HashMap<>();
-			
-		if (RepositorioPecas.postes == null)
-			RepositorioPecas.postes = new HashMap<>();
+		if (RepositorioPecas.listaPostes == null)
+			RepositorioPecas.listaPostes = new ArrayList<>();
 	}
 	
 	public static void addPeca(File f) throws RepositorioPecasException{

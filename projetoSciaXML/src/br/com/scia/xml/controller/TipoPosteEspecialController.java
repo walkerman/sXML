@@ -30,7 +30,6 @@ public class TipoPosteEspecialController extends TipoController{
 					peca.startsWith(SciaXMLContantes.KIP070R2))
 				{
 					TipoPoste t = new TipoPoste(peca);
-					RepositorioPecas.postesEspeciais.put(t.getItem(), t);
 					this.principal.postesEspeciais.getItems().add(t.getItem());
 					this.principal.tiposPosteEspecial.add(t);
 				}

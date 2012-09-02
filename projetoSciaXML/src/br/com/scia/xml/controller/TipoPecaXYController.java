@@ -33,7 +33,6 @@ public class TipoPecaXYController extends TipoController{
 				if (peca.startsWith(SciaXMLContantes.KITRV))
 				{
 					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
-					RepositorioPecas.tiposPecasXY.put(t.getItem(), t);
 					this.principal.tiposTravessas.add(t);
 				}
 				ordem++;	
@@ -50,7 +49,6 @@ public class TipoPecaXYController extends TipoController{
 				if (peca.startsWith(SciaXMLContantes.CRU))
 				{
 					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
-					RepositorioPecas.tiposPecasXY.put(t.getItem(), t);
 					this.principal.tiposCruzetas.add(t);
 				}
 				ordem++;	
@@ -67,7 +65,6 @@ public class TipoPecaXYController extends TipoController{
 				if (peca.startsWith(SciaXMLContantes.ESC))
 				{
 					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
-					RepositorioPecas.tiposPecasXY.put(t.getItem(), t);
 					this.principal.tiposEscoras.add(t);
 				}
 				ordem++;	

@@ -150,6 +150,8 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public TextField transpasseSecundarias;
 	@FXML
+	public TextField entreVigas;
+	@FXML
 	public TableView<Tipo> postes;
 	@FXML
 	public TextField composicaoTorres;
@@ -199,6 +201,10 @@ public class PrincipalController implements Initializable{
 	public TextField diretorioPecas;
 	@FXML
 	public SplitPane split;
+	@FXML
+	public ToggleGroup kidi;
+	@FXML
+	public CheckBox kidh;
 	@FXML
 	public ToggleGroup entreTravessas;
 	@FXML
@@ -452,25 +458,84 @@ public class PrincipalController implements Initializable{
 	}
 	
 	@FXML
+	public void setAlturaVigaEsquerdaX(){
+		this.alturaVigaEsquerdaY.setText(this.alturaVigaEsquerdaX.getText());
+	}
+	
+	@FXML
+	public void setAlturaVigaDireitaX(){
+		this.alturaVigaDireitaY.setText(this.alturaVigaDireitaX.getText());
+	}
+	
+	@FXML
+	public void setDistanciaEntreCruzetasX(){
+		this.distanciaCruzetasY.setText(this.distanciaCruzetasX.getText());
+	}
+	
+	@FXML
+	public void setAlturaVigaEsquerdaY(){
+		this.alturaVigaEsquerdaX.setText(this.alturaVigaEsquerdaY.getText());
+	}
+	
+	@FXML
+	public void setAlturaVigaDireitaY(){
+		this.alturaVigaDireitaX.setText(this.alturaVigaDireitaY.getText());
+	}
+	
+	@FXML
+	public void setDistanciaEntreCruzetasY(){
+		this.distanciaCruzetasX.setText(this.distanciaCruzetasY.getText());
+	}
+	
+	@FXML
+	public void setForcadoX(){
+		if (this.forcadosX.getSelectionModel().getSelectedItem() != null)
+			this.forcadosY.getSelectionModel().select(this.forcadosX.getSelectionModel().getSelectedItem());
+	}
+	
+	@FXML
+	public void setForcadoY(){
+		if (this.forcadosY.getSelectionModel().getSelectedItem() != null)
+			this.forcadosX.getSelectionModel().select(this.forcadosY.getSelectionModel().getSelectedItem());
+	}
+	
+	@FXML
+	public void setTripeX(){
+		if (this.tripeX.isSelected())
+			this.tripeY.setSelected(true);
+		else
+			this.tripeY.setSelected(false);
+	}
+
+	@FXML
+	public void setTripeY(){
+		if (this.tripeY.isSelected())
+			this.tripeX.setSelected(true);
+		else
+			this.tripeX.setSelected(false);
+	}
+
+	@FXML
 	public void gerarXML(ActionEvent e){		
 		if (!"".equals(this.totalPecas.getText())){		
 			FileChooser fc = new FileChooser();
 			fc.setTitle("Informe o nome do arquivo");
 			File f = fc.showSaveDialog(null);
 			
-			SumarioDados sumario = SciaXMLUtils.popularSumarioDados(this);
-			
-			try {
-				// TODO: Revisar cálculo Marquinhos (hoje esta fixo para 3 peças em x e 2 em y)
-				sumario = Calculo.calculaEstrutura(sumario);
+			if (f != null){
+				SumarioDados sumario = SciaXMLUtils.popularSumarioDados(this);
 				
-			} catch (Exception e2) {
-				e2.printStackTrace();
+				try {
+					sumario = Calculo.calculaEstrutura(sumario);
+					
+					SciaXMLUtils.construirProject(sumario,f);
+					
+					JOptionPane.showMessageDialog(null, "Arquivos .xml/.def salvos com sucesso.");
+				} catch (Exception e2) {
+					e2.printStackTrace();
+					JOptionPane.showMessageDialog(null, e2.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+				}
 			}
-			
-			SciaXMLUtils.construirProject(sumario,f);			
-			
-			JOptionPane.showMessageDialog(null, "Arquivos .xml/.def salvos com sucesso.");
 		}	
 		else{
 			JOptionPane.showMessageDialog(null, "Nenhum arquivo de peça carregado no sistema.");
@@ -595,6 +660,7 @@ public class PrincipalController implements Initializable{
     		this.espessuraCompensado.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getEspessuraCompensado()));
     		this.transpassePrincipais.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getTranspassePrincipais()));
     		this.transpasseSecundarias.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getTranspasseSecundarias()));
+    		this.entreVigas.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getEspacamentoEntreVigasSecundarias()));
     		this.composicaoTorres.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getComposicaoTorres()));
     		
     		this.sumarioCoordenadaX.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaX()));
@@ -682,13 +748,78 @@ public class PrincipalController implements Initializable{
 				}	
 			}
     		
+    		if (RepositorioProjeto.projeto.getKidI() != null && RepositorioProjeto.projeto.getKidI()){    			
+    			RadioButton semKIDI = (RadioButton) this.entreTravessas.getToggles().get(0);
+    			semKIDI.setSelected(false);
+    			RadioButton comKIDI = (RadioButton) this.entreTravessas.getToggles().get(1);
+    			comKIDI.setSelected(true);
+    		}else if (RepositorioProjeto.projeto.getKidI() != null && !RepositorioProjeto.projeto.getKidI()){
+    			RadioButton semKIDI = (RadioButton) this.entreTravessas.getToggles().get(0);
+    			semKIDI.setSelected(true);
+    			RadioButton comKIDI = (RadioButton) this.entreTravessas.getToggles().get(1);
+    			comKIDI.setSelected(false);
+    		}
+    		
+    		if (RepositorioProjeto.projeto.getKidH() != null && RepositorioProjeto.projeto.getKidH()){
+    			this.kidh.setSelected(true);
+    		}
+    		
+    		if (RepositorioProjeto.projeto.getEspacamentoEntreTravessas() != null){
+    			for (Toggle tipo : this.entreTravessas.getToggles()) {
+					RadioButton r = (RadioButton) tipo;
+					if (r.getText().equals(RepositorioProjeto.projeto.getEspacamentoEntreTravessas()))
+						r.setSelected(true);
+				}
+    		}
+    		
     		if (RepositorioProjeto.projeto.getPosteEspecial() != null)
     			this.postesEspeciais.getSelectionModel().select(RepositorioProjeto.projeto.getPosteEspecial().getTipo());
     		if (RepositorioProjeto.projeto.getMacaco() != null)
 	    		this.macacos.getSelectionModel().select(RepositorioProjeto.projeto.getMacaco().getTipo());
     		if (RepositorioProjeto.projeto.getForcado() != null)
     			this.forcados.getSelectionModel().select(RepositorioProjeto.projeto.getForcado().getTipo());
+
+    		if (RepositorioProjeto.projeto.getPossuiCruzetaX() != null && RepositorioProjeto.projeto.getPossuiCruzetaX()){
+    			this.areaCruzetaX.setDisable(false);
+    			
+    			if (RepositorioProjeto.projeto.getAlturaVigaDireitaX() != null)
+        			this.alturaVigaDireitaX.setText(RepositorioProjeto.projeto.getAlturaVigaDireitaX());
+    			if (RepositorioProjeto.projeto.getAlturaVigaEsquerdaX() != null)
+        			this.alturaVigaEsquerdaX.setText(RepositorioProjeto.projeto.getAlturaVigaEsquerdaX());
+    			if (RepositorioProjeto.projeto.getDistanciaCruzetasX() != null)
+        			this.distanciaCruzetasX.setText(RepositorioProjeto.projeto.getDistanciaCruzetasX());
+    		}
     		
+    		if (RepositorioProjeto.projeto.getPossuiCruzetaY() != null && RepositorioProjeto.projeto.getPossuiCruzetaY()){
+    			this.areaCruzetaY.setDisable(false);
+    			
+    			if (RepositorioProjeto.projeto.getAlturaVigaDireitaY() != null)
+        			this.alturaVigaDireitaY.setText(RepositorioProjeto.projeto.getAlturaVigaDireitaY());
+    			if (RepositorioProjeto.projeto.getAlturaVigaEsquerdaY() != null)
+        			this.alturaVigaEsquerdaY.setText(RepositorioProjeto.projeto.getAlturaVigaEsquerdaY());
+    			if (RepositorioProjeto.projeto.getDistanciaCruzetasY() != null)
+        			this.distanciaCruzetasY.setText(RepositorioProjeto.projeto.getDistanciaCruzetasY());
+    		}
+    		
+    		if (RepositorioProjeto.projeto.getPossuiEscoraX() != null && RepositorioProjeto.projeto.getPossuiEscoraX()){
+    			this.areaEscoraX.setDisable(false);
+    			
+    			if (RepositorioProjeto.projeto.getTripeX() != null && RepositorioProjeto.projeto.getTripeX())
+        			this.tripeX.setSelected(true);
+    			
+    			if (RepositorioProjeto.projeto.getForcadoX() != null)
+        			this.forcadosX.getSelectionModel().select(RepositorioProjeto.projeto.getForcadoX().getTipo());
+    		}
+    		
+    		if (RepositorioProjeto.projeto.getPossuiEscoraY() != null && RepositorioProjeto.projeto.getPossuiEscoraY()){
+    			this.areaEscoraY.setDisable(false);
+    		
+    			if (RepositorioProjeto.projeto.getTripeY() != null && RepositorioProjeto.projeto.getTripeY())
+        			this.tripeY.setSelected(true);
+    			
+    			if (RepositorioProjeto.projeto.getForcadoY() != null)
+        			this.forcadosY.getSelectionModel().select(RepositorioProjeto.projeto.getForcadoY().getTipo());
+    		}
     	}
 	}
 }

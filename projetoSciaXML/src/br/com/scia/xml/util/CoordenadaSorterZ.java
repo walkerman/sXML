@@ -9,9 +9,9 @@ public class CoordenadaSorterZ implements Comparator<Coordenada>
 
 	@Override
 	public int compare(Coordenada c1, Coordenada c2) {
-		if (c1.getZ() <= c2.getZ())
+		if (c1.getZ() >= c2.getZ())
 			return 1;
-		else if (c1.getZ() >= c2.getZ())
+		else if (c1.getZ() <= c2.getZ())
 			return -1;
 		else 
 			return 0;

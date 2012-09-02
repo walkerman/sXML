@@ -40,18 +40,29 @@ public class SumarioDados {
 	private String distanciaCruzetasY;
 	private String peDireito;
 	private String espessuraCompensado;
+	private String espacamentoEntreTravessas;
+	private String espacamentoEntreVigasSecundarias;
 	private Double vaoDeApoioX;
 	private Double vaoDeApoioY;		
-	private Peca kidI;
-	private Peca kidH;
+	private Boolean possuiEscoraX;
+	private Boolean tripeX;
+	private Boolean possuiEscoraY;
+	private Boolean tripeY;	
+	private Boolean possuiCruzetaX;
+	private Boolean possuiCruzetaY;
+	private Boolean kidI;
+	private Boolean kidH;
 	private Peca posteEspecial;
 	private Peca macaco;
 	private Peca forcado;
+	private Peca forcadoX;
+	private Peca forcadoY;
 	private List<Peca> pecasX;
 	private List<Peca> pecasY;
 	private List<Peca> vigasPrincipais;
 	private List<Peca> vigasSecundarias;
 	private List<Peca> postes;
+	
 	private List<Peca> pecasFinais;
 	private List<Coordenada> listaDeNos;
 	
@@ -174,16 +185,16 @@ public class SumarioDados {
 	public void setFolgaLajeY2(String folgaLajeY2) {
 		this.folgaLajeY2 = folgaLajeY2;
 	}
-	public Peca getKidI() {
+	public Boolean getKidI() {
 		return kidI;
 	}
-	public void setKidI(Peca kidI) {
+	public void setKidI(Boolean kidI) {
 		this.kidI = kidI;
 	}
-	public Peca getKidH() {
+	public Boolean getKidH() {
 		return kidH;
 	}
-	public void setKidH(Peca kidH) {
+	public void setKidH(Boolean kidH) {
 		this.kidH = kidH;
 	}
 	public List<Peca> getVigasPrincipais() {
@@ -382,6 +393,87 @@ public class SumarioDados {
 
 	public void setPostes(List<Peca> postes) {
 		this.postes = postes;
+	}
+
+	public Boolean getPossuiEscoraX() {
+		return possuiEscoraX;
+	}
+
+	public void setPossuiEscoraX(Boolean possuiEscoraX) {
+		this.possuiEscoraX = possuiEscoraX;
+	}
+
+	public Boolean getTripeX() {
+		return tripeX;
+	}
+
+	public void setTripeX(Boolean tripeX) {
+		this.tripeX = tripeX;
+	}
+
+	public Boolean getPossuiEscoraY() {
+		return possuiEscoraY;
+	}
+
+	public void setPossuiEscoraY(Boolean possuiEscoraY) {
+		this.possuiEscoraY = possuiEscoraY;
+	}
+
+	public Boolean getTripeY() {
+		return tripeY;
+	}
+
+	public void setTripeY(Boolean tripeY) {
+		this.tripeY = tripeY;
+	}
+
+	public Boolean getPossuiCruzetaX() {
+		return possuiCruzetaX;
+	}
+
+	public void setPossuiCruzetaX(Boolean possuiCruzetaX) {
+		this.possuiCruzetaX = possuiCruzetaX;
+	}
+
+	public Boolean getPossuiCruzetaY() {
+		return possuiCruzetaY;
+	}
+
+	public void setPossuiCruzetaY(Boolean possuiCruzetaY) {
+		this.possuiCruzetaY = possuiCruzetaY;
+	}
+
+	public Peca getForcadoX() {
+		return forcadoX;
+	}
+
+	public void setForcadoX(Peca forcadoX) {
+		this.forcadoX = forcadoX;
+	}
+
+	public Peca getForcadoY() {
+		return forcadoY;
+	}
+
+	public void setForcadoY(Peca forcadoY) {
+		this.forcadoY = forcadoY;
+	}
+
+	public String getEspacamentoEntreTravessas() {
+		return espacamentoEntreTravessas;
+	}
+
+	public void setEspacamentoEntreTravessas(String espacamentoEntreTravessas) {
+		this.espacamentoEntreTravessas = espacamentoEntreTravessas;
+	}
+
+	public String getEspacamentoEntreVigasSecundarias() {
+		return espacamentoEntreVigasSecundarias;
+	}
+
+	public void setEspacamentoEntreVigasSecundarias(
+			String espacamentoEntreVigasSecundarias) {
+		this.espacamentoEntreVigasSecundarias = espacamentoEntreVigasSecundarias;
 	}
 	
 }

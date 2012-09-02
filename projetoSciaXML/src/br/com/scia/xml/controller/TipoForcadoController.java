@@ -25,7 +25,6 @@ public class TipoForcadoController extends TipoController{
 				if (peca.startsWith(SciaXMLContantes.FORC))
 				{
 					TipoForcado t = new TipoForcado(peca);
-					RepositorioPecas.forcados.put(t.getItem(), t);
 					this.principal.forcados.getItems().add(t.getItem());
 					this.principal.forcadosX.getItems().add(t.getItem());
 					this.principal.forcadosY.getItems().add(t.getItem());

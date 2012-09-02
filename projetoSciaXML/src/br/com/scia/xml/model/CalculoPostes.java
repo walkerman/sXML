@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import br.com.scia.xml.dao.RepositorioPecas;
+import br.com.scia.xml.entity.exception.CalculoException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.xml.Coordenada;
@@ -17,7 +19,6 @@ import br.com.scia.xml.util.SciaXMLContantes;
 public class CalculoPostes {
 
 	private SumarioDados sumarioDados;
-	private List<Peca> postesFinais;
 	private Integer identificadorPecas;
 	private Integer identificadorNos;
 	
@@ -30,26 +31,18 @@ public class CalculoPostes {
 		}
 	}
 	
-	public void realizarCalculo (){
+	public void realizarCalculo () throws CalculoException{
 		List<Peca> pecas = this.sumarioDados.getPecasFinais();
 		
 		if (pecas != null && pecas.size() > 0){
-			System.out.println("########## Cálculo de Postes ##########");
-			
 			List<Coordenada> coordenadasTravessasY = getNosY(pecas);
-			Collections.sort(coordenadasTravessasY,new CoordenadaSorterY());
-			System.out.println("Coordenadas Y = \n" + coordenadasTravessasY);
-			
+			Collections.sort(coordenadasTravessasY,new CoordenadaSorterY());			
 			
 			List<Coordenada> coordenadasTravessasX = getNosX(pecas);
 			Collections.sort(coordenadasTravessasX,new CoordenadaSorterX());
-			System.out.println("Coordenadas X = \n" + coordenadasTravessasX);
-			
-			List<Peca> postesTela = this.sumarioDados.getPostes();
-			System.out.println(postesTela);
-			
-			postesFinais = getComposicaoPostes();
-			System.out.println("Postes selecionados: " + postesFinais);
+						
+			RepositorioPecas.listaPostes = getComposicaoPostes();
+			System.out.println("Postes selecionados " + RepositorioPecas.listaPostes);
 			
 			replicarPostesSelecionados(coordenadasTravessasY, coordenadasTravessasX);
 		}
@@ -57,18 +50,21 @@ public class CalculoPostes {
 	
     private void replicarPostesSelecionados(List<Coordenada> coordenadasTravessasY, List<Coordenada> coordenadasTravessasX) {
 		
-    	List<Peca> postes = this.postesFinais;
+    	List<Peca> postes = RepositorioPecas.listaPostes;
     	
     	for (Coordenada coordX : coordenadasTravessasX) {
     		for (Coordenada coordY : coordenadasTravessasY) {		
-			
+			   			
+			this.identificadorNos = this.sumarioDados.getListaDeNos().size()+1;
+			this.identificadorPecas = this.sumarioDados.getPecasFinais().size()+1;
+				
 			if (postes != null && postes.size() > 0){
 				Peca peca1 = postes.get(0);
 				Peca peca2 = postes.get(1);
 				Peca peca3 = postes.get(2);				
 				Peca macaco = this.sumarioDados.getMacaco();
 				Peca posteEspecial = this.sumarioDados.getPosteEspecial();
-				Peca forcado = this.sumarioDados.getPosteEspecial();
+				Peca forcado = this.sumarioDados.getForcado();
 				
 				Collections.sort(postes,new PecaSorter());
 				
@@ -211,14 +207,25 @@ public class CalculoPostes {
 				this.sumarioDados.getPecasFinais().add(macaco1);
 				this.sumarioDados.getPecasFinais().add(posteEspecial1);
 				this.sumarioDados.getPecasFinais().add(forcado1);
+				
+				CalculoRosacea calculoRosacea = new CalculoRosacea();
+				calculoRosacea.calcularRosaceas(poste1,	this.identificadorNos, this.identificadorPecas);
+				this.identificadorNos = this.sumarioDados.getListaDeNos().size()+1;
+				this.identificadorPecas = this.sumarioDados.getPecasFinais().size()+1;
+				
+				calculoRosacea.calcularRosaceas(poste2, this.identificadorNos, this.identificadorPecas);
+				this.identificadorNos = this.sumarioDados.getListaDeNos().size()+1;
+				this.identificadorPecas = this.sumarioDados.getPecasFinais().size()+1;
+				
+				calculoRosacea.calcularRosaceas(poste3, this.identificadorNos, this.identificadorPecas);
+				}
+
 			}
-		
 		}
-		}
-    	
+
 	}
 
-	public ArrayList<Peca> getComposicaoPostes (){
+	public ArrayList<Peca> getComposicaoPostes () throws CalculoException{
     	ArrayList<Peca> retorno = new ArrayList<Peca>();
     	
     	Double altura = Calculo.getAlturaUtil();
@@ -235,29 +242,28 @@ public class CalculoPostes {
 		
     	boolean achou = false;
 		
-		Peca valor1 = new Peca();
+		Peca valor1 = postesSelecionados.get(0);
 		Peca valor2 = new Peca();
 		Peca valor3 = new Peca();
-		
-		for (int i = 0; i <= postes.size()-1; i++) {
-			valor1 = postesSelecionados.get(i);
+					
+		for (int j = postes.size()-1; j >= 0; j--) {
 			
-			for (int j = postes.size()-1; j >= 0; j--) {
-				
-				if ((altura < 6.0) && (postes.get(j) >= 3.0))
-					continue;
-				
+			Double peDireiro = Double.parseDouble(this.sumarioDados.getPeDireito() )/100.0;
+			
+			if (!((peDireiro <= 6.0) && (postes.get(j) >= 3.0))){
 				valor2 = postesSelecionados.get(j);
 				
 				if ((valor1.getComprimento() + valor2.getComprimento()) <= alturaMax){
-
+		
 					for (int j2 = j; j2 >= 0; j2--) {
 						valor3 = postesSelecionados.get(j2);
 						
-						if ((valor1.getComprimento()+valor2.getComprimento()+valor3.getComprimento()) >= alturaMin && 
-								(valor1.getComprimento()+valor2.getComprimento()+valor3.getComprimento()) <= alturaMax){
-							achou = true;
-							break;
+						if (!((peDireiro <= 6.0) && (postes.get(j2) >= 3.0))){
+							if ((valor1.getComprimento()+valor2.getComprimento()+valor3.getComprimento()) >= alturaMin && 
+									(valor1.getComprimento()+valor2.getComprimento()+valor3.getComprimento()) <= alturaMax){
+								achou = true;
+								break;
+							}
 						}
 					}
 				}
@@ -265,37 +271,31 @@ public class CalculoPostes {
 					break;
 				}
 			}
-			if(achou){					
-				break;
-			}
 		}
 		
 		if(achou){					
 			retorno.add(valor1);
 			retorno.add(valor2);
 			retorno.add(valor3);
-			System.out.println(retorno.toString());
 		}else{
-			System.out.println("Não Achou Combinação");
+			throw new CalculoException(SciaXMLContantes.COMBINACAO_DE_POSTES_NAO_ENCONTRADA);
 		}
 		
     	return retorno;
     }
-
-
  	
-	private Double getAlturaMacacoEForcado(){
+	public static Double getAlturaMacacoEForcado(){
 		Double retorno = 0.0;
 		
-		retorno = (Calculo.getAlturaUtil() - getComprimentoPostesFinais())/2;
+		retorno = (Calculo.getAlturaUtil() - getAlturaPostesFinais())/2;
 		
 		return retorno;
 	}
 	
-	private Double getComprimentoPostesFinais (){
+	public static Double getAlturaPostesFinais (){
 		Double retorno = 0.0;
-		if (this.postesFinais != null && this.postesFinais.size() > 0){
-			for (Peca p : this.postesFinais) {
+		if (RepositorioPecas.listaPostes != null && RepositorioPecas.listaPostes.size() > 0){
+			for (Peca p : RepositorioPecas.listaPostes) {
 				retorno += p.getComprimento();
 			}
 		}
@@ -395,13 +395,5 @@ public class CalculoPostes {
 		
 		return retorno;
 	}
-	
-	public List<Peca> getPostesFinais() {
-		return postesFinais;
-	}
-
-	public void setPostesFinais(List<Peca> postesFinais) {
-		this.postesFinais = postesFinais;
-	}
-	
+		
 }

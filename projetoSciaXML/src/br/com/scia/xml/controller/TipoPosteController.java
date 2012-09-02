@@ -31,8 +31,7 @@ public class TipoPosteController extends TipoController{
 					peca.startsWith(SciaXMLContantes.KIP300R6))
 				{
 					TipoPoste t = new TipoPoste(peca);
-					t.setTableReference(this.principal.postes);
-					RepositorioPecas.postes.put(t.getItem(), t);					
+					t.setTableReference(this.principal.postes);				
 					this.principal.tiposPoste.add(t);
 				}
 			}

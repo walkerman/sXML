@@ -11,6 +11,15 @@ public class SciaXMLContantes {
 	public static final Integer PRECISAO_ENVIO_COORDENADAS_XML = 100;
 	public static final Double VALOR_ALTURA_MAX = 0.2;
 	public static final Double VALOR_ALTURA_MIN = 0.5;
+	public static final Double TAMANHO_MIN_ESCORA_A =  0.55;
+	public static final Double TAMANHO_MAX_ESCORA_A =  1.67;
+	public static final Double TAMANHO_MIN_ESCORA_B =  1.55;
+	public static final Double TAMANHO_MAX_ESCORA_B =  2.75;			
+	public static final Double TAMANHO_MIN_ESCORA_C =  0.48;
+	public static final Double TAMANHO_MAX_ESCORA_C =  1.38;
+	public static final Double TAMANHO_MIN_ESCORA_D =  2.05;
+	public static final Double TAMANHO_MAX_ESCORA_D =  3.50;
+	public static final Double ALTURA_ROSACEA = 0.00750;
 	
 	// Tipos de Equipamento em tela
 	public static final String KIBLOC_LAJE = "tipoKIBLOCLaje";  
@@ -21,6 +30,10 @@ public class SciaXMLContantes {
 	// Tipos de Peças em tela
 	public static final String TIPO_TRAVESSA = "Travessa";  
 	public static final String TIPO_ESCORA = "Escora";  
+	public static final String TIPO_ESCORA_A = "Escora A"; 
+	public static final String TIPO_ESCORA_B = "Escora B"; 
+	public static final String TIPO_ESCORA_C = "Escora C"; 
+	public static final String TIPO_ESCORA_D = "Escora D"; 
 	public static final String TIPO_CRUZETA = "Cruzeta";  
 	public static final String TIPO_VIGA_HT20 = "HT20";
 	public static final String TIPO_VIGA_V75 = "V7.5";
@@ -43,7 +56,9 @@ public class SciaXMLContantes {
 	public static final String KID = "KID";				// DIAGONAIS VERTICAIS
 	public static final String KIDH = "KIDH";			// DIAGONAIS HORIZONTAIS
 	public static final String CRU = "Cru";				// CRUZETAS
-	public static final String ESC = "Esc";				// ESCORRAS
+	public static final String ESC = "Esc";				// ESCORAS
+	public static final String BASE_ESCORA="Escorabasesimples"; //BASE ESCORA
+	public static final String TOPO_ESCORA="Escoratopo";        // TOPO ESCORA
 	public static final String FORC = "FORC";			// FORCADOS
 	public static final String KIP025RE = "KIP025RE";	// POSTE_ESPECIAL
 	public static final String KIP037R1 = "KIP037R1";	// POSTE_ESPECIAL
@@ -56,6 +71,7 @@ public class SciaXMLContantes {
 	public static final String KIP150R3 = "KIP150R3";	// POSTE
 	public static final String KIP200R4 = "KIP200R4";	// POSTE
 	public static final String KIP300R6 = "KIP300R6";	// POSTE
+	public static final String ROSACEA = "ROSACEA";		// ROSACEA
 	
 	// Código dos Containers
 	// Container de Nós
@@ -91,6 +107,7 @@ public class SciaXMLContantes {
 	public static final String BEAM_TABLE_ID = "C803A5AE-8F20-4D47-BC52-1685A71CB594";
 	public static final String BEAM_TABLE_NAME = "Member 1D";
 	
+	// Container de Camadas
 	public static final String DATA_LAYER = "Layer";
 	public static final String DATA_LAYER_TITLE = "EP_DSG_Elements.EP_DataLayer.1";
 	public static final String DATA_LAYER_ID = "{D3885EC4-BAE5-11D4-B3FA-00104BC3B531}";
@@ -118,6 +135,11 @@ public class SciaXMLContantes {
 	public static final String NENHUM_ARQUIVO_PECA = "Nenhum arquivo de peça carregado no sistema.";
 	public static final String LAJE_IMCOMPATIVEL = "Tamanho da LAJE insuficiente para os parâmetros.";
 	public static final String VAO_IMCOMPATIVEL = "Tamanho do VÃO insuficiente para os parâmetros.";
+	public static final String ESCORA_IMCOMPATIVEL = "Tipo de escora não compatível com a estrutura. Escolha outro modelo.";
+	public static final String ESCORA_NAO_CADASTRADA = "Tipo de escora não cadastrada. Entre em contato com a Nemetschek.";
+	public static final String COMBINACAO_DE_POSTES_NAO_ENCONTRADA = "Nenhuma combinação de postes foi encontrada.";
+	public static final String COMBINACAO_DE_VIGAS_PRINCIPAIS_NAO_ENCONTRADA = "Não foi possível encontrar composição de vigas principais.";
+	public static final String COMBINACAO_DE_VIGAS_SECUNDARIAS_NAO_ENCONTRADA = "Não foi possível encontrar composição de vigas secundárias.";
 	
 	// SciaXML CSS Classes
 	public static final String CSS_FIELD_OK = "validationFieldOK"; 
