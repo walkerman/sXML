@@ -1,6 +1,6 @@
 package br.com.scia.xml.util;
 
-public class SciaXMLContantes {
+public class SciaXMLConstantes {
 
 	// Calculo
 	public static final String EIXO_X = "EIXO_X";
@@ -20,6 +20,7 @@ public class SciaXMLContantes {
 	public static final Double TAMANHO_MIN_ESCORA_D =  2.05;
 	public static final Double TAMANHO_MAX_ESCORA_D =  3.50;
 	public static final Double ALTURA_ROSACEA = 0.00750;
+	public static final Double METADA_ESPESSURA_VIGA = -0.04;
 	
 	// Tipos de Equipamento em tela
 	public static final String KIBLOC_LAJE = "tipoKIBLOCLaje";  

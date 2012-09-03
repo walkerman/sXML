@@ -5,7 +5,7 @@ import java.util.Set;
 
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Tipo;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 
 public class TipoMacacoController extends TipoController{
@@ -22,7 +22,7 @@ public class TipoMacacoController extends TipoController{
 			// Iniciando o load de poste especiais
 			this.principal.tiposForcados = new ArrayList<Tipo>();
 			for (String peca : pecas) {
-				if (peca.startsWith(SciaXMLContantes.MACACO))
+				if (peca.startsWith(SciaXMLConstantes.MACACO))
 				{
 					this.principal.macacos.getItems().add(peca);
 				}

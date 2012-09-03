@@ -64,7 +64,7 @@ public class SciaXMLFileManager {
 				xs.autodetectAnnotations(true);
 				xs.setMode(XStream.NO_REFERENCES);
 
-				String xml = SciaXMLContantes.ENCODING + xs.toXML(p);
+				String xml = SciaXMLConstantes.ENCODING + xs.toXML(p);
 
 				OutputStream stream = new FileOutputStream(f);
 				Writer fw = new OutputStreamWriter(stream, "UTF-16");
@@ -86,8 +86,8 @@ public class SciaXMLFileManager {
 	private static void gerarDefFile(File f) throws SciaXMLFileManagerException{
 		try{
 			if (f != null){
-				File origem = new File(SciaXMLFileManager.class.getResource(SciaXMLContantes.DEF_PADRAO).getFile());
-				File destino = new File(f.getAbsoluteFile()+SciaXMLContantes.DEF);
+				File origem = new File(SciaXMLFileManager.class.getResource(SciaXMLConstantes.DEF_PADRAO).getFile());
+				File destino = new File(f.getAbsoluteFile()+SciaXMLConstantes.DEF);
 				copyFile(origem, destino);
 			}else{
 				throw new SciaXMLFileManagerException("Impossível gerar o arquivo final. Verifique os parâmetros de entrada.");

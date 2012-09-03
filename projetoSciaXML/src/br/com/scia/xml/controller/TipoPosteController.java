@@ -6,7 +6,7 @@ import java.util.Set;
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Tipo;
 import br.com.scia.xml.entity.view.TipoPoste;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 
 public class TipoPosteController extends TipoController{
@@ -23,12 +23,12 @@ public class TipoPosteController extends TipoController{
 			// Iniciando o load de postes
 			this.principal.tiposPoste = new ArrayList<Tipo>();
 			for (String peca : pecas) {
-				if (peca.startsWith(SciaXMLContantes.KIP025R1) || 
-					peca.startsWith(SciaXMLContantes.KIP050R1) || 
-					peca.startsWith(SciaXMLContantes.KIP100R2) || 
-					peca.startsWith(SciaXMLContantes.KIP150R3) || 
-					peca.startsWith(SciaXMLContantes.KIP200R4) ||
-					peca.startsWith(SciaXMLContantes.KIP300R6))
+				if (peca.startsWith(SciaXMLConstantes.KIP025R1) || 
+					peca.startsWith(SciaXMLConstantes.KIP050R1) || 
+					peca.startsWith(SciaXMLConstantes.KIP100R2) || 
+					peca.startsWith(SciaXMLConstantes.KIP150R3) || 
+					peca.startsWith(SciaXMLConstantes.KIP200R4) ||
+					peca.startsWith(SciaXMLConstantes.KIP300R6))
 				{
 					TipoPoste t = new TipoPoste(peca);
 					t.setTableReference(this.principal.postes);				

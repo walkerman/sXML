@@ -6,7 +6,7 @@ import java.util.Set;
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Tipo;
 import br.com.scia.xml.entity.view.TipoPoste;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 
 public class TipoPosteEspecialController extends TipoController{
@@ -23,11 +23,11 @@ public class TipoPosteEspecialController extends TipoController{
 			// Iniciando o load de postes especiais
 			this.principal.tiposPosteEspecial = new ArrayList<Tipo>();
 			for (String peca : pecas) {
-				if (peca.startsWith(SciaXMLContantes.KIP025RE) || 
-					peca.startsWith(SciaXMLContantes.KIP037R1) || 
-					peca.startsWith(SciaXMLContantes.KIP037R2) || 
-					peca.startsWith(SciaXMLContantes.KIP050RE) || 
-					peca.startsWith(SciaXMLContantes.KIP070R2))
+				if (peca.startsWith(SciaXMLConstantes.KIP025RE) || 
+					peca.startsWith(SciaXMLConstantes.KIP037R1) || 
+					peca.startsWith(SciaXMLConstantes.KIP037R2) || 
+					peca.startsWith(SciaXMLConstantes.KIP050RE) || 
+					peca.startsWith(SciaXMLConstantes.KIP070R2))
 				{
 					TipoPoste t = new TipoPoste(peca);
 					this.principal.postesEspeciais.getItems().add(t.getItem());

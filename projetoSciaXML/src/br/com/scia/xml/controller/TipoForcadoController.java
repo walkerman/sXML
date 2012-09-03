@@ -6,7 +6,7 @@ import java.util.Set;
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Tipo;
 import br.com.scia.xml.entity.view.TipoForcado;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 public class TipoForcadoController extends TipoController{
 
@@ -22,7 +22,7 @@ public class TipoForcadoController extends TipoController{
 			// Iniciando o load de forcados
 			this.principal.tiposForcados = new ArrayList<Tipo>();
 			for (String peca : pecas) {
-				if (peca.startsWith(SciaXMLContantes.FORC))
+				if (peca.startsWith(SciaXMLConstantes.FORC))
 				{
 					TipoForcado t = new TipoForcado(peca);
 					this.principal.forcados.getItems().add(t.getItem());

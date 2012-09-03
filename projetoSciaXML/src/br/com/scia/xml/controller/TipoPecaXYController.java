@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Tipo;
 import br.com.scia.xml.entity.view.TipoPecaXY;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 
 public class TipoPecaXYController extends TipoController{
@@ -30,7 +30,7 @@ public class TipoPecaXYController extends TipoController{
 			this.principal.tiposTravessas = new ArrayList<Tipo>();
 			int ordem = 1;
 			for (String peca : pecas) {
-				if (peca.startsWith(SciaXMLContantes.KITRV))
+				if (peca.startsWith(SciaXMLConstantes.KITRV))
 				{
 					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
 					this.principal.tiposTravessas.add(t);
@@ -38,15 +38,15 @@ public class TipoPecaXYController extends TipoController{
 				ordem++;	
 			}
 			if (this.principal.tiposTravessas.size() > 0){
-				this.principal.tiposPecasX.getItems().add(SciaXMLContantes.TIPO_TRAVESSA);
-				this.principal.tiposPecasY.getItems().add(SciaXMLContantes.TIPO_TRAVESSA);
+				this.principal.tiposPecasX.getItems().add(SciaXMLConstantes.TIPO_TRAVESSA);
+				this.principal.tiposPecasY.getItems().add(SciaXMLConstantes.TIPO_TRAVESSA);
 			} 
 			
 			// Iniciando o load de cruzetas
 			this.principal.tiposCruzetas = new ArrayList<Tipo>();
 			ordem = 1;
 			for (String peca : pecas) {
-				if (peca.startsWith(SciaXMLContantes.CRU))
+				if (peca.startsWith(SciaXMLConstantes.CRU))
 				{
 					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
 					this.principal.tiposCruzetas.add(t);
@@ -54,15 +54,15 @@ public class TipoPecaXYController extends TipoController{
 				ordem++;	
 			}
 			if (this.principal.tiposCruzetas.size() > 0){
-				this.principal.tiposPecasX.getItems().add(SciaXMLContantes.TIPO_CRUZETA);
-				this.principal.tiposPecasY.getItems().add(SciaXMLContantes.TIPO_CRUZETA);
+				this.principal.tiposPecasX.getItems().add(SciaXMLConstantes.TIPO_CRUZETA);
+				this.principal.tiposPecasY.getItems().add(SciaXMLConstantes.TIPO_CRUZETA);
 			} 
 			
 			// Iniciando o load de escoras
 			this.principal.tiposEscoras = new ArrayList<Tipo>();
 			ordem = 1;
 			for (String peca : pecas) {
-				if (peca.startsWith(SciaXMLContantes.ESC))
+				if (peca.startsWith(SciaXMLConstantes.ESC))
 				{
 					TipoPecaXY t = new TipoPecaXY(String.valueOf(ordem), peca);
 					this.principal.tiposEscoras.add(t);
@@ -70,8 +70,8 @@ public class TipoPecaXYController extends TipoController{
 				ordem++;	
 			}
 			if (this.principal.tiposEscoras.size() > 0){
-				this.principal.tiposPecasX.getItems().add(SciaXMLContantes.TIPO_ESCORA);
-				this.principal.tiposPecasY.getItems().add(SciaXMLContantes.TIPO_ESCORA);
+				this.principal.tiposPecasX.getItems().add(SciaXMLConstantes.TIPO_ESCORA);
+				this.principal.tiposPecasY.getItems().add(SciaXMLConstantes.TIPO_ESCORA);
 			} 
 			
 			
@@ -84,41 +84,41 @@ public class TipoPecaXYController extends TipoController{
 	public void carregar() {
 		if (this.principal.tiposTravessas!=null && this.principal.tiposTravessas.size()>0 && 
 				this.principal.tiposPecasX.getSelectionModel().getSelectedItem() != null &&
-						this.principal.tiposPecasX.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_TRAVESSA)){
+						this.principal.tiposPecasX.getSelectionModel().getSelectedItem().equals(SciaXMLConstantes.TIPO_TRAVESSA)){
 			ObservableList<Tipo> list = FXCollections.observableArrayList(this.principal.tiposTravessas);				 
 			this.principal.tamanhosPecasX.setItems(list);
 		}
 		
 		if (this.principal.tiposCruzetas!=null && this.principal.tiposCruzetas.size()>0 && 
 				this.principal.tiposPecasX.getSelectionModel().getSelectedItem() != null &&
-						this.principal.tiposPecasX.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_CRUZETA)){
+						this.principal.tiposPecasX.getSelectionModel().getSelectedItem().equals(SciaXMLConstantes.TIPO_CRUZETA)){
 			ObservableList<Tipo> list = FXCollections.observableArrayList(this.principal.tiposCruzetas);				 
 			this.principal.tamanhosPecasX.setItems(list);
 		}
 		
 		if (this.principal.tiposEscoras!=null && this.principal.tiposEscoras.size()>0 && 
 				this.principal.tiposPecasX.getSelectionModel().getSelectedItem() != null &&
-						this.principal.tiposPecasX.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_ESCORA)){
+						this.principal.tiposPecasX.getSelectionModel().getSelectedItem().equals(SciaXMLConstantes.TIPO_ESCORA)){
 			ObservableList<Tipo> list = FXCollections.observableArrayList(this.principal.tiposEscoras);				 
 			this.principal.tamanhosPecasX.setItems(list);
 		}
 		if (this.principal.tiposTravessas!=null && this.principal.tiposTravessas.size()>0 && 
 				this.principal.tiposPecasY.getSelectionModel().getSelectedItem() != null &&
-						this.principal.tiposPecasY.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_TRAVESSA)){
+						this.principal.tiposPecasY.getSelectionModel().getSelectedItem().equals(SciaXMLConstantes.TIPO_TRAVESSA)){
 			ObservableList<Tipo> list = FXCollections.observableArrayList(this.principal.tiposTravessas);				 
 			this.principal.tamanhosPecasY.setItems(list);
 		}
 		
 		if (this.principal.tiposCruzetas!=null && this.principal.tiposCruzetas.size()>0 && 
 				this.principal.tiposPecasY.getSelectionModel().getSelectedItem() != null &&
-						this.principal.tiposPecasY.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_CRUZETA)){
+						this.principal.tiposPecasY.getSelectionModel().getSelectedItem().equals(SciaXMLConstantes.TIPO_CRUZETA)){
 			ObservableList<Tipo> list = FXCollections.observableArrayList(this.principal.tiposCruzetas);				 
 			this.principal.tamanhosPecasY.setItems(list);
 		}
 		
 		if (this.principal.tiposEscoras!=null && this.principal.tiposEscoras.size()>0 && 
 				this.principal.tiposPecasY.getSelectionModel().getSelectedItem() != null &&
-						this.principal.tiposPecasY.getSelectionModel().getSelectedItem().equals(SciaXMLContantes.TIPO_ESCORA)){
+						this.principal.tiposPecasY.getSelectionModel().getSelectedItem().equals(SciaXMLConstantes.TIPO_ESCORA)){
 			ObservableList<Tipo> list = FXCollections.observableArrayList(this.principal.tiposEscoras);				 
 			this.principal.tamanhosPecasY.setItems(list);
 		}
@@ -129,22 +129,22 @@ public class TipoPecaXYController extends TipoController{
 		if (tipo == null || "".equals(origem) || tipo.getItem() == null)
 			JOptionPane.showMessageDialog(null, "Favor informar o tamanho da peça");
 		
-		if (tipo != null && tipo.getItem() != null && tipo.getItem().startsWith(SciaXMLContantes.KITRV)){
+		if (tipo != null && tipo.getItem() != null && tipo.getItem().startsWith(SciaXMLConstantes.KITRV)){
 			return true;
 		}else{			
-			if (SciaXMLContantes.ORIGEM_X.equals(origem)){
-				if (tipo.getItem().startsWith(SciaXMLContantes.ESC) && this.principal.pecasX.getItems().size() == 0){
+			if (SciaXMLConstantes.ORIGEM_X.equals(origem)){
+				if (tipo.getItem().startsWith(SciaXMLConstantes.ESC) && this.principal.pecasX.getItems().size() == 0){
 					this.principal.adicionarPecaY(tipo.getItem());
 					this.principal.areaEscoraX.setDisable(false);
 					this.principal.areaEscoraY.setDisable(false);
 					return true;
 				}
-				if (tipo.getItem().startsWith(SciaXMLContantes.ESC)){
+				if (tipo.getItem().startsWith(SciaXMLConstantes.ESC)){
 					this.principal.areaEscoraY.setDisable(false);
 					this.principal.areaEscoraX.setDisable(false);
 					return true;
 				}
-				if (tipo.getItem().startsWith(SciaXMLContantes.CRU) && SciaXMLContantes.ORIGEM_X.equals(origem)){
+				if (tipo.getItem().startsWith(SciaXMLConstantes.CRU) && SciaXMLConstantes.ORIGEM_X.equals(origem)){
 					if (!validarQuantidadeCruzetas(this.principal.pecasY.getItems())){
 						this.principal.areaCruzetaX.setDisable(false);
 						this.principal.areaCruzetaY.setDisable(false);
@@ -154,19 +154,19 @@ public class TipoPecaXYController extends TipoController{
 					}
 						
 				}
-			}else if (SciaXMLContantes.ORIGEM_Y.equals(origem)){
-				if (tipo.getItem().startsWith(SciaXMLContantes.ESC) && this.principal.pecasY.getItems().size() == 0){
+			}else if (SciaXMLConstantes.ORIGEM_Y.equals(origem)){
+				if (tipo.getItem().startsWith(SciaXMLConstantes.ESC) && this.principal.pecasY.getItems().size() == 0){
 					this.principal.adicionarPecaX(tipo.getItem());
 					this.principal.areaEscoraY.setDisable(false);
 					this.principal.areaEscoraX.setDisable(false);
 					return true;
 				}
-				if (tipo.getItem().startsWith(SciaXMLContantes.ESC)){
+				if (tipo.getItem().startsWith(SciaXMLConstantes.ESC)){
 					this.principal.areaEscoraY.setDisable(false);
 					this.principal.areaEscoraX.setDisable(false);
 					return true;
 				}
-				if (tipo.getItem().startsWith(SciaXMLContantes.CRU) && SciaXMLContantes.ORIGEM_Y.equals(origem)){
+				if (tipo.getItem().startsWith(SciaXMLConstantes.CRU) && SciaXMLConstantes.ORIGEM_Y.equals(origem)){
 					if (!validarQuantidadeCruzetas(this.principal.pecasX.getItems())){
 						this.principal.areaCruzetaX.setDisable(false);
 						this.principal.areaCruzetaY.setDisable(false);
@@ -184,7 +184,7 @@ public class TipoPecaXYController extends TipoController{
 	public Boolean validarQuantidadeCruzetas(List<Tipo> pecas){
 		Boolean retorno = false;
 		for (Tipo tipoPecaXY : pecas) {
-			if (tipoPecaXY.getItem().startsWith(SciaXMLContantes.CRU)){
+			if (tipoPecaXY.getItem().startsWith(SciaXMLConstantes.CRU)){
 				retorno = true;				
 				break;
 			}

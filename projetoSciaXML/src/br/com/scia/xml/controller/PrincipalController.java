@@ -43,7 +43,7 @@ import br.com.scia.xml.entity.view.Tipo;
 import br.com.scia.xml.entity.view.TipoPecaXY;
 import br.com.scia.xml.entity.view.TipoPoste;
 import br.com.scia.xml.model.Calculo;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 import br.com.scia.xml.util.SciaXMLFileManager;
 import br.com.scia.xml.util.SciaXMLUtils;
 import br.com.scia.xml.view.SciaXMLStarter;
@@ -332,7 +332,7 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public void adicionarPecaX(){
 		Tipo selecao = this.tamanhosPecasX.getSelectionModel().getSelectedItem();
-		if (this.pecaXYController.validarRegrasPecasXY(selecao, SciaXMLContantes.ORIGEM_X))
+		if (this.pecaXYController.validarRegrasPecasXY(selecao, SciaXMLConstantes.ORIGEM_X))
 			adicionarPecaX(selecao.getItem());
 	}
 	
@@ -352,7 +352,7 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public void adicionarPecaY(){
 		Tipo selecao = this.tamanhosPecasY.getSelectionModel().getSelectedItem();
-		if (this.pecaXYController.validarRegrasPecasXY(selecao, SciaXMLContantes.ORIGEM_Y))
+		if (this.pecaXYController.validarRegrasPecasXY(selecao, SciaXMLConstantes.ORIGEM_Y))
 			adicionarPecaY(selecao.getItem());
 	}
 	
@@ -392,7 +392,7 @@ public class PrincipalController implements Initializable{
 		RadioButton t = (RadioButton) this.tipos.getSelectedToggle();
 		this.sumarioTipo.setText(t.getText());
 		
-		if (t.getId().equals(SciaXMLContantes.KIBLOC_LAJE)){
+		if (t.getId().equals(SciaXMLConstantes.KIBLOC_LAJE)){
 			this.abaDimensoesVigas.setDisable(true);
 		}
 		else
@@ -533,7 +533,7 @@ public class PrincipalController implements Initializable{
 					JOptionPane.showMessageDialog(null, "Arquivos .xml/.def salvos com sucesso.");
 				} catch (Exception e2) {
 					e2.printStackTrace();
-					JOptionPane.showMessageDialog(null, e2.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, e2.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}	
@@ -563,7 +563,7 @@ public class PrincipalController implements Initializable{
 			JOptionPane.showMessageDialog(null,"Projeto salvo com sucesso.");
 		} catch (SciaXMLFileManagerException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -608,15 +608,15 @@ public class PrincipalController implements Initializable{
 						
 						initialize();
 					}else{
-						JOptionPane.showMessageDialog(null, "Diretório de peças não encontrado",SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Diretório de peças não encontrado",SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			} catch (SciaXMLFileManagerException e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 			} catch (RepositorioPecasException e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 			}
         }	
 	}
@@ -689,16 +689,16 @@ public class PrincipalController implements Initializable{
     		
     		List<Peca> vigasPrincipais = RepositorioProjeto.projeto.getVigasPrincipais();
     		if (vigasPrincipais != null && vigasPrincipais.size() > 0){
-    			if (SciaXMLContantes.TIPO_VIGA_HT20.equals(RepositorioProjeto.projeto.getTipoVigaPrincipal())){
+    			if (SciaXMLConstantes.TIPO_VIGA_HT20.equals(RepositorioProjeto.projeto.getTipoVigaPrincipal())){
 					SciaXMLUtils.getSelectedTiposViga(this.tiposVigasPrincipaisHT20, vigasPrincipais);
 				}
-				if (SciaXMLContantes.TIPO_VIGA_V18.equals(RepositorioProjeto.projeto.getTipoVigaPrincipal())){
+				if (SciaXMLConstantes.TIPO_VIGA_V18.equals(RepositorioProjeto.projeto.getTipoVigaPrincipal())){
 					SciaXMLUtils.getSelectedTiposViga(this.tiposVigasPrincipaisV18, vigasPrincipais);
 				}
-				if (SciaXMLContantes.TIPO_VIGA_V75.equals(RepositorioProjeto.projeto.getTipoVigaPrincipal())){
+				if (SciaXMLConstantes.TIPO_VIGA_V75.equals(RepositorioProjeto.projeto.getTipoVigaPrincipal())){
 					SciaXMLUtils.getSelectedTiposViga(this.tiposVigasPrincipaisV75, vigasPrincipais);
 				}
-				if (SciaXMLContantes.TIPO_VIGA_VA18.equals(RepositorioProjeto.projeto.getTipoVigaPrincipal())){
+				if (SciaXMLConstantes.TIPO_VIGA_VA18.equals(RepositorioProjeto.projeto.getTipoVigaPrincipal())){
 					SciaXMLUtils.getSelectedTiposViga(this.tiposVigasPrincipaisVA18, vigasPrincipais);
 				}
 				
@@ -712,16 +712,16 @@ public class PrincipalController implements Initializable{
     		
     		List<Peca> vigasSecundarias = RepositorioProjeto.projeto.getVigasSecundarias();
     		if (vigasSecundarias != null && vigasSecundarias.size() > 0){
-    			if (SciaXMLContantes.TIPO_VIGA_HT20.equals(RepositorioProjeto.projeto.getTipoVigaSecundaria())){
+    			if (SciaXMLConstantes.TIPO_VIGA_HT20.equals(RepositorioProjeto.projeto.getTipoVigaSecundaria())){
 					SciaXMLUtils.getSelectedTiposViga(this.tiposVigasSecundariasHT20, vigasSecundarias);
 				}
-				if (SciaXMLContantes.TIPO_VIGA_V18.equals(RepositorioProjeto.projeto.getTipoVigaSecundaria())){
+				if (SciaXMLConstantes.TIPO_VIGA_V18.equals(RepositorioProjeto.projeto.getTipoVigaSecundaria())){
 					SciaXMLUtils.getSelectedTiposViga(this.tiposVigasSecundariasV18, vigasSecundarias);
 				}
-				if (SciaXMLContantes.TIPO_VIGA_V75.equals(RepositorioProjeto.projeto.getTipoVigaSecundaria())){
+				if (SciaXMLConstantes.TIPO_VIGA_V75.equals(RepositorioProjeto.projeto.getTipoVigaSecundaria())){
 					SciaXMLUtils.getSelectedTiposViga(this.tiposVigasSecundariasV75, vigasSecundarias);
 				}
-				if (SciaXMLContantes.TIPO_VIGA_VA18.equals(RepositorioProjeto.projeto.getTipoVigaSecundaria())){
+				if (SciaXMLConstantes.TIPO_VIGA_VA18.equals(RepositorioProjeto.projeto.getTipoVigaSecundaria())){
 					SciaXMLUtils.getSelectedTiposViga(this.tiposVigasSecundariasVA18, vigasSecundarias);
 				}
 				

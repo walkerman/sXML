@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.exception.CalculoException;
 import br.com.scia.xml.entity.view.Peca;
@@ -13,17 +14,17 @@ import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterX;
 import br.com.scia.xml.util.PecaSorter;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 import br.com.scia.xml.util.SciaXMLUtils;
 
-public class CalculoVigas {
+public class CalculoVigasPrincipais {
 
 	private SumarioDados sumarioDados;
 	private List<Peca> vigasPrincipaisFinais;
 	private Integer identificadorPecas;
 	private Integer identificadorNos;
 	
-	public CalculoVigas() {
+	public CalculoVigasPrincipais() {
 		this.sumarioDados = Calculo.dados;
 				
 		if (this.sumarioDados != null){
@@ -33,12 +34,12 @@ public class CalculoVigas {
 	}
 	
 	public void realizarCalculo () throws CalculoException{
-		List<Peca> pecas = this.sumarioDados.getPecasFinais();
+		List<Peca> pecas = RepositorioPecas.listaTravessas;
 		
 		if (pecas != null && pecas.size() > 0){
 			Double pontoXInicialEstrutura = Double.parseDouble(this.sumarioDados.getCoordenadaX());
 					
-			calcularVigasX(pontoXInicialEstrutura,this.identificadorNos,this.identificadorPecas,(-0.04));
+			calcularVigasX(pontoXInicialEstrutura,this.identificadorNos,this.identificadorPecas,(SciaXMLConstantes.METADA_ESPESSURA_VIGA));
 			
 			if (this.vigasPrincipaisFinais != null){
 				Double total = 0.0;
@@ -46,11 +47,11 @@ public class CalculoVigas {
 					total += peca.getComprimento();
 				}
 				
-				List<Coordenada> nosX = getNosX(this.sumarioDados.getPecasFinais());
+				List<Coordenada> nosX = getNosX(RepositorioPecas.listaTravessas);
 				Collections.sort(nosX,new CoordenadaSorterX());
 				
 				if (total < nosX.get(0).getX()){
-					throw new CalculoException(SciaXMLContantes.COMBINACAO_DE_VIGAS_PRINCIPAIS_NAO_ENCONTRADA);
+					throw new CalculoException(SciaXMLConstantes.COMBINACAO_DE_VIGAS_PRINCIPAIS_NAO_ENCONTRADA);
 				}
 			}
 		}
@@ -62,8 +63,8 @@ public class CalculoVigas {
 		
 		List<String> nosIniciais = new ArrayList<String>();		
 		for (Peca peca : pecas) {
-			if (peca.getTipo().startsWith(SciaXMLContantes.ESC) || peca.getTipo().startsWith(SciaXMLContantes.KITRV))
-				nosIniciais.add(peca.getNoInicial());
+			if (peca.getTipo().startsWith(SciaXMLConstantes.ESC) || peca.getTipo().startsWith(SciaXMLConstantes.KITRV))
+				nosIniciais.add(peca.getNoInicial().getId());
 		}
 		
 		List<Coordenada> listaCoordenadas = this.sumarioDados.getListaDeNos();
@@ -88,8 +89,8 @@ public class CalculoVigas {
 		
 		List<String> nosIniciais = new ArrayList<String>();		
 		for (Peca peca : pecas) {
-			if (peca.getTipo().startsWith(SciaXMLContantes.ESC) || peca.getTipo().startsWith(SciaXMLContantes.KIP))
-				nosIniciais.add(peca.getNoInicial());
+			if (peca.getTipo().startsWith(SciaXMLConstantes.ESC) || peca.getTipo().startsWith(SciaXMLConstantes.KIP))
+				nosIniciais.add(peca.getNoInicial().getId());
 		}
 		
 		List<Coordenada> listaCoordenadas = this.sumarioDados.getListaDeNos();
@@ -160,12 +161,11 @@ public class CalculoVigas {
 			Double transpasse = Double.parseDouble(transpasseInformado)/100.0;
 			Double transpaseTotal = transpasse*2;
 			
-			List<Coordenada> nosX = getNosX(this.sumarioDados.getPecasFinais());
+			List<Coordenada> nosX = getNosX(RepositorioPecas.listaTravessas);
 			Collections.sort(nosX,new CoordenadaSorterX());
 			
 			List<Coordenada> nosY = getNosY(this.sumarioDados.getPecasFinais());
 			List<Coordenada> coordenadasY = getCoordenadasY(nosY);
-			System.out.println("louis " + coordenadasY);
 			
 			if (this.vigasPrincipaisFinais == null)
 				this.vigasPrincipaisFinais  = new ArrayList<Peca>();
@@ -209,13 +209,13 @@ public class CalculoVigas {
 							Double altura =  Calculo.getAlturaUtil() + CalculoPostes.getAlturaMacacoEForcado() + posteEspecial;
 							
 							coordenada1.setId(identificacaoNo.toString());
-							coordenada1.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
+							coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
 							coordenada1.setX(xInicial);
 							coordenada1.setY((coordY.getY()+desvio));
 							coordenada1.setZ(altura);
 							
 							coordenada2.setId(identificacaoNo.toString());
-							coordenada2.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
+							coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
 							coordenada2.setX(xFinal);
 							coordenada2.setY((coordY.getY()+desvio));
 							coordenada2.setZ(altura);
@@ -223,14 +223,13 @@ public class CalculoVigas {
 							Peca peca1 = new Peca();
 							
 							peca1.setId(String.valueOf(identificacaoPeca));
-							peca1.setName(SciaXMLContantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca++));
+							peca1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca++));
 							peca1.setTipo(peca.getTipo());
-							peca1.setNoInicial(coordenada1.getId());
-							peca1.setNoFinal(coordenada2.getId());
+							peca1.setNoInicial(coordenada1);
+							peca1.setNoFinal(coordenada2);
 							
 							this.sumarioDados.getListaDeNos().add(coordenada1);
 							this.sumarioDados.getListaDeNos().add(coordenada2);
-							
 							this.sumarioDados.getPecasFinais().add(peca1);	
 						}
 						
@@ -248,7 +247,7 @@ public class CalculoVigas {
 				}
 				
 				if (achou){
-					calcularVigasX((x - transpaseTotal), identificacaoNo, identificacaoPeca,desvio);
+					calcularVigasX((coordenada.getX() - transpasse), identificacaoNo, identificacaoPeca,desvio);
 					break;
 				}
 			}
@@ -260,13 +259,13 @@ public class CalculoVigas {
 		
 		String tipoViga = RepositorioProjeto.projeto.getTipoVigaPrincipal();
 		
-		if (SciaXMLContantes.TIPO_VIGA_HT20.equals(tipoViga))
+		if (SciaXMLConstantes.TIPO_VIGA_HT20.equals(tipoViga))
 			retorno = 0.2;
-		if (SciaXMLContantes.TIPO_VIGA_V18.equals(tipoViga))
+		if (SciaXMLConstantes.TIPO_VIGA_V18.equals(tipoViga))
 			retorno = 0.18;
-		if (SciaXMLContantes.TIPO_VIGA_V75.equals(tipoViga))
+		if (SciaXMLConstantes.TIPO_VIGA_V75.equals(tipoViga))
 			retorno = 0.075;
-		if (SciaXMLContantes.TIPO_VIGA_VA18.equals(tipoViga))
+		if (SciaXMLConstantes.TIPO_VIGA_VA18.equals(tipoViga))
 			retorno = 0.18;
 		
 		return retorno;

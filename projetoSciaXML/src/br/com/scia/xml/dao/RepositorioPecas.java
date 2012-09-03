@@ -18,7 +18,7 @@ import br.com.scia.xml.entity.xml.Object;
 import br.com.scia.xml.entity.xml.Project;
 import br.com.scia.xml.entity.xml.TableNode;
 import br.com.scia.xml.util.ObjectSorter;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 import com.thoughtworks.xstream.XStream;
 
@@ -58,9 +58,9 @@ public class RepositorioPecas {
 					}
 				}
 				
-				if (f.isFile() && f.getAbsolutePath().endsWith(SciaXMLContantes.XML)){
+				if (f.isFile() && f.getAbsolutePath().endsWith(SciaXMLConstantes.XML)){
 					Project p = parseXML(getUTF16File(f), f.getName());
-					p.setFileName(f.getName().replaceAll(SciaXMLContantes.XML, new String()));
+					p.setFileName(f.getName().replaceAll(SciaXMLConstantes.XML, new String()));
 					objetos.add(p);
 				}
 				
@@ -105,7 +105,7 @@ public class RepositorioPecas {
 			if (containers != null && containers.size() > 0){
 				Container nos = null;
 				for (Container container : containers) {
-					if (container.getT().contains(SciaXMLContantes.STRUCT_NODE)){
+					if (container.getT().contains(SciaXMLConstantes.STRUCT_NODE)){
 						nos = container;
 						break;
 					}

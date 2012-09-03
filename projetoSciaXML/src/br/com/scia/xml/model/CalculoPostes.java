@@ -14,7 +14,7 @@ import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterX;
 import br.com.scia.xml.util.CoordenadaSorterY;
 import br.com.scia.xml.util.PecaSorter;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 public class CalculoPostes {
 
@@ -32,7 +32,7 @@ public class CalculoPostes {
 	}
 	
 	public void realizarCalculo () throws CalculoException{
-		List<Peca> pecas = this.sumarioDados.getPecasFinais();
+		List<Peca> pecas = RepositorioPecas.listaTravessas;
 		
 		if (pecas != null && pecas.size() > 0){
 			List<Coordenada> coordenadasTravessasY = getNosY(pecas);
@@ -82,67 +82,67 @@ public class CalculoPostes {
 				Coordenada coordenadaForcado2 = new Coordenada();
 				
 				coordenadaMacaco1.setId(identificadorNos.toString());
-				coordenadaMacaco1.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+				coordenadaMacaco1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 				coordenadaMacaco1.setX(coordX.getX());
 				coordenadaMacaco1.setY(coordY.getY());
 				coordenadaMacaco1.setZ(altura);
 				
 				altura += getAlturaMacacoEForcado();
 				coordenadaMacaco2.setId(identificadorNos.toString());
-				coordenadaMacaco2.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+				coordenadaMacaco2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 				coordenadaMacaco2.setX(coordX.getX());
 				coordenadaMacaco2.setY(coordY.getY());
 				coordenadaMacaco2.setZ(altura);
 				
 				coordenadaPoste1.setId(identificadorNos.toString());
-				coordenadaPoste1.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+				coordenadaPoste1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 				coordenadaPoste1.setX(coordX.getX());
 				coordenadaPoste1.setY(coordY.getY());
 				coordenadaPoste1.setZ(altura);
 				
 				altura += peca1.getComprimento();
 				coordenadaPoste2.setId(identificadorNos.toString());
-				coordenadaPoste2.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+				coordenadaPoste2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 				coordenadaPoste2.setX(coordX.getX());
 				coordenadaPoste2.setY(coordY.getY());
 				coordenadaPoste2.setZ(altura);
 				
 				altura += peca2.getComprimento();
 				coordenadaPoste3.setId(identificadorNos.toString());
-				coordenadaPoste3.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+				coordenadaPoste3.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 				coordenadaPoste3.setX(coordX.getX());
 				coordenadaPoste3.setY(coordY.getY());
 				coordenadaPoste3.setZ(altura);
 				
 				altura += peca3.getComprimento();
 				coordenadaPoste4.setId(identificadorNos.toString());
-				coordenadaPoste4.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+				coordenadaPoste4.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 				coordenadaPoste4.setX(coordX.getX());
 				coordenadaPoste4.setY(coordY.getY());
 				coordenadaPoste4.setZ(altura);
 					
 				coordenadaPosteEspecial1.setId(identificadorNos.toString());
-				coordenadaPosteEspecial1.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+				coordenadaPosteEspecial1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 				coordenadaPosteEspecial1.setX(coordX.getX());
 				coordenadaPosteEspecial1.setY(coordY.getY());
 				coordenadaPosteEspecial1.setZ(altura);
 				
 				altura += posteEspecial.getComprimento();
 				coordenadaPosteEspecial2.setId(identificadorNos.toString());
-				coordenadaPosteEspecial2.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+				coordenadaPosteEspecial2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 				coordenadaPosteEspecial2.setX(coordX.getX());
 				coordenadaPosteEspecial2.setY(coordY.getY());
 				coordenadaPosteEspecial2.setZ(altura);
 				
 				coordenadaForcado1.setId(identificadorNos.toString());
-				coordenadaForcado1.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+				coordenadaForcado1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 				coordenadaForcado1.setX(coordX.getX());
 				coordenadaForcado1.setY(coordY.getY());
 				coordenadaForcado1.setZ(altura);
 				
 				altura += getAlturaMacacoEForcado();
 				coordenadaForcado2.setId(identificadorNos.toString());
-				coordenadaForcado2.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+				coordenadaForcado2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 				coordenadaForcado2.setX(coordX.getX());
 				coordenadaForcado2.setY(coordY.getY());
 				coordenadaForcado2.setZ(altura);
@@ -152,43 +152,43 @@ public class CalculoPostes {
 				Peca poste3 = new Peca();
 				
 				poste1.setId(String.valueOf(identificadorPecas));
-				poste1.setName(SciaXMLContantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
+				poste1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
 				poste1.setTipo(peca1.getTipo());
-				poste1.setNoInicial(coordenadaPoste1.getId());
-				poste1.setNoFinal(coordenadaPoste2.getId());
+				poste1.setNoInicial(coordenadaPoste1);
+				poste1.setNoFinal(coordenadaPoste2);
 				
 				poste2.setId(String.valueOf(identificadorPecas));
-				poste2.setName(SciaXMLContantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
+				poste2.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
 				poste2.setTipo(peca2.getTipo());
-				poste2.setNoInicial(coordenadaPoste2.getId());
-				poste2.setNoFinal(coordenadaPoste3.getId());
+				poste2.setNoInicial(coordenadaPoste2);
+				poste2.setNoFinal(coordenadaPoste3);
 				
 				poste3.setId(String.valueOf(identificadorPecas));
-				poste3.setName(SciaXMLContantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
+				poste3.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
 				poste3.setTipo(peca3.getTipo());
-				poste3.setNoInicial(coordenadaPoste3.getId());
-				poste3.setNoFinal(coordenadaPoste4.getId());
+				poste3.setNoInicial(coordenadaPoste3);
+				poste3.setNoFinal(coordenadaPoste4);
 				
 				Peca macaco1 = new Peca();
 				macaco1.setId(String.valueOf(identificadorPecas));
-				macaco1.setName(SciaXMLContantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
+				macaco1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
 				macaco1.setTipo(macaco.getTipo());
-				macaco1.setNoInicial(coordenadaMacaco1.getId());
-				macaco1.setNoFinal(coordenadaMacaco2.getId());
+				macaco1.setNoInicial(coordenadaMacaco1);
+				macaco1.setNoFinal(coordenadaMacaco2);
 								
 				Peca posteEspecial1 = new Peca();
 				posteEspecial1.setId(String.valueOf(identificadorPecas));
-				posteEspecial1.setName(SciaXMLContantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
+				posteEspecial1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
 				posteEspecial1.setTipo(posteEspecial.getTipo());
-				posteEspecial1.setNoInicial(coordenadaPosteEspecial1.getId());
-				posteEspecial1.setNoFinal(coordenadaPosteEspecial2.getId());
+				posteEspecial1.setNoInicial(coordenadaPosteEspecial1);
+				posteEspecial1.setNoFinal(coordenadaPosteEspecial2);
 				
 				Peca forcado1 = new Peca();
 				forcado1.setId(String.valueOf(identificadorPecas));
-				forcado1.setName(SciaXMLContantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
+				forcado1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
 				forcado1.setTipo(forcado.getTipo());
-				forcado1.setNoInicial(coordenadaForcado1.getId());
-				forcado1.setNoFinal(coordenadaForcado2.getId());
+				forcado1.setNoInicial(coordenadaForcado1);
+				forcado1.setNoFinal(coordenadaForcado2);
 								
 				this.sumarioDados.getListaDeNos().add(coordenadaPoste1);
 				this.sumarioDados.getListaDeNos().add(coordenadaPoste2);
@@ -208,7 +208,7 @@ public class CalculoPostes {
 				this.sumarioDados.getPecasFinais().add(posteEspecial1);
 				this.sumarioDados.getPecasFinais().add(forcado1);
 				
-				CalculoRosacea calculoRosacea = new CalculoRosacea();
+				CalculoRosaceas calculoRosacea = new CalculoRosaceas();
 				calculoRosacea.calcularRosaceas(poste1,	this.identificadorNos, this.identificadorPecas);
 				this.identificadorNos = this.sumarioDados.getListaDeNos().size()+1;
 				this.identificadorPecas = this.sumarioDados.getPecasFinais().size()+1;
@@ -229,8 +229,8 @@ public class CalculoPostes {
     	ArrayList<Peca> retorno = new ArrayList<Peca>();
     	
     	Double altura = Calculo.getAlturaUtil();
-    	Double alturaMax = altura - SciaXMLContantes.VALOR_ALTURA_MAX;
-    	Double alturaMin = altura - SciaXMLContantes.VALOR_ALTURA_MIN;
+    	Double alturaMax = altura - SciaXMLConstantes.VALOR_ALTURA_MAX;
+    	Double alturaMin = altura - SciaXMLConstantes.VALOR_ALTURA_MIN;
     	
 		List<Peca> postesSelecionados = this.sumarioDados.getPostes();
 		Collections.sort(postesSelecionados, new PecaSorter());
@@ -286,7 +286,7 @@ public class CalculoPostes {
 			retorno.add(valor2);
 			retorno.add(valor3);
 		}else{
-			throw new CalculoException(SciaXMLContantes.COMBINACAO_DE_POSTES_NAO_ENCONTRADA);
+			throw new CalculoException(SciaXMLConstantes.COMBINACAO_DE_POSTES_NAO_ENCONTRADA);
 		}
 		
     	return retorno;
@@ -315,8 +315,8 @@ public class CalculoPostes {
 		
 		List<String> nosIniciais = new ArrayList<String>();		
 		for (Peca peca : pecas) {
-			if (peca.getTipo().startsWith(SciaXMLContantes.KITRV))
-				nosIniciais.add(peca.getNoInicial());
+			if (peca.getTipo().startsWith(SciaXMLConstantes.KITRV))
+				nosIniciais.add(peca.getNoInicial().getId());
 		}
 		
 		List<Coordenada> listaCoordenadas = this.sumarioDados.getListaDeNos();
@@ -341,8 +341,8 @@ public class CalculoPostes {
 		
 		List<String> nosIniciais = new ArrayList<String>();		
 		for (Peca peca : pecas) {
-			if (peca.getTipo().startsWith(SciaXMLContantes.KITRV))
-				nosIniciais.add(peca.getNoInicial());
+			if (peca.getTipo().startsWith(SciaXMLConstantes.KITRV))
+				nosIniciais.add(peca.getNoInicial().getId());
 		}
 		
 		List<Coordenada> listaCoordenadas = this.sumarioDados.getListaDeNos();

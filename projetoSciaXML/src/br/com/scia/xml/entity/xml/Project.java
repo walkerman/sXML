@@ -9,7 +9,7 @@ import java.util.Set;
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -43,8 +43,8 @@ public class Project {
 		
 		if (sumarioDados != null){
 			
-			this.xmlns = SciaXMLContantes.XMLNS;
-			this.def = new Definition(fileName+SciaXMLContantes.DEF);
+			this.xmlns = SciaXMLConstantes.XMLNS;
+			this.def = new Definition(fileName+SciaXMLConstantes.DEF);
 			this.containers = new ArrayList<Container>();
 			this.containers.add(getContainerNos(sumarioDados));
 			this.containers.add(getContainerPecas(sumarioDados));
@@ -72,11 +72,11 @@ public class Project {
 			}
 			
 			Header header = getDefaultStructNodeHeader();
-			TableNode tabelaNos = new TableNode(SciaXMLContantes.STRUCT_NODE_TABLE_ID, 
-												SciaXMLContantes.STRUCT_NODE_TABLE, 
-												SciaXMLContantes.STRUCT_NODE_TABLE_NAME, header, objects);
+			TableNode tabelaNos = new TableNode(SciaXMLConstantes.STRUCT_NODE_TABLE_ID, 
+												SciaXMLConstantes.STRUCT_NODE_TABLE, 
+												SciaXMLConstantes.STRUCT_NODE_TABLE_NAME, header, objects);
 			
-			containerNos = new Container(SciaXMLContantes.STRUCT_NODE_ID, SciaXMLContantes.STRUCT_NODE_TITLE, tabelaNos);
+			containerNos = new Container(SciaXMLConstantes.STRUCT_NODE_ID, SciaXMLConstantes.STRUCT_NODE_TITLE, tabelaNos);
 			
 		}
 		return containerNos;
@@ -89,11 +89,11 @@ public class Project {
 		objects.addAll(getPecas(sumarioDados.getPecasFinais()));
 			
 		Header header = getDefaultBeamHeader();
-		TableNode tabelaPecas = new TableNode(SciaXMLContantes.BEAM_TABLE_ID, 
-											SciaXMLContantes.BEAM_TABLE, 
-											SciaXMLContantes.BEAM_TABLE_NAME, header, objects);
+		TableNode tabelaPecas = new TableNode(SciaXMLConstantes.BEAM_TABLE_ID, 
+											SciaXMLConstantes.BEAM_TABLE, 
+											SciaXMLConstantes.BEAM_TABLE_NAME, header, objects);
 		
-		containerPecas = new Container(SciaXMLContantes.BEAM_ID, SciaXMLContantes.BEAM_TITLE, tabelaPecas);
+		containerPecas = new Container(SciaXMLConstantes.BEAM_ID, SciaXMLConstantes.BEAM_TITLE, tabelaPecas);
 		
 		return containerPecas;
 	}
@@ -105,11 +105,11 @@ public class Project {
 		objects.addAll(getCamadas(sumarioDados.getPecasFinais()));
 			
 		Header header = getDefaultDataLayerNodeHeader();
-		TableNode tabelaPecas = new TableNode(SciaXMLContantes.DATA_LAYER_TABLE_ID, 
-											SciaXMLContantes.DATA_LAYER_TABLE, 
-											SciaXMLContantes.DATA_LAYER_TABLE_NAME, header, objects);
+		TableNode tabelaPecas = new TableNode(SciaXMLConstantes.DATA_LAYER_TABLE_ID, 
+											SciaXMLConstantes.DATA_LAYER_TABLE, 
+											SciaXMLConstantes.DATA_LAYER_TABLE_NAME, header, objects);
 		
-		containerPecas = new Container(SciaXMLContantes.DATA_LAYER_ID, SciaXMLContantes.DATA_LAYER_TITLE, tabelaPecas);
+		containerPecas = new Container(SciaXMLConstantes.DATA_LAYER_ID, SciaXMLConstantes.DATA_LAYER_TITLE, tabelaPecas);
 		
 		return containerPecas;
 	}
@@ -134,7 +134,7 @@ public class Project {
 				List<Container> listaContainer = pecaOrigem.getContainers();
 				
 				for (Container container : listaContainer) {
-					if (container.getT().contains(SciaXMLContantes.DATA_LAYER)){
+					if (container.getT().contains(SciaXMLConstantes.DATA_LAYER)){
 						containerOrigem = container;
 						break;
 					}
@@ -166,7 +166,7 @@ public class Project {
 			List<Container> listaContainer = pecaOrigem.getContainers();
 			
 			for (Container container : listaContainer) {
-				if (container.getT().contains(SciaXMLContantes.BEAM)){
+				if (container.getT().contains(SciaXMLConstantes.BEAM)){
 					containerOrigem = container;
 					break;
 				}
@@ -178,8 +178,8 @@ public class Project {
 			o.setId(peca.getId());
 			o.setNm(peca.getName());
 			o.setP0(new ObjectItem(peca.getId(), null, null, null, null, null));
-			o.setP1(new ObjectItem(null,String.valueOf(peca.getNoInicial()),String.valueOf(peca.getNoInicial()),null,null,null));
-			o.setP2(new ObjectItem(null,String.valueOf(peca.getNoFinal()),String.valueOf(peca.getNoFinal()),null,null,null));
+			o.setP1(new ObjectItem(null,String.valueOf(peca.getNoInicial().getId()),String.valueOf(peca.getNoInicial().getId()),null,null,null));
+			o.setP2(new ObjectItem(null,String.valueOf(peca.getNoFinal().getId()),String.valueOf(peca.getNoFinal().getId()),null,null,null));
 			
 			ObjectItem item = new ObjectItem();
 			item.setV(peca.getId());
@@ -210,35 +210,35 @@ public class Project {
 	
 	private Header getDefaultBeamHeader() {
 		Header retorno = new Header();
-		retorno.setH0(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H0));
-		retorno.setH1(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H1));
-		retorno.setH2(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H2));
-		retorno.setH3(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H3));
-		retorno.setH4(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H4));
-		retorno.setH5(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H5));
-		retorno.setH6(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H6));
-		retorno.setH7(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H7));
-		retorno.setH8(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H8));
-		retorno.setH9(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H9));
-		retorno.setH10(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H10));
-		retorno.setH11(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H11));
-		retorno.setH12(new HeaderItem(SciaXMLContantes.BEAM_HEADER_H12));
+		retorno.setH0(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H0));
+		retorno.setH1(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H1));
+		retorno.setH2(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H2));
+		retorno.setH3(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H3));
+		retorno.setH4(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H4));
+		retorno.setH5(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H5));
+		retorno.setH6(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H6));
+		retorno.setH7(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H7));
+		retorno.setH8(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H8));
+		retorno.setH9(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H9));
+		retorno.setH10(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H10));
+		retorno.setH11(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H11));
+		retorno.setH12(new HeaderItem(SciaXMLConstantes.BEAM_HEADER_H12));
 		return retorno;
 	}
 
 	private Header getDefaultStructNodeHeader() {
 		Header retorno = new Header();
-		retorno.setH0(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H0));
-		retorno.setH1(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H1));
-		retorno.setH2(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H2));
-		retorno.setH3(new HeaderItem(SciaXMLContantes.STRUCT_NODE_HEADER_H3));
+		retorno.setH0(new HeaderItem(SciaXMLConstantes.STRUCT_NODE_HEADER_H0));
+		retorno.setH1(new HeaderItem(SciaXMLConstantes.STRUCT_NODE_HEADER_H1));
+		retorno.setH2(new HeaderItem(SciaXMLConstantes.STRUCT_NODE_HEADER_H2));
+		retorno.setH3(new HeaderItem(SciaXMLConstantes.STRUCT_NODE_HEADER_H3));
 		return retorno;
 	}
 	
 	private Header getDefaultDataLayerNodeHeader() {
 		Header retorno = new Header();
-		retorno.setH0(new HeaderItem(SciaXMLContantes.DATA_LAYER_HEADER_H0));
-		retorno.setH1(new HeaderItem(SciaXMLContantes.DATA_LAYER_HEADER_H1));
+		retorno.setH0(new HeaderItem(SciaXMLConstantes.DATA_LAYER_HEADER_H0));
+		retorno.setH1(new HeaderItem(SciaXMLConstantes.DATA_LAYER_HEADER_H1));
 		return retorno;
 	}
 

@@ -26,7 +26,7 @@ import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.exception.RepositorioPecasException;
 import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
 import br.com.scia.xml.entity.exception.SciaXMLValidationException;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 import br.com.scia.xml.util.SciaXMLFileManager;
 import br.com.scia.xml.view.SciaXMLStarter;
 
@@ -55,20 +55,27 @@ public class SplashController implements Initializable{
 		File f = directoryChooser.showDialog(null);
 		
 		if (f != null){
-			try {
-				this.diretorio.setText(f.getPath());  
-				File[] arquivos = f.listFiles();
-				
-				if (arquivos != null && arquivos.length > 0){
-					for (File file: arquivos) {
-						RepositorioPecas.addPeca(file);
-					}
-					this.progressBar.setProgress(1.0);
-				}
-			} catch (RepositorioPecasException e) {
-				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
-			} 
+			this.diretorio.setText(f.getPath());  
+			
+			if (RepositorioPecas.pecas.size() == 0)
+				carregarArquivos(f);
 		}
+	}
+	
+	private void carregarArquivos (File f){
+		try {
+			this.diretorio.setText(f.getPath());  
+			File[] arquivos = f.listFiles();
+			
+			if (arquivos != null && arquivos.length > 0){
+				for (File file: arquivos) {
+					RepositorioPecas.addPeca(file);
+				}
+				this.progressBar.setProgress(1.0);
+			}
+		} catch (RepositorioPecasException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+		} 
 	}
 	
 	@FXML
@@ -84,6 +91,8 @@ public class SplashController implements Initializable{
 				RepositorioProjeto.projeto = SciaXMLFileManager.carregarProjeto(file);
 				
 				if (RepositorioProjeto.projeto != null){
+					RepositorioProjeto.projeto.setNomeArquivo(file.getAbsolutePath());
+					
 					this.nome.setText(RepositorioProjeto.projeto.getNomeProjeto());
 					this.sigla.setText(RepositorioProjeto.projeto.getSiglaProjeto());
 					this.diretorio.setText(RepositorioProjeto.projeto.getDiretorioPecas());
@@ -102,10 +111,10 @@ public class SplashController implements Initializable{
 				}
 			} catch (SciaXMLFileManagerException e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 			} catch (RepositorioPecasException e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 			}
         }		
 	}
@@ -129,6 +138,19 @@ public class SplashController implements Initializable{
 				file = fc.showSaveDialog(null);
 			}else{
 				file = new File(RepositorioProjeto.projeto.getNomeArquivo());
+				
+				if (!file.exists()){
+					FileChooser fc = new FileChooser();
+					FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("SciaXML Files", "*.sxml");
+					fc.getExtensionFilters().add(extFilter);
+			        
+					file = fc.showSaveDialog(null);
+				}
+			}
+			
+			if (RepositorioPecas.pecas.size() == 0){
+				File diretorioPeca = new File (RepositorioProjeto.projeto.getDiretorioPecas());
+				carregarArquivos(diretorioPeca);
 			}
 			
 			if (file != null){
@@ -136,8 +158,8 @@ public class SplashController implements Initializable{
 				
 				File f;
 				
-				if (!nome.endsWith(SciaXMLContantes.SXML))
-					f = new File(nome + SciaXMLContantes.SXML);
+				if (!nome.endsWith(SciaXMLConstantes.SXML))
+					f = new File(nome + SciaXMLConstantes.SXML);
 				else
 					f = new File(nome);
 				
@@ -154,10 +176,10 @@ public class SplashController implements Initializable{
 			}
 		}
 		catch (SciaXMLValidationException e) {			
-			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 		}
 		catch (SciaXMLFileManagerException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 		}		
 	}
 	
@@ -166,30 +188,30 @@ public class SplashController implements Initializable{
 		String mensagem = null;
 		
 		if ("".equals(this.nome.getText())){
-			this.nome.getStyleClass().add(SciaXMLContantes.CSS_FIELD_ERROR);
+			this.nome.getStyleClass().add(SciaXMLConstantes.CSS_FIELD_ERROR);
 			this.nome.setFocusTraversable(true);
-			mensagem = SciaXMLContantes.CAMPOS_EM_OBRIGATORIOS;
+			mensagem = SciaXMLConstantes.CAMPOS_EM_OBRIGATORIOS;
 		}else {
-			this.nome.getStyleClass().add(SciaXMLContantes.CSS_FIELD_OK);
+			this.nome.getStyleClass().add(SciaXMLConstantes.CSS_FIELD_OK);
 		}
 		
 		if ("".equals(this.sigla.getText())){
-			this.sigla.getStyleClass().add(SciaXMLContantes.CSS_FIELD_ERROR);
+			this.sigla.getStyleClass().add(SciaXMLConstantes.CSS_FIELD_ERROR);
 			this.sigla.setFocusTraversable(true);
-			mensagem = SciaXMLContantes.CAMPOS_EM_OBRIGATORIOS;
+			mensagem = SciaXMLConstantes.CAMPOS_EM_OBRIGATORIOS;
 		}else {
-			this.sigla.getStyleClass().add(SciaXMLContantes.CSS_FIELD_OK);
+			this.sigla.getStyleClass().add(SciaXMLConstantes.CSS_FIELD_OK);
 		}
 		
 		if ("".equals(this.diretorio.getText())){
-			this.diretorio.getStyleClass().add(SciaXMLContantes.CSS_FIELD_ERROR);
+			this.diretorio.getStyleClass().add(SciaXMLConstantes.CSS_FIELD_ERROR);
 			this.diretorio.setFocusTraversable(true);
-			mensagem = SciaXMLContantes.CAMPOS_EM_OBRIGATORIOS;
+			mensagem = SciaXMLConstantes.CAMPOS_EM_OBRIGATORIOS;
 		}else {
 			if (RepositorioPecas.pecas.size() == 0)
-				mensagem = SciaXMLContantes.NENHUM_ARQUIVO_PECA;
+				mensagem = SciaXMLConstantes.NENHUM_ARQUIVO_PECA;
 			else				
-				this.diretorio.getStyleClass().add(SciaXMLContantes.CSS_FIELD_OK);
+				this.diretorio.getStyleClass().add(SciaXMLConstantes.CSS_FIELD_OK);
 		}
 			
 		

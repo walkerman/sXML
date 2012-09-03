@@ -1,5 +1,7 @@
 package br.com.scia.xml.entity.view;
 
+import br.com.scia.xml.entity.xml.Coordenada;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias ("peca")
@@ -8,8 +10,8 @@ public class Peca {
 	private String id;
 	private String name;
 	private String tipo;
-	private String noInicial;
-	private String noFinal;
+	private Coordenada noInicial;
+	private Coordenada noFinal;
 	private Double comprimento;
 	
 	public Peca() {		
@@ -35,16 +37,16 @@ public class Peca {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public String getNoInicial() {
+	public Coordenada getNoInicial() {
 		return noInicial;
 	}
-	public void setNoInicial(String noInicial) {
+	public void setNoInicial(Coordenada noInicial) {
 		this.noInicial = noInicial;
 	}
-	public String getNoFinal() {
+	public Coordenada getNoFinal() {
 		return noFinal;
 	}
-	public void setNoFinal(String noFinal) {
+	public void setNoFinal(Coordenada noFinal) {
 		this.noFinal = noFinal;
 	}
 

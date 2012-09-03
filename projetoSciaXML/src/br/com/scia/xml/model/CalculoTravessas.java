@@ -1,8 +1,5 @@
 package br.com.scia.xml.model;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,7 +11,7 @@ import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterZ;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 public class CalculoTravessas {
 
@@ -40,7 +37,7 @@ public class CalculoTravessas {
 				
 				List<Coordenada> coordenadasRosaceas = new ArrayList<Coordenada>();
 				for (Peca rosacea : rosaceas) {
-					Coordenada c = Calculo.getNo(rosacea.getNoInicial());
+					Coordenada c = rosacea.getNoInicial();
 					coordenadasRosaceas.add(c);
 				}
 				
@@ -54,10 +51,7 @@ public class CalculoTravessas {
 				
 				Coordenada coordenadaAnterior = null;
 				for (int i = 0; i < alturasRosaceas.size(); i++) {
-					System.out.println(contador);
 					contador = Math.round(contador*100)/100.0;
-					System.out.println("contador "+ contador);
-					System.out.println(" entreKITRV "+ entreKITRV);
 					
 					Coordenada coordenada = alturasRosaceas.get(i);
 					
@@ -75,35 +69,35 @@ public class CalculoTravessas {
 							Coordenada coordenada1 = new Coordenada();
 							Coordenada coordenada2 = new Coordenada();
 							
-							Coordenada coordenadaInicialTravessa = Calculo.getNo(travessa.getNoInicial());
-							Coordenada coordenadaFinalTravessa = Calculo.getNo(travessa.getNoFinal());
+							Coordenada coordenadaInicialTravessa = travessa.getNoInicial();
+							Coordenada coordenadaFinalTravessa = travessa.getNoFinal();
 							
 							coordenada1.setId(identificadorNos.toString());
-							coordenada1.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+							coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 							coordenada1.setX(coordenadaInicialTravessa.getX());
 							coordenada1.setY(coordenadaInicialTravessa.getY());
 							
 							if (coordenadaAnterior == null || (coordenadaAnterior != null && i == alturasRosaceas.size()-1))
-								coordenada1.setZ(coordenada.getZ() + SciaXMLContantes.ALTURA_ROSACEA / 2);
+								coordenada1.setZ(coordenada.getZ() + SciaXMLConstantes.ALTURA_ROSACEA / 2);
 							else
-								coordenada1.setZ(coordenadaAnterior.getZ() + SciaXMLContantes.ALTURA_ROSACEA / 2);
+								coordenada1.setZ(coordenadaAnterior.getZ() + SciaXMLConstantes.ALTURA_ROSACEA / 2);
 							
 							coordenada2.setId(identificadorNos.toString());
-							coordenada2.setName(SciaXMLContantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+							coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 							coordenada2.setX(coordenadaFinalTravessa.getX());
 							coordenada2.setY(coordenadaFinalTravessa.getY());
 
 							if (coordenadaAnterior == null || (coordenadaAnterior != null && i == alturasRosaceas.size()-1))
-								coordenada2.setZ(coordenada.getZ() + SciaXMLContantes.ALTURA_ROSACEA / 2);
+								coordenada2.setZ(coordenada.getZ() + SciaXMLConstantes.ALTURA_ROSACEA / 2);
 							else
-								coordenada2.setZ(coordenadaAnterior.getZ() + SciaXMLContantes.ALTURA_ROSACEA / 2);
+								coordenada2.setZ(coordenadaAnterior.getZ() + SciaXMLConstantes.ALTURA_ROSACEA / 2);
 							
 							Peca novaTravessa = new Peca();
 							novaTravessa.setId(String.valueOf(identificadorPecas));
-							novaTravessa.setName(SciaXMLContantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
-							novaTravessa.setTipo(SciaXMLContantes.ROSACEA);
-							novaTravessa.setNoInicial(coordenada1.getId());
-							novaTravessa.setNoFinal(coordenada2.getId());
+							novaTravessa.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
+							novaTravessa.setTipo(SciaXMLConstantes.ROSACEA);
+							novaTravessa.setNoInicial(coordenada1);
+							novaTravessa.setNoFinal(coordenada2);
 							
 							this.sumarioDados.getListaDeNos().add(coordenada1);
 							this.sumarioDados.getListaDeNos().add(coordenada2);
@@ -125,7 +119,8 @@ public class CalculoTravessas {
 		
 		// Removendo os itens repetidos
 		for (Coordenada coordenada : coordenadas) {
-			valoresZ.add(coordenada.getZ());
+			if (coordenada != null)
+				valoresZ.add(coordenada.getZ());
 		}
 		
 		if (valoresZ != null && valoresZ.size() > 0){

@@ -234,13 +234,13 @@ public class SciaXMLUtils {
     }
     
     public static void construirProject(SumarioDados s, File f) {
-		Project p = new Project(s,f.getName()+SciaXMLContantes.XML);
+		Project p = new Project(s,f.getName()+SciaXMLConstantes.XML);
 		
 		try {
-			SciaXMLFileManager.project2XML(p, new File(f.getAbsolutePath()+SciaXMLContantes.XML));
+			SciaXMLFileManager.project2XML(p, new File(f.getAbsolutePath()+SciaXMLConstantes.XML));
 		} catch (SciaXMLFileManagerException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLContantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

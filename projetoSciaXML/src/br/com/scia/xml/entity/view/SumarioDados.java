@@ -3,7 +3,7 @@ package br.com.scia.xml.entity.view;
 import java.util.List;
 
 import br.com.scia.xml.entity.xml.Coordenada;
-import br.com.scia.xml.util.SciaXMLContantes;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -90,11 +90,11 @@ public class SumarioDados {
 		Double comprimento = 0.0;
 		
 		for (Peca peca : this.getPecasX()) {
-			if (peca.getTipo().contains(SciaXMLContantes.KITRV))
+			if (peca.getTipo().contains(SciaXMLConstantes.KITRV))
 				comprimento += peca.getComprimento();
-			if (peca.getTipo().contains(SciaXMLContantes.ESC))
+			if (peca.getTipo().contains(SciaXMLConstantes.ESC))
 				comprimento += (peca.getComprimento() + (vaoDeApoioX*2));
-			if (peca.getTipo().contains(SciaXMLContantes.CRU))
+			if (peca.getTipo().contains(SciaXMLConstantes.CRU))
 				comprimento += (peca.getComprimento() + (vaoDeApoioX*2));
 		}
 		
@@ -105,11 +105,11 @@ public class SumarioDados {
 		Double comprimento = 0.0;
 		
 		for (Peca peca : this.getPecasY()) {
-			if (peca.getTipo().contains(SciaXMLContantes.KITRV))
+			if (peca.getTipo().contains(SciaXMLConstantes.KITRV))
 				comprimento += peca.getComprimento();
-			if (peca.getTipo().contains(SciaXMLContantes.ESC))
+			if (peca.getTipo().contains(SciaXMLConstantes.ESC))
 				comprimento += (peca.getComprimento() + (vaoDeApoioY*2));
-			if (peca.getTipo().contains(SciaXMLContantes.CRU))
+			if (peca.getTipo().contains(SciaXMLConstantes.CRU))
 				comprimento += (peca.getComprimento() + (vaoDeApoioY*2));
 		}
 		
