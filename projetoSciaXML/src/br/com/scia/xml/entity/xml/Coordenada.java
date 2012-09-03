@@ -1,5 +1,8 @@
 package br.com.scia.xml.entity.xml;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("coordenada")
 public class Coordenada{
 	
 	private String id;

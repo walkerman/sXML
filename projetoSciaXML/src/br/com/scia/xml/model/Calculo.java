@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import br.com.scia.xml.dao.RepositorioPecas;
+import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.exception.CalculoException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
@@ -22,6 +23,12 @@ public class Calculo {
 	
 	public static SumarioDados calculaEstrutura(SumarioDados dados) throws CalculoException{
 
+		RepositorioPecas.listaPostes = new ArrayList<>();
+		RepositorioPecas.listaRosaceas = new ArrayList<>();
+		RepositorioPecas.listaTravessas = new ArrayList<>();
+		
+		RepositorioProjeto.projeto.setPecasFinais(new ArrayList<Peca>());
+		
 		Calculo.dados = dados;
 		
 		HashMap<String, String> map = Calculo.vinculaTipoPecas(dados);	
