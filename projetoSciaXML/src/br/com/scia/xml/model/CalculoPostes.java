@@ -240,22 +240,30 @@ public class CalculoPostes {
 			postes.add(p.getComprimento());
 		}
 		
+		Double peDireiro = Double.parseDouble(this.sumarioDados.getPeDireito() )/100.0;
+		System.out.println("peDireiro " + peDireiro);
+		System.out.println("alturaMin " + alturaMin);
+		System.out.println("alturaMax " + alturaMax);
+		  
     	boolean achou = false;
 		
+		
 		Peca valor1 = postesSelecionados.get(0);
+		System.out.println("valor1 " + valor1);
+		
 		Peca valor2 = new Peca();
 		Peca valor3 = new Peca();
 					
 		for (int j = postes.size()-1; j >= 0; j--) {
 			
-			Double peDireiro = Double.parseDouble(this.sumarioDados.getPeDireito() )/100.0;
+			
 			
 			if (!((peDireiro <= 6.0) && (postes.get(j) >= 3.0))){
 				valor2 = postesSelecionados.get(j);
 				
 				if ((valor1.getComprimento() + valor2.getComprimento()) <= alturaMax){
 		
-					for (int j2 = j; j2 >= 0; j2--) {
+					for (int j2 = postes.size()-1; j2 >= 0; j2--) {
 						valor3 = postesSelecionados.get(j2);
 						
 						if (!((peDireiro <= 6.0) && (postes.get(j2) >= 3.0))){

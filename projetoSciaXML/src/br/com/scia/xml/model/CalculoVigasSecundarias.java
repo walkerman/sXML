@@ -47,10 +47,10 @@ public class CalculoVigasSecundarias {
 					total += peca.getComprimento();
 				}
 				
-				List<Coordenada> nosX = getNosX(this.sumarioDados.getPecasFinais());
-				Collections.sort(nosX,new CoordenadaSorterX());
+				List<Coordenada> nosY = getNosY(this.sumarioDados.getPecasFinais());
+				Collections.sort(nosY,new CoordenadaSorterX());
 				
-				if (total < nosX.get(0).getX()){
+				if (total < nosY.get(0).getY()){
 					throw new CalculoException(SciaXMLContantes.COMBINACAO_DE_VIGAS_SECUNDARIAS_NAO_ENCONTRADA);
 				}
 			}
@@ -84,31 +84,6 @@ public class CalculoVigasSecundarias {
 		
 		return getCoordenadasY(retorno);
 	}
-	
-	private List<Coordenada> getNosX(List<Peca> pecas){
-		List<Coordenada> retorno = null;
-		
-		List<String> nosIniciais = new ArrayList<String>();		
-		for (Peca peca : pecas) {
-				nosIniciais.add(peca.getNoInicial());
-		}
-		
-		List<Coordenada> listaCoordenadas = this.sumarioDados.getListaDeNos();
-		
-		if (listaCoordenadas != null && listaCoordenadas.size() > 0){
-			retorno = new ArrayList<Coordenada>();
-			for (Coordenada coordenada : listaCoordenadas) {
-				for (String c : nosIniciais) {
-					if (c.toString().equals(coordenada.getId())){
-						retorno.add(coordenada);
-					}
-				}
-				
-			}
-		}
-		
-		return getCoordenadasX(retorno);
-	}
 		
 	private List<Coordenada> getCoordenadasY (List<Coordenada> coordenadas){
 		List<Coordenada> retorno = null;
@@ -124,27 +99,6 @@ public class CalculoVigasSecundarias {
 			for (Double valor : valoresY) {
 				Coordenada c = new Coordenada();
 				c.setY(valor);
-				retorno.add(c);
-			} 
-		}
-		
-		return retorno;
-	}
-	
-	private List<Coordenada> getCoordenadasX (List<Coordenada> coordenadas){
-		List<Coordenada> retorno = null;
-		Set<Double> valoresX = new HashSet<Double>();
-		
-		// Removendo os itens repetidos
-		for (Coordenada coordenada : coordenadas) {
-			valoresX.add(coordenada.getX());
-		}
-		
-		if (valoresX != null && valoresX.size() > 0){
-			retorno = new ArrayList<Coordenada>();
-			for (Double valor : valoresX) {
-				Coordenada c = new Coordenada();
-				c.setX(valor);
 				retorno.add(c);
 			} 
 		}
@@ -177,8 +131,8 @@ public class CalculoVigasSecundarias {
 					}
 				}
 								
-				if (coordenada.getY() == nosY.get(nosY.size()-1).getY())
-					continue;
+				//if (coordenada.getY() == nosY.get(nosY.size()-1).getY())
+				//	continue;
 				
 				Double tamanhoNecessarioY = coordenada.getY() + transpaseTotal - pontoInicial;
 			
@@ -241,7 +195,7 @@ public class CalculoVigasSecundarias {
 							}else{
 								espacamentoEntreVigas += entreVigasInformado;
 							}
-						}
+						} 
 						
 						achou = true;
 						break;

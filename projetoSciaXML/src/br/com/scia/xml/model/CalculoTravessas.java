@@ -56,7 +56,8 @@ public class CalculoTravessas {
 				for (int i = 0; i < alturasRosaceas.size(); i++) {
 					System.out.println(contador);
 					contador = Math.round(contador*100)/100.0;
-					System.out.println(contador);
+					System.out.println("contador "+ contador);
+					System.out.println(" entreKITRV "+ entreKITRV);
 					
 					Coordenada coordenada = alturasRosaceas.get(i);
 					
