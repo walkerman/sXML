@@ -21,6 +21,12 @@ import br.com.scia.xml.entity.xml.Project;
 
 public class SciaXMLUtils {
 
+	public static String getUUID (){
+		//return UUID.randomUUID().toString();
+		
+		return Long.toOctalString(Double.doubleToLongBits(Math.random() * 1.0000));
+	}
+	
     public static String checkString (String s){
     	if (s != null && !"".equals(s))
     		return s;

@@ -10,6 +10,7 @@ import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.util.SciaXMLConstantes;
+import br.com.scia.xml.util.SciaXMLUtils;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
@@ -39,10 +40,13 @@ public class Project {
 	@XStreamOmitField
 	private Double comprimentoZ;
 	
+	@XStreamOmitField
+	private String uuid;
+	
 	public Project(SumarioDados sumarioDados, String fileName) {
 		
 		if (sumarioDados != null){
-			
+			this.uuid = sumarioDados.getSiglaProjeto();
 			this.xmlns = SciaXMLConstantes.XMLNS;
 			this.def = new Definition(fileName+SciaXMLConstantes.DEF);
 			this.containers = new ArrayList<Container>();
@@ -62,9 +66,9 @@ public class Project {
 			
 			for (Coordenada coordenada : nos) {
 				Object o = new Object();
-				o.setId(coordenada.getId());
-				o.setNm(coordenada.getName());
-				o.setP0(new ObjectItem(String.valueOf(coordenada.getName()), null, null, null, null, null));
+				o.setId(coordenada.getId() + this.uuid);
+				o.setNm(coordenada.getName()  + this.uuid);
+				o.setP0(new ObjectItem(String.valueOf(coordenada.getName()  + this.uuid), null, null, null, null, null));
 				o.setP1(new ObjectItem(String.valueOf(coordenada.getX()), null, null, null, null, null));
 				o.setP2(new ObjectItem(String.valueOf(coordenada.getY()), null, null, null, null, null));
 				o.setP3(new ObjectItem(String.valueOf(coordenada.getZ()), null, null, null, null, null));
@@ -175,11 +179,11 @@ public class Project {
 			// Um arquivo de peça só possui um object/peça no container Beam
 			Object objectOrigem = containerOrigem.getTable().getObjects().get(0);
 			
-			o.setId(peca.getId());
-			o.setNm(peca.getName());
-			o.setP0(new ObjectItem(peca.getId(), null, null, null, null, null));
-			o.setP1(new ObjectItem(null,String.valueOf(peca.getNoInicial().getId()),String.valueOf(peca.getNoInicial().getId()),null,null,null));
-			o.setP2(new ObjectItem(null,String.valueOf(peca.getNoFinal().getId()),String.valueOf(peca.getNoFinal().getId()),null,null,null));
+			o.setId(peca.getId() + this.uuid);
+			o.setNm(peca.getName() + this.uuid);
+			o.setP0(new ObjectItem(peca.getId()  + this.uuid, null, null, null, null, null));
+			o.setP1(new ObjectItem(null,String.valueOf(peca.getNoInicial().getId()  + this.uuid),String.valueOf(peca.getNoInicial().getId() + this.uuid),null,null,null));
+			o.setP2(new ObjectItem(null,String.valueOf(peca.getNoFinal().getId() + this.uuid),String.valueOf(peca.getNoFinal().getId() + this.uuid),null,null,null));
 			
 			ObjectItem item = new ObjectItem();
 			item.setV(peca.getId());

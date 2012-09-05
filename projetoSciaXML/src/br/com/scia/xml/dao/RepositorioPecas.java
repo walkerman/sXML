@@ -26,6 +26,7 @@ public class RepositorioPecas {
 
 	public static HashMap<String, Project> pecas;
 	public static List<Peca> listaTravessas;
+	public static List<Peca> listaTravessasReplicadas;
 	public static List<Peca> listaRosaceas;
 	public static List<Peca> listaPostes;
 	
@@ -41,6 +42,9 @@ public class RepositorioPecas {
 			
 		if (RepositorioPecas.listaPostes == null)
 			RepositorioPecas.listaPostes = new ArrayList<>();
+			
+		if (RepositorioPecas.listaTravessasReplicadas == null)
+			RepositorioPecas.listaTravessasReplicadas = new ArrayList<>();
 	}
 	
 	public static void addPeca(File f) throws RepositorioPecasException{

@@ -38,9 +38,9 @@ public class CalculoVigasSecundarias {
 		List<Peca> pecas = RepositorioPecas.listaTravessas;
 		
 		if (pecas != null && pecas.size() > 0){
-			Double pontoXInicialEstrutura = Double.parseDouble(this.sumarioDados.getCoordenadaX());
+			Double pontoYInicialEstrutura = Double.parseDouble(this.sumarioDados.getCoordenadaY())/100;
 					
-			calcularVigasY(pontoXInicialEstrutura,this.identificadorNos,this.identificadorPecas);
+			calcularVigasY(pontoYInicialEstrutura,this.identificadorNos,this.identificadorPecas);
 			
 			if (this.vigasSecundariasFinais != null){
 				Double total = 0.0;
@@ -50,8 +50,8 @@ public class CalculoVigasSecundarias {
 				
 				List<Coordenada> nosY = getNosY(RepositorioPecas.listaTravessas);
 				Collections.sort(nosY,new CoordenadaSorterX());
-				
-				if (total < nosY.get(0).getY()){
+				Double cordenadainicioY = Double.parseDouble(this.sumarioDados.getCoordenadaY())/100;
+				if (total < (nosY.get(0).getY()-cordenadainicioY)){
 					throw new CalculoException(SciaXMLConstantes.COMBINACAO_DE_VIGAS_SECUNDARIAS_NAO_ENCONTRADA);
 				}
 			}
@@ -114,6 +114,9 @@ public class CalculoVigasSecundarias {
 			Double transpasse = Double.parseDouble(transpasseInformado)/100.0;
 			Double transpaseTotal = transpasse*2;
 			
+			Double cordenadainicioY = Double.parseDouble(this.sumarioDados.getCoordenadaY())/100;
+			Double cordenadainicioX = Double.parseDouble(this.sumarioDados.getCoordenadaX())/100;
+			
 			List<Coordenada> nosY = getNosY(RepositorioPecas.listaTravessas);
 			Collections.sort(nosY,new CoordenadaSorterY());
 			
@@ -124,13 +127,23 @@ public class CalculoVigasSecundarias {
 				if (this.vigasSecundariasFinais != null && this.vigasSecundariasFinais.size() > 0){
 					Double total = 0.0;
 					for (Peca peca : this.vigasSecundariasFinais) {
-						total += peca.getComprimento();
+						total += peca.getComprimento()-transpaseTotal;
 					}
 					
-					if (total >= nosY.get(0).getY()){
+					System.out.println("total " +  total);
+					System.out.println("nosY.get(0).getY() " + nosY.get(0).getY());
+					System.out.println("cordenadainicioY " + cordenadainicioY);
+					
+					if (total >= (nosY.get(0).getY()-cordenadainicioY)){
 						break;
 					}
+					
+					
+					
 				}
+				
+				
+				
 								
 				//if (coordenada.getY() == nosY.get(nosY.size()-1).getY())
 				//	continue;
@@ -150,14 +163,14 @@ public class CalculoVigasSecundarias {
 						
 						//TODO: obter desvio correto da peça de entrada (como garantir a criação das vigas apenas um x, inicialmente?)
 						// Double desvioY = 0.08;
-												
-						Double espacamentoEntreVigas = Double.parseDouble(this.sumarioDados.getFolgaLajeX1())-transpasse;
-						System.out.println(espacamentoEntreVigas);
+							
+						Double espacamentoEntreVigas = (Double.parseDouble(this.sumarioDados.getFolgaLajeX1())/100.0) - transpasse + cordenadainicioX;
+						System.out.println("espacamentoEntreVigas " + espacamentoEntreVigas);
 						
-						Double medidaLajeX = Double.parseDouble(this.sumarioDados.getMedidaLageX());
-						Double folgaLajeX = Double.parseDouble(this.sumarioDados.getFolgaLajeX2());
-						Double entreVigasInformado = Double.parseDouble(this.sumarioDados.getEspacamentoEntreVigasSecundarias());
-						Double areaDeVigasSecundarias = (medidaLajeX - folgaLajeX + transpasse);
+						Double medidaLajeX = Double.parseDouble(this.sumarioDados.getMedidaLageX())/100.0;
+						Double folgaLajeX2 = Double.parseDouble(this.sumarioDados.getFolgaLajeX2())/100.0;
+						Double entreVigasInformado = Double.parseDouble(this.sumarioDados.getEspacamentoEntreVigasSecundarias())/100.0;
+						Double areaDeVigasSecundarias = (medidaLajeX - folgaLajeX2 + cordenadainicioX);
 						
 						while (espacamentoEntreVigas <= areaDeVigasSecundarias) {
 							Coordenada coordenada1 = new Coordenada(); 
@@ -168,13 +181,13 @@ public class CalculoVigasSecundarias {
 							
 							coordenada1.setId(identificacaoNo.toString());
 							coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
-							coordenada1.setX(espacamentoEntreVigas/100.0);
+							coordenada1.setX(espacamentoEntreVigas);
 							coordenada1.setY(yInicial);
 							coordenada1.setZ(altura);
 							
 							coordenada2.setId(identificacaoNo.toString());
 							coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
-							coordenada2.setX(espacamentoEntreVigas/100.0);
+							coordenada2.setX(espacamentoEntreVigas);
 							coordenada2.setY(yFinal);
 							coordenada2.setZ(altura);
 							 

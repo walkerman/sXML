@@ -95,13 +95,15 @@ public class CalculoTravessas {
 							Peca novaTravessa = new Peca();
 							novaTravessa.setId(String.valueOf(identificadorPecas));
 							novaTravessa.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
-							novaTravessa.setTipo(SciaXMLConstantes.ROSACEA);
+							novaTravessa.setTipo(travessa.getTipo());
 							novaTravessa.setNoInicial(coordenada1);
 							novaTravessa.setNoFinal(coordenada2);
 							
 							this.sumarioDados.getListaDeNos().add(coordenada1);
 							this.sumarioDados.getListaDeNos().add(coordenada2);
 							this.sumarioDados.getPecasFinais().add(novaTravessa);
+							
+							RepositorioPecas.listaTravessasReplicadas.add(novaTravessa);
 						}
 					}else{
 						coordenadaAnterior = alturasRosaceas.get(i-1);

@@ -37,7 +37,7 @@ public class CalculoVigasPrincipais {
 		List<Peca> pecas = RepositorioPecas.listaTravessas;
 		
 		if (pecas != null && pecas.size() > 0){
-			Double pontoXInicialEstrutura = Double.parseDouble(this.sumarioDados.getCoordenadaX());
+			Double pontoXInicialEstrutura = Double.parseDouble(this.sumarioDados.getCoordenadaX())/100.0;
 					
 			calcularVigasX(pontoXInicialEstrutura,this.identificadorNos,this.identificadorPecas,(SciaXMLConstantes.METADA_ESPESSURA_VIGA));
 			
@@ -49,8 +49,9 @@ public class CalculoVigasPrincipais {
 				
 				List<Coordenada> nosX = getNosX(RepositorioPecas.listaTravessas);
 				Collections.sort(nosX,new CoordenadaSorterX());
+				Double cordenadainicioX = Double.parseDouble(this.sumarioDados.getCoordenadaX())/100;
 				
-				if (total < nosX.get(0).getX()){
+				if (total < (nosX.get(0).getX()-cordenadainicioX)){
 					throw new CalculoException(SciaXMLConstantes.COMBINACAO_DE_VIGAS_PRINCIPAIS_NAO_ENCONTRADA);
 				}
 			}
@@ -160,6 +161,8 @@ public class CalculoVigasPrincipais {
 		if (!"".equals(transpasseInformado)){
 			Double transpasse = Double.parseDouble(transpasseInformado)/100.0;
 			Double transpaseTotal = transpasse*2;
+			Double cordenadainicioX = Double.parseDouble(this.sumarioDados.getCoordenadaX())/100;
+			
 			
 			List<Coordenada> nosX = getNosX(RepositorioPecas.listaTravessas);
 			Collections.sort(nosX,new CoordenadaSorterX());
@@ -174,10 +177,10 @@ public class CalculoVigasPrincipais {
 				if (this.vigasPrincipaisFinais != null && this.vigasPrincipaisFinais.size() > 0){
 					Double total = 0.0;
 					for (Peca peca : this.vigasPrincipaisFinais) {
-						total += peca.getComprimento();
+						total += peca.getComprimento()-transpaseTotal;
 					}
 					
-					if (total >= nosX.get(0).getX()){
+					if (total >= (nosX.get(0).getX()-cordenadainicioX)){
 						break;
 					}
 				}

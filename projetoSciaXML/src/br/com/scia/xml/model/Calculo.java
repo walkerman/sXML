@@ -26,8 +26,10 @@ public class Calculo {
 		RepositorioPecas.listaPostes = new ArrayList<>();
 		RepositorioPecas.listaRosaceas = new ArrayList<>();
 		RepositorioPecas.listaTravessas = new ArrayList<>();
+		RepositorioPecas.listaTravessasReplicadas = new ArrayList<>();
 		
 		RepositorioProjeto.projeto.setPecasFinais(new ArrayList<Peca>());
+		RepositorioProjeto.projeto.setListaDeNos(new ArrayList<Coordenada>());
 		
 		Calculo.dados = dados;
 		
@@ -52,6 +54,14 @@ public class Calculo {
 		
 		CalculoTravessas calculoTravessas = new CalculoTravessas();
 		calculoTravessas.replicarTravessas();
+		
+		if (dados.getKidI()){
+			CalculoTravessasDiagonaisVerticais calculoTravessasDiagonaisVerticais = new CalculoTravessasDiagonaisVerticais();
+			calculoTravessasDiagonaisVerticais.realizarCalculo();
+		}
+		
+		CalculoTravessasDiagonaisHorizontais calculoTravessasDiagonaisHorizontais = new CalculoTravessasDiagonaisHorizontais();
+		calculoTravessasDiagonaisHorizontais.realizarCalculo();
 		
 		return dados;
 	}
@@ -80,7 +90,7 @@ public class Calculo {
 				dados.setVaoDeApoioX( (medidaLaje - comprimentoTotalEixo - folgaLaje1 - folgaLaje2) / 2);
 				break;
 			default:
-				dados.setVaoDeApoioX( (medidaLaje - comprimentoTotalEixo -  folgaLaje1  - folgaLaje2) / dados.getPecasX().size() - 1);
+				dados.setVaoDeApoioX( (medidaLaje - comprimentoTotalEixo -  folgaLaje1  - folgaLaje2) / (dados.getPecasX().size() - 1));
 				break;
 			}
 
@@ -101,7 +111,7 @@ public class Calculo {
 				dados.setVaoDeApoioY( (medidaLaje - comprimentoTotalEixo - folgaLaje1 - folgaLaje2) / 2);
 				break;
 			default:
-				dados.setVaoDeApoioY( (medidaLaje - comprimentoTotalEixo -  folgaLaje1  - folgaLaje2) / dados.getPecasX().size() - 1);
+				dados.setVaoDeApoioY( (medidaLaje - comprimentoTotalEixo -  folgaLaje1  - folgaLaje2) / (dados.getPecasX().size() - 1));
 				break;
 			}
 
