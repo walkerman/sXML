@@ -13,7 +13,7 @@ import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterX;
-import br.com.scia.xml.util.PecaSorter;
+import br.com.scia.xml.util.PecaComprimentoSorter;
 import br.com.scia.xml.util.SciaXMLConstantes;
 import br.com.scia.xml.util.SciaXMLUtils;
 
@@ -191,7 +191,7 @@ public class CalculoVigasPrincipais {
 				Double x = coordenada.getX() + transpaseTotal - pontoInicial;
 			
 				List<Peca> vigas = this.sumarioDados.getVigasPrincipais();
-				Collections.sort(vigas,new PecaSorter());
+				Collections.sort(vigas,new PecaComprimentoSorter());
 			     
 				boolean achou = false;
 				for (Peca peca : vigas) {

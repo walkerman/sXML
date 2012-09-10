@@ -74,13 +74,14 @@ public class SciaXMLUtils {
 			
 			if (controller.kidh.isSelected()){
 				RepositorioProjeto.projeto.setKidH(true);
+			}else{
+				RepositorioProjeto.projeto.setKidH(false);
 			}
 			
 			if (controller.entreTravessas.getSelectedToggle() != null){
 				RadioButton selecao = (RadioButton) controller.entreTravessas.getSelectedToggle();
 				String espaco = selecao.getText();
 				RepositorioProjeto.projeto.setEspacamentoEntreTravessas(espaco);
-				System.out.println("Espaco informado KITRV = " + espaco);
 			}
 			
 			List<String> travessasX = controller.sumarioPecasX.getItems();

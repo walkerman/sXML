@@ -13,7 +13,7 @@ import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterX;
 import br.com.scia.xml.util.CoordenadaSorterY;
-import br.com.scia.xml.util.PecaSorter;
+import br.com.scia.xml.util.PecaComprimentoSorter;
 import br.com.scia.xml.util.SciaXMLConstantes;
 
 public class CalculoPostes {
@@ -66,7 +66,7 @@ public class CalculoPostes {
 				Peca posteEspecial = this.sumarioDados.getPosteEspecial();
 				Peca forcado = this.sumarioDados.getForcado();
 				
-				Collections.sort(postes,new PecaSorter());
+				Collections.sort(postes,new PecaComprimentoSorter());
 				
 				double altura = 0.0;
 												
@@ -233,7 +233,7 @@ public class CalculoPostes {
     	Double alturaMin = altura - SciaXMLConstantes.VALOR_ALTURA_MIN;
     	
 		List<Peca> postesSelecionados = this.sumarioDados.getPostes();
-		Collections.sort(postesSelecionados, new PecaSorter());
+		Collections.sort(postesSelecionados, new PecaComprimentoSorter());
 		List<Double> postes = new ArrayList<Double>();
 		
 		for (Peca p : postesSelecionados) {

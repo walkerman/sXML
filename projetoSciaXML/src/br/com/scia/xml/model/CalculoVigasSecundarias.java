@@ -14,7 +14,7 @@ import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterX;
 import br.com.scia.xml.util.CoordenadaSorterY;
-import br.com.scia.xml.util.PecaSorter;
+import br.com.scia.xml.util.PecaComprimentoSorter;
 import br.com.scia.xml.util.SciaXMLConstantes;
 import br.com.scia.xml.util.SciaXMLUtils;
 
@@ -151,7 +151,7 @@ public class CalculoVigasSecundarias {
 				Double tamanhoNecessarioY = coordenada.getY() + transpaseTotal - pontoInicial;
 			
 				List<Peca> vigas = this.sumarioDados.getVigasSecundarias();
-				Collections.sort(vigas,new PecaSorter());
+				Collections.sort(vigas,new PecaComprimentoSorter());
 			
 				boolean achou = false;
 				for (Peca peca : vigas) {

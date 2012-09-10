@@ -749,20 +749,18 @@ public class PrincipalController implements Initializable{
 			}
     		
     		if (RepositorioProjeto.projeto.getKidI() != null && RepositorioProjeto.projeto.getKidI()){    			
-    			RadioButton semKIDI = (RadioButton) this.entreTravessas.getToggles().get(0);
-    			semKIDI.setSelected(false);
-    			RadioButton comKIDI = (RadioButton) this.entreTravessas.getToggles().get(1);
-    			comKIDI.setSelected(true);
+    			this.kidi.getToggles().get(0).setSelected(false);
+    			this.kidi.getToggles().get(1).setSelected(true);
     		}else if (RepositorioProjeto.projeto.getKidI() != null && !RepositorioProjeto.projeto.getKidI()){
-    			RadioButton semKIDI = (RadioButton) this.entreTravessas.getToggles().get(0);
-    			semKIDI.setSelected(true);
-    			RadioButton comKIDI = (RadioButton) this.entreTravessas.getToggles().get(1);
-    			comKIDI.setSelected(false);
+    			this.kidi.getToggles().get(0).setSelected(true);
+    			this.kidi.getToggles().get(1).setSelected(false);
     		}
     		
     		if (RepositorioProjeto.projeto.getKidH() != null && RepositorioProjeto.projeto.getKidH()){
     			this.kidh.setSelected(true);
-    		}
+    		}else{
+    			this.kidh.setSelected(false);
+    		}	
     		
     		if (RepositorioProjeto.projeto.getEspacamentoEntreTravessas() != null){
     			for (Toggle tipo : this.entreTravessas.getToggles()) {

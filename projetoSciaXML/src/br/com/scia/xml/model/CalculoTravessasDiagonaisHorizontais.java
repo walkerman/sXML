@@ -11,6 +11,8 @@ import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterZ;
+import br.com.scia.xml.util.PecaSorterX;
+import br.com.scia.xml.util.SciaXMLConstantes;
 
 
 public class CalculoTravessasDiagonaisHorizontais {
@@ -28,6 +30,7 @@ public class CalculoTravessasDiagonaisHorizontais {
 	
 	public void realizarCalculo(){
 		List<Peca> travessasReplicadas = RepositorioPecas.listaTravessasReplicadas;
+		 
 		Double zInicial = getMenorZ(travessasReplicadas);
 		
 		if (travessasReplicadas != null && travessasReplicadas.size() > 0){						
@@ -41,20 +44,20 @@ public class CalculoTravessasDiagonaisHorizontais {
 			
 			List<String> idAdicionados = new ArrayList<String>();
 			ArrayList<ArrayList<Peca>> listaDeListas = new ArrayList<ArrayList<Peca>>();
+			
 			for (Peca pecaReferencia : travessasMesmoZ) {
 				if (!idAdicionados.contains(pecaReferencia.getId())){
-				
-					ArrayList<Peca> travessasMesmoY = null;
-					
-					if (pecaReferencia.getNoInicial().getX().doubleValue() == pecaReferencia.getNoFinal().getX().doubleValue()){
-						travessasMesmoY = new ArrayList<Peca>();
-						travessasMesmoY.add(pecaReferencia);
-						idAdicionados.add(pecaReferencia.getId());
-					}				
-						
+					   
+					ArrayList<Peca> travessasMesmoY = new ArrayList<Peca>();
+					  	
 					for (Peca travessa : travessasMesmoZ) {
-						if ((pecaReferencia.getNoInicial().getY().doubleValue() == travessa.getNoFinal().getY().doubleValue()) &&
-							(pecaReferencia.getNoFinal().getY().doubleValue() == travessa.getNoInicial().getY().doubleValue())){
+						if (((pecaReferencia.getNoInicial().getY().doubleValue() == travessa.getNoFinal().getY().doubleValue()) &&
+							(pecaReferencia.getNoFinal().getY().doubleValue() == travessa.getNoInicial().getY().doubleValue()) &&
+							(travessa.getNoInicial().getX().doubleValue() == travessa.getNoFinal().getX().doubleValue())) 
+							||  
+							((pecaReferencia.getNoInicial().getY().doubleValue() == travessa.getNoInicial().getY().doubleValue()) &&
+							(pecaReferencia.getNoFinal().getY().doubleValue() == travessa.getNoFinal().getY().doubleValue()) &&
+							(travessa.getNoInicial().getX().doubleValue() == travessa.getNoFinal().getX().doubleValue()))){
 							
 							if (travessasMesmoY != null){
 								travessasMesmoY.add(travessa);
@@ -62,42 +65,58 @@ public class CalculoTravessasDiagonaisHorizontais {
 							}
 						}
 					}
-					
+				
 					if (travessasMesmoY != null){
 						listaDeListas.add(travessasMesmoY);
 						System.out.println(travessasMesmoY.size());
 					}
+					
 				}
+				
+				
 			}
 			
+			 
 			System.out.println(listaDeListas.size());
+		 
+			for (ArrayList<Peca> lista : listaDeListas) {
+				
+				Collections.sort(lista, new PecaSorterX());
+				 
+				boolean isNoFinal = false;
+				for (int i = 0; i < lista.size(); i++) {
+					if (i > 0){
+						Peca peca = lista.get(i);
+						Peca pecaAnterior = lista.get(i-1);
+						
+						if((i  % 2) != 0) 
+						{
+						    Peca novaTravessaHorizontal = new Peca();
+							novaTravessaHorizontal.setId(String.valueOf(identificadorPecas));
+							novaTravessaHorizontal.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
+							novaTravessaHorizontal.setTipo(SciaXMLConstantes.KIDI1215);
+							
+							if (isNoFinal){
+								  
+								novaTravessaHorizontal.setNoInicial(pecaAnterior.getNoFinal());
+								novaTravessaHorizontal.setNoFinal(peca.getNoFinal());
+								isNoFinal = true;
+							}else{
+								novaTravessaHorizontal.setNoInicial(pecaAnterior.getNoInicial());
+								novaTravessaHorizontal.setNoFinal(peca.getNoInicial());
+								isNoFinal = false;
+							}
+							
+							this.sumarioDados.getPecasFinais().add(novaTravessaHorizontal);
+						}  
+					}
+				}
+			}
+
 			
-//			for (ArrayList<Peca> lista : listaDeListas) {
-//				boolean isNoFinal = false;
-//				for (int i = 0; i < lista.size(); i++) {
-//					if (i > 0){
-//						Peca peca = lista.get(i);
-//						Peca pecaAnterior = lista.get(i-1);
-//							
-//						Peca novaTravessaDiagonal = new Peca();
-//						novaTravessaDiagonal.setId(String.valueOf(identificadorPecas));
-//						novaTravessaDiagonal.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
-//						novaTravessaDiagonal.setTipo(SciaXMLConstantes.KIDI1215);
-//						
-//						if (isNoFinal){
-//							novaTravessaDiagonal.setNoInicial(pecaAnterior.getNoFinal());
-//							novaTravessaDiagonal.setNoFinal(peca.getNoInicial());
-//							isNoFinal = true;
-//						}else{
-//							novaTravessaDiagonal.setNoInicial(pecaAnterior.getNoInicial());
-//							novaTravessaDiagonal.setNoFinal(peca.getNoFinal());
-//							isNoFinal = false;
-//						}
-//						
-//						this.sumarioDados.getPecasFinais().add(novaTravessaDiagonal);
-//					}
-////				}
-//			}
+			
+			
+  
 		}
 	}
 	

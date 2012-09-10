@@ -33,12 +33,12 @@ public class CalculoEscoras {
 		Double espessuraConpensado = Double.parseDouble(sumarioDados.getEspessuraCompensado());
 		Double espessuraLaje = Double.parseDouble(sumarioDados.getEspessura());
 		Double alturaVigaPrincipal = CalculoVigasPrincipais.getAlturaViga();
-		Double alturaVigaSecundaria = CalculoVigasPrincipais.getAlturaViga();		//TODO alterar para viga secundaria
+		Double alturaVigaSecundaria = CalculoVigasSecundarias.getAlturaViga();
 		Double alturaForcado = sumarioDados.getForcadoX().getComprimento();
 	
 		alturaBaseEscora = RepositorioPecas.pecas.get(tipoEscora).getComprimentoZ() ;
-		alturaTotalEscora = peDireito - espessuraConpensado - espessuraLaje - alturaVigaPrincipal - alturaVigaSecundaria - alturaForcado;
-		alturaFlexivelEscora = alturaTotalEscora /100 - alturaBaseEscora;
+		alturaTotalEscora = (peDireito - espessuraConpensado - espessuraLaje - alturaVigaPrincipal - alturaVigaSecundaria - alturaForcado) / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML;
+		alturaFlexivelEscora = alturaTotalEscora - alturaBaseEscora;
 
 		switch (tipoEscora) {
 			case SciaXMLConstantes.TIPO_ESCORA_A:
@@ -65,7 +65,7 @@ public class CalculoEscoras {
 				throw new CalculoException(SciaXMLConstantes.ESCORA_NAO_CADASTRADA);
 		}
 
-		return alturaFlexivelEscora;
+		return alturaTotalEscora;
 	}
 	
 	private void defineBaseEscora(){
@@ -139,7 +139,7 @@ public class CalculoEscoras {
 		coordenada3.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 		coordenada3.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 		coordenada3.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-		coordenada3.setZ(alturaEscoraFlexivel / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);	
+		coordenada3.setZ(alturaEscoraFlexivel);	
 		
 		eixoY = eixoY + (RepositorioPecas.pecas.get(tipoPeca2).getComprimentoX() * 100);
 		
@@ -148,14 +148,14 @@ public class CalculoEscoras {
 		peca1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas));
 		peca1.setTipo(tipoPeca1);
 		peca1.setNoInicial(coordenada1);
-		peca1.setNoFinal(coordenada3);
+		peca1.setNoFinal(coordenada2);
 		
 		//DEFINE PRIMEIRA PECA ESCORA
-		peca2.setId(String.valueOf(identificadorPecas+2));
-		peca2.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas+2));
+		peca2.setId(String.valueOf(identificadorPecas+1));
+		peca2.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas+1));
 		peca2.setTipo(SciaXMLConstantes.TOPO_ESCORA);
-		peca2.setNoInicial(coordenada3);
-		peca2.setNoFinal(coordenada5);
+		peca2.setNoInicial(coordenada2);
+		peca2.setNoFinal(coordenada3);
 		
 		sumarioDados.getListaDeNos().add(coordenada1);
 		sumarioDados.getListaDeNos().add(coordenada2);
@@ -184,20 +184,20 @@ public class CalculoEscoras {
 		coordenada6.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 		coordenada6.setX((eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML));
 		coordenada6.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-		coordenada6.setZ(alturaEscoraFlexivel  / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
+		coordenada6.setZ(alturaEscoraFlexivel);
 		
 		//DEFINE SEGUNDA PECA ESCORA
-		peca3.setId(String.valueOf(identificadorPecas+1));
-		peca3.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas+1));
+		peca3.setId(String.valueOf(identificadorPecas));
+		peca3.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas));
 		peca3.setTipo(tipoPeca1);
-		peca3.setNoInicial(coordenada2);
-		peca3.setNoFinal(coordenada4);
+		peca3.setNoInicial(coordenada4);
+		peca3.setNoFinal(coordenada5);
 		
 		//DEFINE SEGUNDA PECA ESCORA
-		peca4.setId(String.valueOf(identificadorPecas+3));
-		peca4.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas+3));
+		peca4.setId(String.valueOf(identificadorPecas+1));
+		peca4.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas+1));
 		peca4.setTipo(SciaXMLConstantes.TOPO_ESCORA);
-		peca4.setNoInicial(coordenada4);
+		peca4.setNoInicial(coordenada5);
 		peca4.setNoFinal(coordenada6);
 		
 		//ADICIONA COORDENADAS NA LISTA
@@ -208,7 +208,7 @@ public class CalculoEscoras {
 		sumarioDados.getPecasFinais().add(peca3);
 		sumarioDados.getPecasFinais().add(peca4);
 
-		identificadorPecas  = identificadorPecas  + 2;
+		identificadorPecas  = identificadorPecas  + 3;
 		atualizaDadosClasseCalculo();
 	}
 
@@ -246,7 +246,7 @@ public class CalculoEscoras {
 		coordenada3.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 		coordenada3.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 		coordenada3.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-		coordenada3.setZ(alturaEscoraFlexivel  / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);	
+		coordenada3.setZ(alturaEscoraFlexivel);	
 		
 		//DEFINE PRIMEIRA PECA ESCORA
 		peca1.setId(String.valueOf(identificadorPecas));
@@ -256,8 +256,8 @@ public class CalculoEscoras {
 		peca1.setNoFinal(coordenada2);
 		
 		//DEFINE PRIMEIRA PECA ESCORA
-		peca2.setId(String.valueOf(identificadorPecas+2));
-		peca2.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas+2));
+		peca2.setId(String.valueOf(identificadorPecas+1));
+		peca2.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas+1));
 		peca2.setTipo(SciaXMLConstantes.TOPO_ESCORA);
 		peca2.setNoInicial(coordenada2);
 		peca2.setNoFinal(coordenada3);
@@ -290,22 +290,22 @@ public class CalculoEscoras {
 		coordenada6.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 		coordenada6.setX((eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML));
 		coordenada6.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-		coordenada6.setZ(alturaEscoraFlexivel  / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
+		coordenada6.setZ(alturaEscoraFlexivel);
 
 		eixoX = eixoX - (RepositorioPecas.pecas.get(tipoPeca1).getComprimentoX() * 100); 
 
 		//DEFINE SEGUNDA PECA ESCORA
-		peca3.setId(String.valueOf(identificadorPecas+1));
-		peca3.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas+1));
+		peca3.setId(String.valueOf(identificadorPecas));
+		peca3.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas));
 		peca3.setTipo(tipoPeca2);
-		peca3.setNoInicial(coordenada2);
-		peca3.setNoFinal(coordenada4);
+		peca3.setNoInicial(coordenada4);
+		peca3.setNoFinal(coordenada5);
 		
 		//DEFINE SEGUNDA PECA ESCORA
-		peca4.setId(String.valueOf(identificadorPecas+3));
-		peca4.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas+3));
+		peca4.setId(String.valueOf(identificadorPecas+1));
+		peca4.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas+1));
 		peca4.setTipo(SciaXMLConstantes.TOPO_ESCORA);
-		peca4.setNoInicial(coordenada4);
+		peca4.setNoInicial(coordenada5);
 		peca4.setNoFinal(coordenada6);
 
 
@@ -349,7 +349,7 @@ public class CalculoEscoras {
 		coordenada3.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
 		coordenada3.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 		coordenada3.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-		coordenada3.setZ(alturaEscoraFlexivel  / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);	
+		coordenada3.setZ(alturaEscoraFlexivel);	
 
 		//DEFINE PRIMEIRA PECA ESCORA
 		peca1.setId(String.valueOf(identificadorPecas));
