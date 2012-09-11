@@ -209,7 +209,9 @@ public class CalculoVigasPrincipais {
 							Coordenada coordenada2 = new Coordenada();
 							
 							Double posteEspecial = this.sumarioDados.getPosteEspecial().getComprimento();
-							Double altura =  Calculo.getAlturaUtil() + CalculoPostes.getAlturaMacacoEForcado() + posteEspecial;
+							Double coordenadaZ   = Double.parseDouble(this.sumarioDados.getCoordenadaZ())/SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML;
+							
+							Double altura =  Calculo.getAlturaUtil() + CalculoPostes.getAlturaMacacoEForcado() + posteEspecial + coordenadaZ;
 							
 							coordenada1.setId(identificacaoNo.toString());
 							coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					

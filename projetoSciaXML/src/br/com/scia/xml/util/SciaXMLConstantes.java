@@ -73,6 +73,8 @@ public class SciaXMLConstantes {
 	public static final String KIP200R4 = "KIP200R4";			// POSTE
 	public static final String KIP300R6 = "KIP300R6";			// POSTE
 	public static final String ROSACEA = "ROSACEA";				// ROSACEA
+	public static final String TOPO_FORCADO = "TOPO_FORCADO";				// TOPO_FORCADO
+	public static final String DET_FORCADO  = "DET_FORCADO";				// DET_FORCADO
 	public static final String KIDI1215 = "KIDI1215";			// TRAVESSAS DIAGONAIS VERTICAIS
 	public static final String KIDI1220 = "KIDI1220";			// TRAVESSAS DIAGONAIS VERTICAIS
 	public static final String KIDI1715 = "KIDI1715";			// TRAVESSAS DIAGONAIS VERTICAIS

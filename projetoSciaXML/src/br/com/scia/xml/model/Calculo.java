@@ -18,6 +18,7 @@ public class Calculo {
 	public static SumarioDados dados;
 	public static Double eixoX;
 	public static Double eixoY;
+	public static Double eixoZ;
 	public static Integer identificacaoPeca; 
 	public static Integer no;
 	
@@ -142,6 +143,7 @@ public class Calculo {
 
 		String tipoPeca1;
 		String tipoPeca2;
+		eixoZ = Double.parseDouble(dados.getCoordenadaZ())/SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML;
 
 		//COORDENADA INICIAL TEM PARTIDA CONSIDERANDO AS FOLGAS DA LAJE		
 		switch (dados.getPecasX().size()) {
@@ -191,6 +193,7 @@ public class Calculo {
 					coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
 					coordenada1.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada1.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
+					coordenada1.setZ(eixoZ / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 
 					//ALOCA CURSOR NO PONTO 2
 					eixoY = eixoY + (RepositorioPecas.pecas.get(tipoPeca2).getComprimentoX() * 100);
@@ -200,6 +203,7 @@ public class Calculo {
 					coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
 					coordenada2.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada2.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
+					coordenada2.setZ(eixoZ / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 
 					//ALOCA CURSOR NO PONTO 3
 					eixoX = eixoX + (RepositorioPecas.pecas.get(tipoPeca1).getComprimentoX() * 100);
@@ -209,6 +213,7 @@ public class Calculo {
 					coordenada3.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
 					coordenada3.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada3.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
+					coordenada3.setZ(eixoZ / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 
 					//ALOCA CURSOR NO PONTO 4
 					eixoY = eixoY - (RepositorioPecas.pecas.get(tipoPeca2).getComprimentoX() * 100);
@@ -218,6 +223,7 @@ public class Calculo {
 					coordenada4.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
 					coordenada4.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada4.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
+					coordenada4.setZ(eixoZ / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 
 					//REPOSICIONA O CURSOR PARA ANDAR NOS PONTOS
 					eixoX = eixoX - (RepositorioPecas.pecas.get(tipoPeca1).getComprimentoX() * 100);
