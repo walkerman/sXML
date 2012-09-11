@@ -20,7 +20,9 @@ public class SciaXMLConstantes {
 	public static final Double TAMANHO_MIN_ESCORA_D =  2.05;
 	public static final Double TAMANHO_MAX_ESCORA_D =  3.50;
 	public static final Double ALTURA_ROSACEA = 0.00750;
-	public static final Double METADA_ESPESSURA_VIGA = -0.04;
+	public static final Double METADE_ESPESSURA_VIGA = -0.04;
+	public static final Double METADE_COMPRIMENTO_DET_FORCADO = 0.1;
+	public static final Double METADE_COMPRIMENTO_TOPO_FORCADO = 0.1;
 	
 	// Tipos de Equipamento em tela
 	public static final String KIBLOC_LAJE = "tipoKIBLOCLaje";  
@@ -73,8 +75,8 @@ public class SciaXMLConstantes {
 	public static final String KIP200R4 = "KIP200R4";			// POSTE
 	public static final String KIP300R6 = "KIP300R6";			// POSTE
 	public static final String ROSACEA = "ROSACEA";				// ROSACEA
-	public static final String TOPO_FORCADO = "TOPO_FORCADO";				// TOPO_FORCADO
-	public static final String DET_FORCADO  = "DET_FORCADO";				// DET_FORCADO
+	public static final String TOPO_FORCADO = "TOPO_FORCADO";	// TOPO_FORCADO
+	public static final String DET_FORCADO  = "DET_FORCADO";	// DET_FORCADO
 	public static final String KIDI1215 = "KIDI1215";			// TRAVESSAS DIAGONAIS VERTICAIS
 	public static final String KIDI1220 = "KIDI1220";			// TRAVESSAS DIAGONAIS VERTICAIS
 	public static final String KIDI1715 = "KIDI1715";			// TRAVESSAS DIAGONAIS VERTICAIS

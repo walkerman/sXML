@@ -39,7 +39,7 @@ public class CalculoVigasPrincipais {
 		if (pecas != null && pecas.size() > 0){
 			Double pontoXInicialEstrutura = Double.parseDouble(this.sumarioDados.getCoordenadaX())/100.0;
 					
-			calcularVigasX(pontoXInicialEstrutura,this.identificadorNos,this.identificadorPecas,(SciaXMLConstantes.METADA_ESPESSURA_VIGA));
+			calcularVigasX(pontoXInicialEstrutura,this.identificadorNos,this.identificadorPecas,(SciaXMLConstantes.METADE_ESPESSURA_VIGA));
 			
 			if (this.vigasPrincipaisFinais != null){
 				Double total = 0.0;
