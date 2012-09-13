@@ -37,6 +37,7 @@ import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.exception.RepositorioPecasException;
 import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
+import br.com.scia.xml.entity.exception.SciaXMLValidationException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.view.Tipo;
@@ -81,6 +82,14 @@ public class PrincipalController implements Initializable{
 	public TextField folgaY1;
 	@FXML
 	public TextField folgaY2;
+	@FXML
+	public TextField larguraViga;
+	@FXML
+	public TextField alturaViga;
+	@FXML
+	public TextField influenciaLaje;
+	@FXML
+	public TextField excentricidade;
 	@FXML
 	public ComboBox<String> tiposPecasX;
 	@FXML
@@ -332,8 +341,13 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public void adicionarPecaX(){
 		Tipo selecao = this.tamanhosPecasX.getSelectionModel().getSelectedItem();
-		if (this.pecaXYController.validarRegrasPecasXY(selecao, SciaXMLConstantes.ORIGEM_X))
-			adicionarPecaX(selecao.getItem());
+		
+		try{
+			if (this.pecaXYController.validarRegrasPecasXY(selecao, SciaXMLConstantes.ORIGEM_X))
+				adicionarPecaX(selecao.getItem());
+		}catch (SciaXMLValidationException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void adicionarPecaX(String item){
@@ -352,8 +366,12 @@ public class PrincipalController implements Initializable{
 	@FXML
 	public void adicionarPecaY(){
 		Tipo selecao = this.tamanhosPecasY.getSelectionModel().getSelectedItem();
-		if (this.pecaXYController.validarRegrasPecasXY(selecao, SciaXMLConstantes.ORIGEM_Y))
-			adicionarPecaY(selecao.getItem());
+		try{
+			if (this.pecaXYController.validarRegrasPecasXY(selecao, SciaXMLConstantes.ORIGEM_Y))
+				adicionarPecaY(selecao.getItem());
+		}catch (SciaXMLValidationException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void adicionarPecaY(String item){
@@ -392,13 +410,33 @@ public class PrincipalController implements Initializable{
 		RadioButton t = (RadioButton) this.tipos.getSelectedToggle();
 		this.sumarioTipo.setText(t.getText());
 		
-		if (t.getId().equals(SciaXMLConstantes.KIBLOC_LAJE)){
-			this.abaDimensoesVigas.setDisable(true);
-		}else if (t.getId().equals(SciaXMLConstantes.KIBLOC_LAJE)){
-			this.abaDimensoesVigas.setDisable(true);
-			
-		}else
+		 if (t.getId().equals(SciaXMLConstantes.KIBLOC_VIGA)){
 			this.abaDimensoesVigas.setDisable(false);
+			this.larguraViga.setDisable(false);
+			this.alturaViga.setDisable(false);
+			this.influenciaLaje.setDisable(false);
+			this.excentricidade.setDisable(false);
+			this.folgaY1.setDisable(true);
+			this.folgaY2.setDisable(true);
+			this.medidaY.setDisable(true);
+			this.espessura.setDisable(true);
+			this.folgaY1.setText("0");
+			this.folgaY2.setText("0");
+			this.espessura.setText("0");
+			this.sumarioFolgaY1.setText("0");
+			this.sumarioFolgaY2.setText("0");
+			this.sumarioEspessura.setText("0");
+			
+		}else{
+			this.abaDimensoesVigas.setDisable(true);
+			this.larguraViga.setDisable(true);
+			this.alturaViga.setDisable(true);
+			this.influenciaLaje.setDisable(true);
+			this.excentricidade.setDisable(true);
+			this.folgaY1.setDisable(false);
+			this.folgaY2.setDisable(false);
+			this.espessura.setDisable(false);
+		}
 	}
 	
 	@FXML
@@ -525,17 +563,29 @@ public class PrincipalController implements Initializable{
 			File f = fc.showSaveDialog(null);
 			
 			if (f != null){
-				SumarioDados sumario = SciaXMLUtils.popularSumarioDados(this);
+				SumarioDados sumario = null;
 				
 				try {
-					sumario = Calculo.calculaEstrutura(sumario);
+					sumario = SciaXMLUtils.popularSumarioDados(this);
 					
-					SciaXMLUtils.construirProject(sumario,f);
+					try {
+						sumario = Calculo.calculaEstrutura(sumario);
+						
+						SciaXMLUtils.construirProject(sumario,f);
+						
+						JOptionPane.showMessageDialog(null, "Arquivos .xml/.def salvos com sucesso.");
+					} catch (Exception e2) {
+						e2.printStackTrace();
+						JOptionPane.showMessageDialog(null, e2.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+					}
 					
-					JOptionPane.showMessageDialog(null, "Arquivos .xml/.def salvos com sucesso.");
+				} catch (SciaXMLValidationException e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, e1.getMessage(), SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 				} catch (Exception e2) {
 					e2.printStackTrace();
-					JOptionPane.showMessageDialog(null, e2.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Problemas durante a conversão dos dados. " +
+							"Por favor, verifique os dados informados", SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}	
@@ -559,13 +609,23 @@ public class PrincipalController implements Initializable{
 	
 	@FXML
 	public void salvarProjeto(){
-		SciaXMLUtils.popularSumarioDados(this);
 		try {
-			SciaXMLFileManager.salvarProjeto(new File(RepositorioProjeto.projeto.getNomeArquivo()));
-			JOptionPane.showMessageDialog(null,"Projeto salvo com sucesso.");
-		} catch (SciaXMLFileManagerException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+			SciaXMLUtils.popularSumarioDados(this);
+			
+			try {
+				SciaXMLFileManager.salvarProjeto(new File(RepositorioProjeto.projeto.getNomeArquivo()));
+				JOptionPane.showMessageDialog(null,"Projeto salvo com sucesso.");
+			} catch (SciaXMLFileManagerException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+			}
+		}catch (SciaXMLValidationException e1) {
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(null, e1.getMessage(), SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e2) {
+			e2.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Problemas durante a conversão dos dados. " +
+					"Por favor, verifique os dados informados", SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -637,17 +697,6 @@ public class PrincipalController implements Initializable{
 			
 			this.totalPecas.setText(String.valueOf(RepositorioPecas.pecas.size()));
     		this.diretorioPecas.setText(RepositorioProjeto.projeto.getDiretorioPecas());    		
-    		
-			List<Toggle> tipos = this.tipos.getToggles();
-			for (Toggle toggle : tipos) {
-				RadioButton r = (RadioButton) toggle;
-				if (r.getText().equals(RepositorioProjeto.projeto.getTipoEquipamento())){
-					r.setSelected(true);
-					this.sumarioTipo.setText(r.getText());
-					break;
-				}
-			}
-			
 			this.coordenadaX.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaX()));
     		this.coordenadaY.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaY()));
     		this.coordenadaZ.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaZ()));
@@ -657,6 +706,10 @@ public class PrincipalController implements Initializable{
     		this.folgaX2.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeX2()));
     		this.folgaY1.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeY1()));
     		this.folgaY2.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getFolgaLajeY2()));
+    		this.larguraViga.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getLarguraViga()));
+    		this.alturaViga.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getAlturaViga()));
+    		this.influenciaLaje.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getInfluenciaLaje()));
+    		this.excentricidade.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getExcentricidade()));
     		this.espessura.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getEspessura()));
     		this.peDireito.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getPeDireito()));
     		this.espessuraCompensado.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getEspessuraCompensado()));
@@ -664,6 +717,8 @@ public class PrincipalController implements Initializable{
     		this.transpasseSecundarias.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getTranspasseSecundarias()));
     		this.entreVigas.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getEspacamentoEntreVigasSecundarias()));
     		this.composicaoTorres.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getComposicaoTorres()));
+    		this.quantidadePecasX.setText("0");
+    		this.quantidadePecasY.setText("0");
     		
     		this.sumarioCoordenadaX.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaX()));
     		this.sumarioCoordenadaY.setText(SciaXMLUtils.checkString(RepositorioProjeto.projeto.getCoordenadaY()));
@@ -820,6 +875,37 @@ public class PrincipalController implements Initializable{
     			if (RepositorioProjeto.projeto.getForcadoY() != null)
         			this.forcadosY.getSelectionModel().select(RepositorioProjeto.projeto.getForcadoY().getTipo());
     		}
+    		
+			List<Toggle> tipos = this.tipos.getToggles();
+			for (Toggle toggle : tipos) {
+				RadioButton r = (RadioButton) toggle;
+				if (r.getText().equals(RepositorioProjeto.projeto.getTipoEquipamento())){
+					r.setSelected(true);
+					this.sumarioTipo.setText(r.getText());
+					
+					if (r.getId().equals(SciaXMLConstantes.KIBLOC_VIGA)){
+						this.abaDimensoesVigas.setDisable(false);
+						this.larguraViga.setDisable(false);
+						this.alturaViga.setDisable(false);
+						this.influenciaLaje.setDisable(false);
+						this.excentricidade.setDisable(false);
+						this.folgaY1.setDisable(true);
+						this.folgaY2.setDisable(true);
+						this.espessura.setDisable(true);
+						this.folgaY1.setText("0");
+						this.folgaY2.setText("0");
+						this.medidaY.setText("0");
+						this.espessura.setText("0");
+						this.sumarioFolgaY1.setText("0");
+						this.sumarioFolgaY2.setText("0");
+						this.sumarioEspessura.setText("0");
+					}
+					
+					break;
+				}
+			}
+			
     	}
 	}
 }
+

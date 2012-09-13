@@ -27,6 +27,10 @@ public class SumarioDados {
 	private String folgaLajeX2;
 	private String folgaLajeY1;
 	private String folgaLajeY2;
+	private String larguraViga;
+	private String alturaViga;
+	private String influenciaLaje;
+	private String excentricidade;
 	private String tipoVigaPrincipal;
 	private String transpassePrincipais;
 	private String tipoVigaSecundaria;
@@ -116,6 +120,39 @@ public class SumarioDados {
 		return comprimento;		
 	}
 	
+	
+	public String getLarguraViga() {
+		return larguraViga;
+	}
+
+	public void setLarguraViga(String larguraViga) {
+		this.larguraViga = larguraViga;
+	}
+
+	public String getAlturaViga() {
+		return alturaViga;
+	}
+
+	public void setAlturaViga(String alturaViga) {
+		this.alturaViga = alturaViga;
+	}
+
+	public String getInfluenciaLaje() {
+		return influenciaLaje;
+	}
+
+	public void setInfluenciaLaje(String influenciaLaje) {
+		this.influenciaLaje = influenciaLaje;
+	}
+
+	public String getExcentricidade() {
+		return excentricidade;
+	}
+
+	public void setExcentricidade(String excentricidade) {
+		this.excentricidade = excentricidade;
+	}
+
 	public String getTipoVigaPrincipal() {
 		return tipoVigaPrincipal;
 	}

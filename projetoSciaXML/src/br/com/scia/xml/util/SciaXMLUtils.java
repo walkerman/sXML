@@ -12,6 +12,7 @@ import br.com.scia.xml.controller.PrincipalController;
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.exception.SciaXMLFileManagerException;
+import br.com.scia.xml.entity.exception.SciaXMLValidationException;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.view.Tipo;
@@ -34,11 +35,11 @@ public class SciaXMLUtils {
     		return "";
     }
     
-    public static SumarioDados popularSumarioDados(PrincipalController controller){
-		try{
-			String tipoEquipamento = checkString(controller.sumarioTipo.getText()); 
+    public static SumarioDados popularSumarioDados(PrincipalController controller) throws SciaXMLValidationException{
+   	
+			String tipoEquipamento = checkString(controller.sumarioTipo.getText());
+			String espessura = checkString(controller.sumarioEspessura.getText());
 			String totalPecas  = checkString(controller.totalPecas.getText());
-			String espessura   = checkString(controller.sumarioEspessura.getText());
 			String medidaLageX = checkString(controller.sumarioMedidaX.getText());
 			String medidaLageY = checkString(controller.sumarioMedidaY.getText());
 			String folgaLajeX1 = checkString(controller.sumarioFolgaX1.getText());
@@ -48,6 +49,10 @@ public class SciaXMLUtils {
 			String coordenadaX = checkString(controller.sumarioCoordenadaX.getText()); 
 			String coordenadaY = checkString(controller.sumarioCoordenadaY.getText());
 			String coordenadaZ = checkString(controller.sumarioCoordenadaZ.getText());
+			String larguraViga = checkString(controller.larguraViga.getText());
+			String alturaViga = checkString(controller.alturaViga.getText());
+			String influenciaLaje = checkString(controller.influenciaLaje.getText());
+			String excentricidade = checkString(controller.excentricidade.getText());
 			String espacamentoEntreVigasSecundarias = checkString(controller.entreVigas.getText());
 			String tipoVigaPrincipal = checkString(controller.tiposVigasPrincipais.getSelectionModel().getSelectedItem());
 			String transpassePrincipais = checkString(controller.transpassePrincipais.getText());
@@ -193,6 +198,10 @@ public class SciaXMLUtils {
 			RepositorioProjeto.projeto.setFolgaLajeX2(folgaLajeX2);
 			RepositorioProjeto.projeto.setFolgaLajeY1(folgaLajeY1);
 			RepositorioProjeto.projeto.setFolgaLajeY2(folgaLajeY2);
+			RepositorioProjeto.projeto.setAlturaViga(alturaViga);
+			RepositorioProjeto.projeto.setLarguraViga(larguraViga);
+			RepositorioProjeto.projeto.setInfluenciaLaje(influenciaLaje);
+			RepositorioProjeto.projeto.setExcentricidade(excentricidade);
 			RepositorioProjeto.projeto.setPecasX(pecasX);
 			RepositorioProjeto.projeto.setPecasY(pecasY);
 			RepositorioProjeto.projeto.setVigasPrincipais(vigasP);
@@ -230,12 +239,17 @@ public class SciaXMLUtils {
 				macaco.setComprimento(RepositorioPecas.pecas.get(macaco.getTipo()).getComprimentoZ());
 				RepositorioProjeto.projeto.setMacaco(macaco);
 			}
-						
-		}catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Problemas durante a conversão dos dados. " +
-					"Por favor, verifique os dados informados", "SciaXML",JOptionPane.ERROR_MESSAGE);
-		}
+			
+			// Validações para o tipo KIBLOC_VIGA
+			RadioButton t = (RadioButton) controller.tipos.getSelectedToggle();
+			if (t.getId().equals(SciaXMLConstantes.KIBLOC_VIGA)){
+				String alturaV = checkString(controller.alturaViga.getText());
+				
+				if (!"".equals(alturaV))
+					RepositorioProjeto.projeto.setEspessura(alturaV);
+				else
+					throw new SciaXMLValidationException("Favor informar a altura da viga.");
+			}
 		
 		return RepositorioProjeto.projeto;
     }

@@ -6,10 +6,12 @@ import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.RadioButton;
 
 import javax.swing.JOptionPane;
 
 import br.com.scia.xml.dao.RepositorioPecas;
+import br.com.scia.xml.entity.exception.SciaXMLValidationException;
 import br.com.scia.xml.entity.view.Tipo;
 import br.com.scia.xml.entity.view.TipoPecaXY;
 import br.com.scia.xml.util.SciaXMLConstantes;
@@ -124,12 +126,20 @@ public class TipoPecaXYController extends TipoController{
 		}
 	}
 
-	public Boolean validarRegrasPecasXY(Tipo tipo, String origem) {
+	public Boolean validarRegrasPecasXY(Tipo tipo, String origem) throws SciaXMLValidationException{
+		
+		RadioButton t = (RadioButton) this.principal.tipos.getSelectedToggle();
 		
 		if (tipo == null || "".equals(origem) || tipo.getItem() == null)
 			JOptionPane.showMessageDialog(null, "Favor informar o tamanho da peça");
 		
 		if (tipo != null && tipo.getItem() != null && tipo.getItem().startsWith(SciaXMLConstantes.KITRV)){
+			
+			if (t.getId().equals(SciaXMLConstantes.KIBLOC_VIGA) &&
+					(Double) Double.parseDouble(this.principal.quantidadePecasY.getText()) >= 2 &&
+						SciaXMLConstantes.ORIGEM_Y.equals(origem))
+				throw new SciaXMLValidationException("Tipo da estrutura permite no máximo 2 peças no eixo Y.");
+			
 			return true;
 		}else{			
 			if (SciaXMLConstantes.ORIGEM_X.equals(origem)){
@@ -155,24 +165,31 @@ public class TipoPecaXYController extends TipoController{
 						
 				}
 			}else if (SciaXMLConstantes.ORIGEM_Y.equals(origem)){
-				if (tipo.getItem().startsWith(SciaXMLConstantes.ESC) && this.principal.pecasY.getItems().size() == 0){
-					this.principal.adicionarPecaX(tipo.getItem());
-					this.principal.areaEscoraY.setDisable(false);
-					this.principal.areaEscoraX.setDisable(false);
-					return true;
-				}
-				if (tipo.getItem().startsWith(SciaXMLConstantes.ESC)){
-					this.principal.areaEscoraY.setDisable(false);
-					this.principal.areaEscoraX.setDisable(false);
-					return true;
-				}
-				if (tipo.getItem().startsWith(SciaXMLConstantes.CRU) && SciaXMLConstantes.ORIGEM_Y.equals(origem)){
-					if (!validarQuantidadeCruzetas(this.principal.pecasX.getItems())){
-						this.principal.areaCruzetaX.setDisable(false);
-						this.principal.areaCruzetaY.setDisable(false);
+				
+				if (t.getId().equals(SciaXMLConstantes.KIBLOC_VIGA) &&
+						(Double) Double.parseDouble(this.principal.quantidadePecasY.getText()) >= 2 &&
+							SciaXMLConstantes.ORIGEM_Y.equals(origem))
+					throw new SciaXMLValidationException("Tipo da estrutura permite no máximo 2 peças no eixo Y.");
+				else{
+					if (tipo.getItem().startsWith(SciaXMLConstantes.ESC) && this.principal.pecasY.getItems().size() == 0){
+						this.principal.adicionarPecaX(tipo.getItem());
+						this.principal.areaEscoraY.setDisable(false);
+						this.principal.areaEscoraX.setDisable(false);
 						return true;
-					}else{
-						JOptionPane.showMessageDialog(null, "Eixo X já possui cruzetas.");
+					}
+					if (tipo.getItem().startsWith(SciaXMLConstantes.ESC)){
+						this.principal.areaEscoraY.setDisable(false);
+						this.principal.areaEscoraX.setDisable(false);
+						return true;
+					}
+					if (tipo.getItem().startsWith(SciaXMLConstantes.CRU) && SciaXMLConstantes.ORIGEM_Y.equals(origem)){
+						if (!validarQuantidadeCruzetas(this.principal.pecasX.getItems())){
+							this.principal.areaCruzetaX.setDisable(false);
+							this.principal.areaCruzetaY.setDisable(false);
+							return true;
+						}else{
+							JOptionPane.showMessageDialog(null, "Eixo X já possui cruzetas.");
+						}
 					}
 				}
 			}
