@@ -19,8 +19,6 @@ public class Calculo {
 	public static Double eixoX;
 	public static Double eixoY;
 	public static Double eixoZ;
-	public static Integer identificacaoPeca; 
-	public static Integer no;
 	
 	public static SumarioDados calculaEstrutura(SumarioDados dados) throws CalculoException{
 
@@ -128,8 +126,6 @@ public class Calculo {
 
 		dados.setListaDeNos(new ArrayList<Coordenada>());
 		dados.setPecasFinais(new ArrayList<Peca>());
-		no = 1;
-		identificacaoPeca = 1;
 
 		Coordenada coordenada1 = null;
 		Coordenada coordenada2 = null;
@@ -169,7 +165,7 @@ public class Calculo {
 
 		for (int i = 0; i < dados.getPecasX().size(); i++) {
 
-			for (int j = 0; j < dados.getPecasY().size(); j++) {				
+			for (int j = 0; j < dados.getPecasY().size(); j++) {	
 
 				//RESGATA TIPO DAS PECAS QUE PRECISAM SER ALOCADAS NA POSICAO XY.
 				String pecas = map.get(i+"|"+j);
@@ -189,8 +185,8 @@ public class Calculo {
 					peca4 = new Peca();
 
 					//DEFINE PRIMEIRA COORDENADA
-					coordenada1.setId(String.valueOf(no));
-					coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
+					coordenada1.setId(String.valueOf(Identificadores.getIdentificadorNo()));
+					coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + coordenada1.getId());					
 					coordenada1.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada1.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada1.setZ(eixoZ / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
@@ -199,8 +195,8 @@ public class Calculo {
 					eixoY = eixoY + (RepositorioPecas.pecas.get(tipoPeca2).getComprimentoX() * 100);
 
 					//DEFINE SEGUNDA COORDENADA
-					coordenada2.setId( String.valueOf(no));
-					coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
+					coordenada2.setId( String.valueOf(Identificadores.getIdentificadorNo()));
+					coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenada2.getId()));					
 					coordenada2.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada2.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada2.setZ(eixoZ / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
@@ -209,8 +205,8 @@ public class Calculo {
 					eixoX = eixoX + (RepositorioPecas.pecas.get(tipoPeca1).getComprimentoX() * 100);
 
 					//DEFINE TERCEIRA COORDENADA
-					coordenada3.setId( String.valueOf(no));
-					coordenada3.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
+					coordenada3.setId( String.valueOf(Identificadores.getIdentificadorNo()));
+					coordenada3.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenada3.getId()));					
 					coordenada3.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada3.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada3.setZ(eixoZ / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
@@ -219,8 +215,8 @@ public class Calculo {
 					eixoY = eixoY - (RepositorioPecas.pecas.get(tipoPeca2).getComprimentoX() * 100);
 
 					//DEFINE QUARTA COORDENADA
-					coordenada4.setId( String.valueOf(no));
-					coordenada4.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
+					coordenada4.setId( String.valueOf(Identificadores.getIdentificadorNo()));
+					coordenada4.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenada4.getId()));					
 					coordenada4.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada4.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
 					coordenada4.setZ(eixoZ / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
@@ -230,29 +226,29 @@ public class Calculo {
 					eixoY = eixoY + (RepositorioPecas.pecas.get(tipoPeca2).getComprimentoX() * 100);
 
 					//DEFINE PRIMEIRA PECA TORRE
-					peca1.setId(String.valueOf(identificacaoPeca));
-					peca1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca));
+					peca1.setId(String.valueOf(Identificadores.getIdentificarPecas()));
+					peca1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(peca1.getId()));
 					peca1.setTipo(tipoPeca2);
 					peca1.setNoInicial(coordenada1);
 					peca1.setNoFinal(coordenada2);
 
 					//DEFINE SEGUNDA PECA TORRE
-					peca2.setId(String.valueOf(identificacaoPeca+1));
-					peca2.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca+1));
+					peca2.setId(String.valueOf(Identificadores.getIdentificarPecas()));
+					peca2.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(peca2.getId()));
 					peca2.setTipo(tipoPeca1);
 					peca2.setNoInicial(coordenada2);
 					peca2.setNoFinal(coordenada3);
 
 					//DEFINE TERCEIRA PECA TORRE
-					peca3.setId(String.valueOf(identificacaoPeca+2));
-					peca3.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca+2));
+					peca3.setId(String.valueOf(Identificadores.getIdentificarPecas()));
+					peca3.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(peca3.getId()));
 					peca3.setTipo(tipoPeca2);
 					peca3.setNoInicial(coordenada3);
 					peca3.setNoFinal(coordenada4);
 
 					//DEFINE QUARTA PECA TORRE
-					peca4.setId(String.valueOf(identificacaoPeca+3));
-					peca4.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca+3));
+					peca4.setId(String.valueOf(Identificadores.getIdentificarPecas()));
+					peca4.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(peca4.getId()));
 					peca4.setTipo(tipoPeca1);
 					peca4.setNoInicial(coordenada4);
 					peca4.setNoFinal(coordenada1);
@@ -273,25 +269,23 @@ public class Calculo {
 					RepositorioPecas.listaTravessas.add(peca2);					
 					RepositorioPecas.listaTravessas.add(peca3);			
 					RepositorioPecas.listaTravessas.add(peca4);
-					
-					identificacaoPeca = identificacaoPeca + 4;
 				}
 
 				//DEFINE COORDENADAS PARA ESCORAS VINCULADAS A TRAVESSAS	
 				if (tipoPeca1.contains(SciaXMLConstantes.ESC) && tipoPeca2.contains(SciaXMLConstantes.KITRV)){				   
-					CalculoEscoras calculoEscoras = new CalculoEscoras(dados, identificacaoPeca, no, eixoX, eixoY);
+					CalculoEscoras calculoEscoras = new CalculoEscoras(dados, eixoX, eixoY);
 					calculoEscoras.defineEscoraNoEixoX(tipoPeca1, tipoPeca2);					
 				}
 				
 				//DEFINE COORDENADAS PARA ESCORAS VINCULADAS A TRAVESSAS	
 				if (tipoPeca1.contains(SciaXMLConstantes.KITRV) && tipoPeca2.contains(SciaXMLConstantes.ESC)){				   
-					CalculoEscoras calculoEscoras = new CalculoEscoras(dados, identificacaoPeca, no, eixoX, eixoY);
+					CalculoEscoras calculoEscoras = new CalculoEscoras(dados, eixoX, eixoY);
 					calculoEscoras.defineEscoraNoEixoY(tipoPeca1, tipoPeca2);
 				}				
 				 
 				//DEFINE COORDENADAS PARA ESCORAS VINCULADAS A ESCORAS	
 				if (tipoPeca1.contains(SciaXMLConstantes.ESC) && tipoPeca2.contains(SciaXMLConstantes.ESC)){				   
-     				CalculoEscoras calculoEscoras = new CalculoEscoras(dados, identificacaoPeca, no, eixoX, eixoY);
+     				CalculoEscoras calculoEscoras = new CalculoEscoras(dados, eixoX, eixoY);
 					calculoEscoras.defineEscoraNoEixoXY(tipoPeca1, tipoPeca2);					 
 				}
 
@@ -371,7 +365,7 @@ public class Calculo {
 			eixoX = eixoX + dados.getVaoDeApoioX();
 			eixoY =  Double.parseDouble(dados.getCoordenadaY())+Double.parseDouble(dados.getFolgaLajeY1());
 		}
-		
+	
 		return dados;
 
 	}
@@ -461,7 +455,7 @@ public class Calculo {
     		Double espessuraLaje = Double.parseDouble(Calculo.dados.getEspessura())/100.0;
     		Double espessuraCompensado = Double.parseDouble(Calculo.dados.getEspessuraCompensado())/100.0;
     		Double espessuraVigaPrincipal = CalculoVigasPrincipais.getAlturaViga();
-    		Double espessuraVigaSecundaria = CalculoVigasPrincipais.getAlturaViga();  //TODO: alterar para viga secundaria
+    		Double espessuraVigaSecundaria = CalculoVigasSecundarias.getAlturaViga(); 
     		Double tamanhoPosteEspecial = Calculo.dados.getPosteEspecial().getComprimento();
     		
     		altura = peDireito - espessuraCompensado - espessuraLaje - espessuraVigaPrincipal - espessuraVigaSecundaria - tamanhoPosteEspecial;

@@ -394,8 +394,10 @@ public class PrincipalController implements Initializable{
 		
 		if (t.getId().equals(SciaXMLConstantes.KIBLOC_LAJE)){
 			this.abaDimensoesVigas.setDisable(true);
-		}
-		else
+		}else if (t.getId().equals(SciaXMLConstantes.KIBLOC_LAJE)){
+			this.abaDimensoesVigas.setDisable(true);
+			
+		}else
 			this.abaDimensoesVigas.setDisable(false);
 	}
 	

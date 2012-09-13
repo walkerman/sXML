@@ -18,14 +18,9 @@ import br.com.scia.xml.util.SciaXMLConstantes;
 public class CalculoTravessasDiagonaisHorizontais {
 
 	private SumarioDados sumarioDados;
-	private Integer identificadorPecas;
 	
 	public CalculoTravessasDiagonaisHorizontais() {
 		this.sumarioDados = Calculo.dados;
-		
-		if (this.sumarioDados != null){
-			this.identificadorPecas = this.sumarioDados.getPecasFinais().size()+1;
-		}
 	}
 	
 	public void realizarCalculo(){
@@ -92,8 +87,8 @@ public class CalculoTravessasDiagonaisHorizontais {
 						if((i  % 2) != 0) 
 						{
 						    Peca novaTravessaHorizontal = new Peca();
-							novaTravessaHorizontal.setId(String.valueOf(identificadorPecas));
-							novaTravessaHorizontal.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
+							novaTravessaHorizontal.setId(String.valueOf(Identificadores.getIdentificarPecas().toString()));
+							novaTravessaHorizontal.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(novaTravessaHorizontal.getId()));
 							novaTravessaHorizontal.setTipo(SciaXMLConstantes.KIDI1215);
 							
 							if (isNoFinal){

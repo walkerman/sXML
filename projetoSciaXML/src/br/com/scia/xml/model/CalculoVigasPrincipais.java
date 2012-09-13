@@ -21,16 +21,9 @@ public class CalculoVigasPrincipais {
 
 	private SumarioDados sumarioDados;
 	private List<Peca> vigasPrincipaisFinais;
-	private Integer identificadorPecas;
-	private Integer identificadorNos;
 	
 	public CalculoVigasPrincipais() {
 		this.sumarioDados = Calculo.dados;
-				
-		if (this.sumarioDados != null){
-			this.identificadorNos = this.sumarioDados.getListaDeNos().size()+1;
-			this.identificadorPecas = this.sumarioDados.getPecasFinais().size()+1;
-		}
 	}
 	
 	public void realizarCalculo () throws CalculoException{
@@ -39,7 +32,7 @@ public class CalculoVigasPrincipais {
 		if (pecas != null && pecas.size() > 0){
 			Double pontoXInicialEstrutura = Double.parseDouble(this.sumarioDados.getCoordenadaX())/100.0;
 					
-			calcularVigasX(pontoXInicialEstrutura,this.identificadorNos,this.identificadorPecas,(SciaXMLConstantes.METADE_ESPESSURA_VIGA));
+			calcularVigasX(pontoXInicialEstrutura,(SciaXMLConstantes.METADE_ESPESSURA_VIGA));
 			
 			if (this.vigasPrincipaisFinais != null){
 				Double total = 0.0;
@@ -155,7 +148,7 @@ public class CalculoVigasPrincipais {
 		return retorno;
 	}
 
-	private void calcularVigasX (Double pontoInicial, Integer identificacaoNo, Integer identificacaoPeca,Double desvio){		
+	private void calcularVigasX (Double pontoInicial, Double desvio){		
 		String transpasseInformado = SciaXMLUtils.checkString(this.sumarioDados.getTranspassePrincipais());
 		
 		if (!"".equals(transpasseInformado)){
@@ -213,22 +206,22 @@ public class CalculoVigasPrincipais {
 							
 							Double altura =  Calculo.getAlturaUtil() + CalculoPostes.getAlturaMacacoEForcado() + posteEspecial + coordenadaZ;
 							
-							coordenada1.setId(identificacaoNo.toString());
-							coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
+							coordenada1.setId(Identificadores.getIdentificadorNo().toString());
+							coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenada1.getId()));					
 							coordenada1.setX(xInicial);
 							coordenada1.setY((coordY.getY()+desvio));
 							coordenada1.setZ(altura);
 							
-							coordenada2.setId(identificacaoNo.toString());
-							coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificacaoNo++));					
+							coordenada2.setId(Identificadores.getIdentificadorNo().toString());
+							coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenada2.getId()));					
 							coordenada2.setX(xFinal);
 							coordenada2.setY((coordY.getY()+desvio));
 							coordenada2.setZ(altura);
 							 
 							Peca peca1 = new Peca();
 							
-							peca1.setId(String.valueOf(identificacaoPeca));
-							peca1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca++));
+							peca1.setId(String.valueOf(Identificadores.getIdentificarPecas().toString()));
+							peca1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(peca1.getId()));
 							peca1.setTipo(peca.getTipo());
 							peca1.setNoInicial(coordenada1);
 							peca1.setNoFinal(coordenada2);
@@ -252,7 +245,7 @@ public class CalculoVigasPrincipais {
 				}
 				
 				if (achou){
-					calcularVigasX((coordenada.getX() - transpasse), identificacaoNo, identificacaoPeca,desvio);
+					calcularVigasX((coordenada.getX() - transpasse) , desvio);
 					break;
 				}
 			}

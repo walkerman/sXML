@@ -16,15 +16,11 @@ import br.com.scia.xml.util.SciaXMLConstantes;
 public class CalculoTravessas {
 
 	private SumarioDados sumarioDados;
-	private Integer identificadorPecas;
-	private Integer identificadorNos;
 	
 	public CalculoTravessas() {
 		this.sumarioDados = Calculo.dados;
 		
 		if (this.sumarioDados != null){
-			this.identificadorNos = this.sumarioDados.getListaDeNos().size()+1;
-			this.identificadorPecas = this.sumarioDados.getPecasFinais().size()+1;
 		}
 	}
 	
@@ -72,8 +68,8 @@ public class CalculoTravessas {
 							Coordenada coordenadaInicialTravessa = travessa.getNoInicial();
 							Coordenada coordenadaFinalTravessa = travessa.getNoFinal();
 							
-							coordenada1.setId(identificadorNos.toString());
-							coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+							coordenada1.setId(Identificadores.getIdentificadorNo().toString());
+							coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenada1.getId()));					
 							coordenada1.setX(coordenadaInicialTravessa.getX());
 							coordenada1.setY(coordenadaInicialTravessa.getY());
 							
@@ -82,8 +78,8 @@ public class CalculoTravessas {
 							else
 								coordenada1.setZ(coordenadaAnterior.getZ() + SciaXMLConstantes.ALTURA_ROSACEA / 2);
 							
-							coordenada2.setId(identificadorNos.toString());
-							coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(identificadorNos++));					
+							coordenada2.setId(Identificadores.getIdentificadorNo().toString());
+							coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenada2.getId()));					
 							coordenada2.setX(coordenadaFinalTravessa.getX());
 							coordenada2.setY(coordenadaFinalTravessa.getY());
 
@@ -93,8 +89,8 @@ public class CalculoTravessas {
 								coordenada2.setZ(coordenadaAnterior.getZ() + SciaXMLConstantes.ALTURA_ROSACEA / 2);
 							
 							Peca novaTravessa = new Peca();
-							novaTravessa.setId(String.valueOf(identificadorPecas));
-							novaTravessa.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificadorPecas++));
+							novaTravessa.setId(String.valueOf(Identificadores.getIdentificarPecas().toString()));
+							novaTravessa.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(novaTravessa.getId()));
 							novaTravessa.setTipo(travessa.getTipo());
 							novaTravessa.setNoInicial(coordenada1);
 							novaTravessa.setNoFinal(coordenada2);
