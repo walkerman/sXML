@@ -1,9 +1,10 @@
 package br.com.scia.xml.model;
 
 import br.com.scia.xml.dao.RepositorioPecas;
+import br.com.scia.xml.entity.view.Coordenada;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
-import br.com.scia.xml.entity.xml.Coordenada;
+import br.com.scia.xml.util.Identificadores;
 import br.com.scia.xml.util.SciaXMLConstantes;
 
 public class CalculoRosaceas {

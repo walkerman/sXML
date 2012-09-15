@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.scia.xml.dao.RepositorioPecas;
+import br.com.scia.xml.entity.view.Coordenada;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
-import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterZ;
+import br.com.scia.xml.util.Identificadores;
 import br.com.scia.xml.util.SciaXMLConstantes;
 
 public class CalculoTravessas {
@@ -40,7 +41,7 @@ public class CalculoTravessas {
 				List<Coordenada> alturasRosaceas = getCoordenadasZ(coordenadasRosaceas);
 				Collections.sort(alturasRosaceas, new CoordenadaSorterZ());
 				
-				System.out.println(alturasRosaceas);
+				//System.out.println(alturasRosaceas);
 				
 				double contador = 0.0;
 				double entreKITRV = Double.parseDouble(this.sumarioDados.getEspacamentoEntreTravessas())/100.0;

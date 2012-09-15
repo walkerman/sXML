@@ -9,10 +9,11 @@ import java.util.Set;
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.exception.CalculoException;
+import br.com.scia.xml.entity.view.Coordenada;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
-import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterX;
+import br.com.scia.xml.util.Identificadores;
 import br.com.scia.xml.util.PecaComprimentoSorter;
 import br.com.scia.xml.util.SciaXMLConstantes;
 import br.com.scia.xml.util.SciaXMLUtils;
@@ -28,23 +29,27 @@ public class CalculoVigasPrincipais {
 	
 	public void realizarCalculo () throws CalculoException{
 		List<Peca> pecas = RepositorioPecas.listaTravessas;
+		 
+						
+		List<Coordenada> nosX = getNosX(RepositorioPecas.listaForcados);
+		Collections.sort(nosX,new CoordenadaSorterX());
+		
+		//pega a primeira cordenada em x onde existe alguma escora/poste
+		Double pontoXInicialEstrutura = nosX.get(nosX.size()-1).getX();
+		System.out.println("pontoXInicialEstrutura - principal " + pontoXInicialEstrutura);
+		
+		calcularVigasX(pontoXInicialEstrutura,(SciaXMLConstantes.METADE_ESPESSURA_VIGA));
 		
 		if (pecas != null && pecas.size() > 0){
-			Double pontoXInicialEstrutura = Double.parseDouble(this.sumarioDados.getCoordenadaX())/100.0;
-					
-			calcularVigasX(pontoXInicialEstrutura,(SciaXMLConstantes.METADE_ESPESSURA_VIGA));
 			
+			 
 			if (this.vigasPrincipaisFinais != null){
 				Double total = 0.0;
 				for (Peca peca : this.vigasPrincipaisFinais) {
 					total += peca.getComprimento();
-				}
+				} 
 				
-				List<Coordenada> nosX = getNosX(RepositorioPecas.listaTravessas);
-				Collections.sort(nosX,new CoordenadaSorterX());
-				Double cordenadainicioX = Double.parseDouble(this.sumarioDados.getCoordenadaX())/100;
-				
-				if (total < (nosX.get(0).getX()-cordenadainicioX)){
+				if (total < ((nosX.get(0).getX())-(nosX.get(nosX.size()-1).getX()))){
 					throw new CalculoException(SciaXMLConstantes.COMBINACAO_DE_VIGAS_PRINCIPAIS_NAO_ENCONTRADA);
 				}
 			}
@@ -54,10 +59,10 @@ public class CalculoVigasPrincipais {
 	// Método responsável por obter todos os nós gerados em x
 	private List<Coordenada> getNosX(List<Peca> pecas){
 		List<Coordenada> retorno = null;
-		
+		  		
 		List<String> nosIniciais = new ArrayList<String>();		
 		for (Peca peca : pecas) {
-			if (peca.getTipo().startsWith(SciaXMLConstantes.ESC) || peca.getTipo().startsWith(SciaXMLConstantes.KITRV))
+			//if (peca.getTipo().contains(SciaXMLConstantes.ESC) || peca.getTipo().contains(SciaXMLConstantes.KITRV))
 				nosIniciais.add(peca.getNoInicial().getId());
 		}
 		
@@ -83,7 +88,7 @@ public class CalculoVigasPrincipais {
 		
 		List<String> nosIniciais = new ArrayList<String>();		
 		for (Peca peca : pecas) {
-			if (peca.getTipo().startsWith(SciaXMLConstantes.ESC) || peca.getTipo().startsWith(SciaXMLConstantes.KIP))
+			if (peca.getTipo().startsWith(SciaXMLConstantes.ESC) || peca.getTipo().startsWith(SciaXMLConstantes.KITRV))
 				nosIniciais.add(peca.getNoInicial().getId());
 		}
 		
@@ -153,11 +158,9 @@ public class CalculoVigasPrincipais {
 		
 		if (!"".equals(transpasseInformado)){
 			Double transpasse = Double.parseDouble(transpasseInformado)/100.0;
-			Double transpaseTotal = transpasse*2;
-			Double cordenadainicioX = Double.parseDouble(this.sumarioDados.getCoordenadaX())/100;
-			
-			
-			List<Coordenada> nosX = getNosX(RepositorioPecas.listaTravessas);
+			Double transpaseTotal = transpasse*2; 
+			  
+			List<Coordenada> nosX = getNosX(RepositorioPecas.listaForcados);
 			Collections.sort(nosX,new CoordenadaSorterX());
 			
 			List<Coordenada> nosY = getNosY(this.sumarioDados.getPecasFinais());
@@ -173,14 +176,16 @@ public class CalculoVigasPrincipais {
 						total += peca.getComprimento()-transpaseTotal;
 					}
 					
-					if (total >= (nosX.get(0).getX()-cordenadainicioX)){
+					//total >= (maior cordenada - menor cordenada)
+					if (total >= ((nosX.get(0).getX())-(nosX.get(nosX.size()-1).getX()))){
 						break;
 					}
 				}
-								
+				
+				//caso seja a ultima cordenada(cordenada de menor valor) em x não precisa mais adicionar vigas
 				if (coordenada.getX() == nosX.get(nosX.size()-1).getX())
 					continue;
-				
+				  
 				Double x = coordenada.getX() + transpaseTotal - pontoInicial;
 			
 				List<Peca> vigas = this.sumarioDados.getVigasPrincipais();
@@ -193,10 +198,7 @@ public class CalculoVigasPrincipais {
 						
 						Double xInicial = (pontoInicial-transpasse);
 						Double xFinal = (pontoInicial-transpasse+peca.getComprimento());
-						
-						//TODO: obter desvio correto da peça de entrada (como garantir a criação das vigas apenas um x, inicialmente?)
-						// Double desvioY = 0.08;
-						
+						  
 						for (Coordenada coordY : coordenadasY) {
 							Coordenada coordenada1 = new Coordenada(); 
 							Coordenada coordenada2 = new Coordenada();
@@ -231,13 +233,13 @@ public class CalculoVigasPrincipais {
 							this.sumarioDados.getPecasFinais().add(peca1);	
 						}
 						
-						if (desvio == -0.04)
+						if (desvio == -(SciaXMLConstantes.METADE_ESPESSURA_VIGA))
 						{
-							desvio = 0.04;
+							desvio = (SciaXMLConstantes.METADE_ESPESSURA_VIGA);
 						}
 						else
 						{
-							desvio = -0.04;
+							desvio = -(SciaXMLConstantes.METADE_ESPESSURA_VIGA);
 						}
 						achou = true;
 						break;

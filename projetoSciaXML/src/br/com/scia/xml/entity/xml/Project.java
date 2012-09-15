@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.scia.xml.dao.RepositorioPecas;
+import br.com.scia.xml.entity.view.Coordenada;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.util.SciaXMLConstantes;
-import br.com.scia.xml.util.SciaXMLUtils;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;

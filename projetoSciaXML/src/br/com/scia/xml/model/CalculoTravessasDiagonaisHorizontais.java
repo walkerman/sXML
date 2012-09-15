@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.scia.xml.dao.RepositorioPecas;
+import br.com.scia.xml.entity.view.Coordenada;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
-import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterZ;
+import br.com.scia.xml.util.Identificadores;
 import br.com.scia.xml.util.PecaSorterX;
 import br.com.scia.xml.util.SciaXMLConstantes;
 
@@ -63,7 +64,7 @@ public class CalculoTravessasDiagonaisHorizontais {
 				
 					if (travessasMesmoY != null){
 						listaDeListas.add(travessasMesmoY);
-						System.out.println(travessasMesmoY.size());
+						//System.out.println(travessasMesmoY.size());
 					}
 					
 				}
@@ -72,7 +73,7 @@ public class CalculoTravessasDiagonaisHorizontais {
 			}
 			
 			 
-			System.out.println(listaDeListas.size());
+			//System.out.println(listaDeListas.size());
 		 
 			for (ArrayList<Peca> lista : listaDeListas) {
 				

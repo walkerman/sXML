@@ -29,6 +29,8 @@ public class RepositorioPecas {
 	public static List<Peca> listaTravessasReplicadas;
 	public static List<Peca> listaRosaceas;
 	public static List<Peca> listaPostes;
+	public static List<Peca> listaEscoras;
+	public static List<Peca> listaForcados;
 	
 	static{
 		if (RepositorioPecas.pecas == null)
@@ -45,6 +47,13 @@ public class RepositorioPecas {
 			
 		if (RepositorioPecas.listaTravessasReplicadas == null)
 			RepositorioPecas.listaTravessasReplicadas = new ArrayList<>();
+			
+		if (RepositorioPecas.listaEscoras == null)
+			RepositorioPecas.listaEscoras = new ArrayList<>();
+		
+		if (RepositorioPecas.listaForcados == null)
+			RepositorioPecas.listaForcados = new ArrayList<>();			
+			  
 	}
 	
 	public static void addPeca(File f) throws RepositorioPecasException{

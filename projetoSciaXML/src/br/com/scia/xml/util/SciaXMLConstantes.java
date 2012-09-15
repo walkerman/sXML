@@ -23,12 +23,18 @@ public class SciaXMLConstantes {
 	public static final Double METADE_ESPESSURA_VIGA = -0.04;
 	public static final Double METADE_COMPRIMENTO_DET_FORCADO = 0.1;
 	public static final Double METADE_COMPRIMENTO_TOPO_FORCADO = 0.1;
+	public static final Double TAMANHO_HORIZONTAL_CRUZETA = 0.66;    	// TAMANHO PECA HORIZONTAL CRUZETA
+	public static final Double ALTURA_CRUZETA_HORIZONTAL = 0.11;    	// TAMANHO PECA HORIZONTAL CRUZETA
+	public static final Double ALTURA_CONSOLE_DIAGONAL = 0.95;
 	
 	// Tipos de Equipamento em tela
 	public static final String KIBLOC_LAJE = "tipoKIBLOCLaje";  
 	public static final String KIBLOC_VIGA = "tipoKIBLOCViga";  
 	public static final String ALUTOP = "tipoALUTOP";  
 	public static final String ETEM = "tipoETEM";
+	public static final String COM_KIDI = "comKIDI";
+	public static final String ESQUERDA = "Esquerda";
+	public static final String DIREITA = "Direita";
 	
 	// Tipos de Peças em tela
 	public static final String TIPO_TRAVESSA = "Travessa";  
@@ -52,6 +58,8 @@ public class SciaXMLConstantes {
 	public static final String MACACO = "MACACO";				// MACACO
 	public static final String FORCADO = "FORCADO"; 			// FORCADO
 	public static final String KIP = "KIP";						// POSTES
+	public static final String CONSOLE = "CONSOLE";				// CONSOLE
+	public static final String CONSOLE_DIAGONAL = "CONSOLE_DIAGONAL";	//CONSOLE_DIAGONAL
 	public static final String VM20 = "VM20";					// VIGAS TIPO HT20
 	public static final String VI07 = "VI07";					// VIGAS TIPO V75
 	public static final String VI18 = "VI18";					// VIGAS TIPO V18
@@ -59,6 +67,7 @@ public class SciaXMLConstantes {
 	public static final String KID = "KID";						// DIAGONAIS VERTICAIS
 	public static final String KIDH = "KIDH";					// DIAGONAIS HORIZONTAIS
 	public static final String CRU = "Cru";						// CRUZETAS
+	public static final String CRUZETA_HORIZONTAL = "Horizontal_Cr";// CRUZETAS HORIZONTAL
 	public static final String ESC = "Esc";						// ESCORAS
 	public static final String BASE_ESCORA="BASE_SIMPLES_ESCORA"; // BASE ESCORA
 	public static final String TOPO_ESCORA="TOPO_ESCORA";        // TOPO ESCORA
@@ -145,7 +154,7 @@ public class SciaXMLConstantes {
 	public static final String XMLNS = "http://www.scia.cz";
 	public static final String DEF = ".def";
 	public static final String XML = ".xml";
-	public static final String DEF_PADRAO = "padrao.xml.def";
+	public static final String DEF_PADRAO = "etc/padrao.xml.def";
 	
 	// Mensagens de validação
 	public static final String TITLE_VALIDACAO = "SciaXML Validação";

@@ -2,7 +2,7 @@ package br.com.scia.xml.util;
 
 import java.util.Comparator;
 
-import br.com.scia.xml.entity.xml.Coordenada;
+import br.com.scia.xml.entity.view.Coordenada;
 
 public class CoordenadaSorterY implements Comparator<Coordenada>
 {

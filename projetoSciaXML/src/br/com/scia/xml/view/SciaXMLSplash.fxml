@@ -13,7 +13,7 @@
   <children>
     <ImageView fitHeight="127.1917664203508" fitWidth="287.9069519042969" layoutX="1.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="file:/C:/Scia/img/scia_xml.png" preserveRatio="false" smooth="false" />
+        <Image url="img/scia_xml.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
     <Label layoutX="311.0" layoutY="37.0" text="Dados do Projeto">

@@ -60,7 +60,7 @@
             <Label layoutX="42.0" layoutY="88.0" text="Coordenadas Iniciais:" underline="true" />
             <ImageView fitHeight="38.55737704918033" fitWidth="49.0" layoutX="493.0" layoutY="13.0" onMouseClicked="#showCalc" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="file:/C:/Scia/img/chart.png" preserveRatio="false" smooth="false" />
+                <Image url="img/chart.png" preserveRatio="false" smooth="false" />
               </image>
             </ImageView>
             <Label layoutX="96.0" layoutY="247.0" text="Y:" />
@@ -94,7 +94,7 @@
             <TextField fx:id="calculoVigaLaje" disable="true" layoutX="101.0" layoutY="122.0" prefWidth="59.0" />
             <ImageView fitHeight="38.55737704918033" fitWidth="49.0" layoutX="214.0" layoutY="14.0" onMouseClicked="#hideCalc" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="file:/C:/Scia/img/noChart.png" preserveRatio="false" smooth="false" />
+                <Image url="img/noChart.png" preserveRatio="false" smooth="false" />
               </image>
             </ImageView>
             <Label layoutX="14.0" layoutY="157.0" text="Postes" underline="true" />
@@ -496,12 +496,12 @@
     </MenuBar>
     <ImageView fitHeight="71.91202545166016" fitWidth="162.77760873420937" layoutX="608.0" layoutY="648.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="file:/C:/Scia/img/scia_xml.png" preserveRatio="false" smooth="false" />
+        <Image url="img/scia_xml.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
     <ImageView fitHeight="67.91209066497164" fitWidth="68.66667175292969" layoutX="776.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="file:/C:/Scia/img/rohr_logo.png" preserveRatio="false" smooth="false" />
+        <Image url="img/rohr_logo.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
     <Text fill="$x6" font="$x7" layoutX="308.0" layoutY="643.0" strokeType="OUTSIDE" strokeWidth="4.0" text="Diretorio de Peças" />
@@ -513,7 +513,7 @@
           <graphic>
             <ImageView fitHeight="22.0" fitWidth="29.333333333333332" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="file:/C:/Scia/img/abrirProjeto.png" preserveRatio="false" smooth="false" />
+                <Image url="img/abrirProjeto.png" preserveRatio="false" smooth="false" />
               </image>
             </ImageView>
           </graphic>
@@ -522,7 +522,7 @@
           <graphic>
             <ImageView fitHeight="22.0" fitWidth="29.333333333333332" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="file:/C:/Scia/img/importarPecas.png" preserveRatio="false" smooth="false" />
+                <Image url="img/importarPecas.png" preserveRatio="false" smooth="false" />
               </image>
             </ImageView>
           </graphic>
@@ -531,7 +531,7 @@
           <graphic>
             <ImageView fitHeight="22.0" fitWidth="29.333333333333332" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="file:/C:/Scia/img/gerarXML.png" preserveRatio="false" smooth="false" />
+                <Image url="img/gerarXML.png" preserveRatio="false" smooth="false" />
               </image>
             </ImageView>
           </graphic>
@@ -540,7 +540,7 @@
           <graphic>
             <ImageView fitHeight="22.0" fitWidth="29.333333333333332" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="file:/C:/Scia/img/salvarProjeto.png" preserveRatio="false" smooth="false" />
+                <Image url="img/salvarProjeto.png" preserveRatio="false" smooth="false" />
               </image>
             </ImageView>
           </graphic>

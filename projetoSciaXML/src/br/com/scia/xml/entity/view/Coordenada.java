@@ -1,4 +1,4 @@
-package br.com.scia.xml.entity.xml;
+package br.com.scia.xml.entity.view;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 

@@ -2,14 +2,16 @@ package br.com.scia.xml.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.dao.RepositorioProjeto;
 import br.com.scia.xml.entity.exception.CalculoException;
+import br.com.scia.xml.entity.view.Coordenada;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
-import br.com.scia.xml.entity.xml.Coordenada;
+import br.com.scia.xml.util.Identificadores;
 import br.com.scia.xml.util.SciaXMLConstantes;
 import br.com.scia.xml.util.SciaXMLUtils;
 
@@ -26,6 +28,8 @@ public class Calculo {
 		RepositorioPecas.listaRosaceas = new ArrayList<>();
 		RepositorioPecas.listaTravessas = new ArrayList<>();
 		RepositorioPecas.listaTravessasReplicadas = new ArrayList<>();
+		RepositorioPecas.listaEscoras = new ArrayList<>();
+		RepositorioPecas.listaForcados = new ArrayList<>();
 		
 		RepositorioProjeto.projeto.setPecasFinais(new ArrayList<Peca>());
 		RepositorioProjeto.projeto.setListaDeNos(new ArrayList<Coordenada>());
@@ -45,14 +49,16 @@ public class Calculo {
 		CalculoPostes calculoPostes = new CalculoPostes();
 		calculoPostes.realizarCalculo();
 		
-		CalculoVigasPrincipais calculoVigas = new CalculoVigasPrincipais();
-		calculoVigas.realizarCalculo();
-		
-		CalculoVigasSecundarias calculoVigasSecundarias = new CalculoVigasSecundarias();
-		calculoVigasSecundarias.realizarCalculo();
-		
 		CalculoTravessas calculoTravessas = new CalculoTravessas();
 		calculoTravessas.replicarTravessas();
+		
+		if (dados.getPosicaoConsole() != null && dados.getPosicaoConsole().equals(SciaXMLConstantes.DIREITA)){
+			CalculoConsole console = new CalculoConsole();
+			console.realizarCalculo(SciaXMLConstantes.DIREITA);
+		}else if (dados.getPosicaoConsole() != null && dados.getPosicaoConsole().equals(SciaXMLConstantes.ESQUERDA)){
+			CalculoConsole console = new CalculoConsole();
+			console.realizarCalculo(SciaXMLConstantes.ESQUERDA);
+		}
 		
 		if (dados.getKidI()){
 			CalculoTravessasDiagonaisVerticais calculoTravessasDiagonaisVerticais = new CalculoTravessasDiagonaisVerticais();
@@ -61,6 +67,20 @@ public class Calculo {
 		
 		CalculoTravessasDiagonaisHorizontais calculoTravessasDiagonaisHorizontais = new CalculoTravessasDiagonaisHorizontais();
 		calculoTravessasDiagonaisHorizontais.realizarCalculo();
+
+		//varre o repositório de peças para pegar todos os forcados
+		for (Peca peca : dados.getPecasFinais()) {
+			
+			if (peca.getTipo().contains(SciaXMLConstantes.FORCADO));
+				RepositorioPecas.listaForcados.add(peca);
+			   
+		}
+		
+		CalculoVigasPrincipais calculoVigas = new CalculoVigasPrincipais();
+		calculoVigas.realizarCalculo();
+		
+		CalculoVigasSecundarias calculoVigasSecundarias = new CalculoVigasSecundarias();
+		calculoVigasSecundarias.realizarCalculo();
 		
 		return dados;
 	}
@@ -110,7 +130,7 @@ public class Calculo {
 				dados.setVaoDeApoioY( (medidaLaje - comprimentoTotalEixo - folgaLaje1 - folgaLaje2) / 2);
 				break;
 			default:
-				dados.setVaoDeApoioY( (medidaLaje - comprimentoTotalEixo -  folgaLaje1  - folgaLaje2) / (dados.getPecasX().size() - 1));
+				dados.setVaoDeApoioY( (medidaLaje - comprimentoTotalEixo -  folgaLaje1  - folgaLaje2) / (dados.getPecasY().size() - 1));
 				break;
 			}
 
@@ -139,29 +159,13 @@ public class Calculo {
 
 		String tipoPeca1;
 		String tipoPeca2;
-		eixoZ = Double.parseDouble(dados.getCoordenadaZ())/SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML;
-
-		//COORDENADA INICIAL TEM PARTIDA CONSIDERANDO AS FOLGAS DA LAJE		
-		switch (dados.getPecasX().size()) {
-		case 1:
-			eixoX = Double.parseDouble(dados.getCoordenadaX()) + Double.parseDouble(dados.getFolgaLajeX1())  + dados.getVaoDeApoioX();
-			break;
-
-		default:
-			eixoX = Double.parseDouble(dados.getCoordenadaX())+Double.parseDouble(dados.getFolgaLajeX1());
-			break;
-		}
 		
-		//COORDENADA INICIAL TEM PARTIDA CONSIDERANDO AS FOLGAS DA LAJE		
-		switch (dados.getPecasY().size()) {
-		case 1:
-			eixoY = Double.parseDouble(dados.getCoordenadaY()) + Double.parseDouble(dados.getFolgaLajeY1())  + dados.getVaoDeApoioY();
-			break;
+		List<Integer> listaPosicaoCruzeta = new ArrayList<Integer>();
 
-		default:
-			eixoY = Double.parseDouble(dados.getCoordenadaY())+Double.parseDouble(dados.getFolgaLajeY1());
-			break;
-		}
+		//COORDENADA INICIAL TEM PARTIDA CONSIDERANDO AS FOLGAS DA LAJE		
+		eixoX = getPosicaoInicialEixo(SciaXMLConstantes.EIXO_X, dados.getPecasX().size());
+		eixoY = getPosicaoInicialEixo(SciaXMLConstantes.EIXO_Y, dados.getPecasY().size());
+		eixoZ = Double.parseDouble(dados.getCoordenadaZ())/SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML;
 
 		for (int i = 0; i < dados.getPecasX().size(); i++) {
 
@@ -259,12 +263,6 @@ public class Calculo {
 					dados.getListaDeNos().add(coordenada3);
 					dados.getListaDeNos().add(coordenada4);
 
-					//ADICIONA AS PECAS NA LISTA
-//					dados.getPecasFinais().add(peca1);
-//					dados.getPecasFinais().add(peca2);
-//					dados.getPecasFinais().add(peca3);
-//					dados.getPecasFinais().add(peca4);
-
 					RepositorioPecas.listaTravessas.add(peca1);
 					RepositorioPecas.listaTravessas.add(peca2);					
 					RepositorioPecas.listaTravessas.add(peca3);			
@@ -289,70 +287,23 @@ public class Calculo {
 					calculoEscoras.defineEscoraNoEixoXY(tipoPeca1, tipoPeca2);					 
 				}
 
-//				//DEFINE COORDENADAS PARA CRUZETAS
-//				if (tipoPeca1.contains(SciaXMLConstantes.CRU) || tipoPeca2.contains(SciaXMLConstantes.CRU)){
-//
-//					coordenada1 = new Coordenada();
-//					coordenada2 = new Coordenada();				    
-//					coordenada3 = new Coordenada();
-//					coordenada4 = new Coordenada();
-//
-//					peca1 = new Peca();
-//					peca2 = new Peca();
-//
-//					coordenada1.setId( String.valueOf(no));
-//					coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
-//					coordenada1.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-//					coordenada1.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-//
-//					coordenada3.setId( String.valueOf(no));
-//					coordenada3.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
-//					coordenada3.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-//					coordenada3.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-//				//	coordenada3.setZ(getAltura(this.identificadorPecas));			    
-//
-//					eixoY = eixoY + 50;
-//
-//					coordenada2.setId( String.valueOf(no));
-//					coordenada2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
-//					coordenada2.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-//					coordenada2.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-//
-//					coordenada4.setId( String.valueOf(no));
-//					coordenada4.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(no++));					
-//					coordenada4.setX(eixoX / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-//					coordenada4.setY(eixoY / SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML);
-//				//	coordenada4.setZ(getAltura(dados));		
-//
-//					//DEFINE PRIMEIRA PECA ESCORA
-//					peca1.setId(String.valueOf(identificacaoPeca));
-//					peca1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca));
-//					peca1.setTipo("Escora A");
-//					peca1.setNoInicial( coordenada1.getId());
-//					peca1.setNoFinal( coordenada3.getId());
-//
-//					//DEFINE SEGUNDA PECA ESCORA
-//					peca2.setId(String.valueOf(identificacaoPeca+1));
-//					peca2.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(identificacaoPeca+1));
-//					peca2.setTipo("Escora A");
-//					peca2.setNoInicial( coordenada2.getId());
-//					peca2.setNoFinal( coordenada4.getId());
-//
-//					//ADICIONA AS COORDENADAS NA LISTA
-//					dados.getListaDeNos().add(coordenada1);
-//					dados.getListaDeNos().add(coordenada2);
-//					dados.getListaDeNos().add(coordenada3);
-//					dados.getListaDeNos().add(coordenada4);
-//
-//					//ADICIONA AS PECAS NA LISTA
-//					dados.getPecasFinais().add(peca1);
-//					dados.getPecasFinais().add(peca2);
-//
-//					identificacaoPeca = identificacaoPeca + 2;
-//					eixoX = eixoX - (RepositorioPecas.pecas.get(tipoPeca2).getComprimentoY() * 100);
-//					eixoY = eixoY + 50;
-//
-//				}
+				//DEFINE COORDENADAS PARA CRUZETAS
+				if (tipoPeca1.contains(SciaXMLConstantes.CRU)){					
+					if (!listaPosicaoCruzeta.contains(i)){						
+						CalculoCruzeta calculoCruzeta = new CalculoCruzeta();
+						calculoCruzeta.realizarCalculoEixoX(eixoX, eixoY, tipoPeca1);
+						listaPosicaoCruzeta.add(i);
+					}
+				}
+				
+				//DEFINE COORDENADAS PARA CRUZETAS
+				if (tipoPeca2.contains(SciaXMLConstantes.CRU)){
+					if (!listaPosicaoCruzeta.contains(j)){						
+						CalculoCruzeta calculoCruzeta = new CalculoCruzeta();
+						calculoCruzeta.realizarCalculoEixoY(eixoX, eixoY, tipoPeca2);
+						listaPosicaoCruzeta.add(j);
+					}
+				}
 
 				//Não soma o vão se for a última peça do eixo Y.
 				if (j!=dados.getPecasY().size() -1 && tipoPeca1!=SciaXMLConstantes.CRU && tipoPeca2!=SciaXMLConstantes.CRU){
@@ -363,11 +314,41 @@ public class Calculo {
 			}	
 
 			eixoX = eixoX + dados.getVaoDeApoioX();
-			eixoY =  Double.parseDouble(dados.getCoordenadaY())+Double.parseDouble(dados.getFolgaLajeY1());
+			eixoY = getPosicaoInicialEixo(SciaXMLConstantes.EIXO_Y, dados.getPecasY().size());
 		}
 	
 		return dados;
 
+	}
+	
+	public static Double getPosicaoInicialEixo(String eixo, Integer quantidadePecasEixo){	
+
+		Double eixoRetorno = 0.0;
+
+		if  (eixo.equalsIgnoreCase(SciaXMLConstantes.EIXO_X)){
+			switch (quantidadePecasEixo) {
+			case 1:
+				eixoRetorno = Double.parseDouble(dados.getCoordenadaX()) + Double.parseDouble(dados.getFolgaLajeX1())  + dados.getVaoDeApoioX();
+				break;
+
+			default:
+				eixoRetorno = Double.parseDouble(dados.getCoordenadaX())+Double.parseDouble(dados.getFolgaLajeX1());
+				break;
+			}			
+		}
+
+		if  (eixo.equalsIgnoreCase(SciaXMLConstantes.EIXO_Y)){	
+			switch (quantidadePecasEixo) {
+			case 1:
+				eixoRetorno = Double.parseDouble(dados.getCoordenadaY()) + Double.parseDouble(dados.getFolgaLajeY1())  + dados.getVaoDeApoioY();
+				break;
+
+			default:
+				eixoRetorno = Double.parseDouble(dados.getCoordenadaY())+Double.parseDouble(dados.getFolgaLajeY1());
+				break;
+			}
+		}		
+		 return eixoRetorno;
 	}
 
 	public static boolean isLajeCompativel(){

@@ -86,7 +86,7 @@ public class SciaXMLFileManager {
 	private static void gerarDefFile(File f) throws SciaXMLFileManagerException{
 		try{
 			if (f != null){
-				File origem = new File(SciaXMLFileManager.class.getResource(SciaXMLConstantes.DEF_PADRAO).getFile());
+				File origem = new File(SciaXMLConstantes.DEF_PADRAO);
 				File destino = new File(f.getAbsoluteFile()+SciaXMLConstantes.DEF);
 				copyFile(origem, destino);
 			}else{

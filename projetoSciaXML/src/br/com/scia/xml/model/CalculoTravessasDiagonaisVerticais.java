@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
+import br.com.scia.xml.util.Identificadores;
 import br.com.scia.xml.util.SciaXMLConstantes;
 
 

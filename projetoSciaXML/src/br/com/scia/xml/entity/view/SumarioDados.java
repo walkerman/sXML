@@ -2,7 +2,6 @@ package br.com.scia.xml.entity.view;
 
 import java.util.List;
 
-import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.SciaXMLConstantes;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -42,6 +41,7 @@ public class SumarioDados {
 	private String alturaVigaEsquerdaY;
 	private String alturaVigaDireitaY;
 	private String distanciaCruzetasY;
+	private String posicaoConsole;
 	private String peDireito;
 	private String espessuraCompensado;
 	private String espacamentoEntreTravessas;
@@ -511,6 +511,14 @@ public class SumarioDados {
 	public void setEspacamentoEntreVigasSecundarias(
 			String espacamentoEntreVigasSecundarias) {
 		this.espacamentoEntreVigasSecundarias = espacamentoEntreVigasSecundarias;
+	}
+
+	public String getPosicaoConsole() {
+		return posicaoConsole;
+	}
+
+	public void setPosicaoConsole(String posicaoConsole) {
+		this.posicaoConsole = posicaoConsole;
 	}
 	
 }

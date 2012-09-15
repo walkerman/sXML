@@ -8,11 +8,12 @@ import java.util.Set;
 
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.exception.CalculoException;
+import br.com.scia.xml.entity.view.Coordenada;
 import br.com.scia.xml.entity.view.Peca;
 import br.com.scia.xml.entity.view.SumarioDados;
-import br.com.scia.xml.entity.xml.Coordenada;
 import br.com.scia.xml.util.CoordenadaSorterX;
 import br.com.scia.xml.util.CoordenadaSorterY;
+import br.com.scia.xml.util.Identificadores;
 import br.com.scia.xml.util.PecaComprimentoSorter;
 import br.com.scia.xml.util.SciaXMLConstantes;
 
@@ -35,7 +36,7 @@ public class CalculoPostes {
 			Collections.sort(coordenadasTravessasX,new CoordenadaSorterX());
 						
 			RepositorioPecas.listaPostes = getComposicaoPostes();
-			System.out.println("Postes selecionados " + RepositorioPecas.listaPostes);
+			//System.out.println("Postes selecionados " + RepositorioPecas.listaPostes);
 			
 			replicarPostesSelecionados(coordenadasTravessasY, coordenadasTravessasX);
 		}
@@ -271,15 +272,15 @@ public class CalculoPostes {
 		}
 		
 		Double peDireiro = Double.parseDouble(this.sumarioDados.getPeDireito() )/100.0;
-		System.out.println("peDireiro " + peDireiro);
-		System.out.println("alturaMin " + alturaMin);
-		System.out.println("alturaMax " + alturaMax);
+		//System.out.println("peDireiro " + peDireiro);
+		//System.out.println("alturaMin " + alturaMin);
+		//System.out.println("alturaMax " + alturaMax);
 		  
     	boolean achou = false;
 		
 		
 		Peca valor1 = postesSelecionados.get(0);
-		System.out.println("valor1 " + valor1);
+		//System.out.println("valor1 " + valor1);
 		
 		Peca valor2 = new Peca();
 		Peca valor3 = new Peca();

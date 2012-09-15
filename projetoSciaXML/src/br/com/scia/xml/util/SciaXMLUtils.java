@@ -68,10 +68,19 @@ public class SciaXMLUtils {
 			String forcadosY = controller.forcadosY.getSelectionModel() != null ? checkString(controller.forcadosY.getSelectionModel().getSelectedItem()) : null;
 			String macacos = controller.macacos.getSelectionModel() != null ? checkString(controller.macacos.getSelectionModel().getSelectedItem()) : null;
 			
+			if (controller.posicaoConsole.getSelectedToggle() != null){
+				RadioButton selecao = (RadioButton) controller.posicaoConsole.getSelectedToggle();
+				String text = selecao.getText();
+				if (SciaXMLConstantes.DIREITA.equals(text))
+					RepositorioProjeto.projeto.setPosicaoConsole(SciaXMLConstantes.DIREITA);
+				else
+					RepositorioProjeto.projeto.setPosicaoConsole(SciaXMLConstantes.ESQUERDA);
+			}
+			
 			if (controller.kidi.getSelectedToggle() != null){
 				RadioButton selecao = (RadioButton) controller.kidi.getSelectedToggle();
 				String id = selecao.getId();
-				if ("comKIDI".equals(id))
+				if (SciaXMLConstantes.COM_KIDI.equals(id))
 					RepositorioProjeto.projeto.setKidI(true);
 				else
 					RepositorioProjeto.projeto.setKidI(false);

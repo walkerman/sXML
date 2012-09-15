@@ -827,6 +827,14 @@ public class PrincipalController implements Initializable{
 				}
     		}
     		
+    		if (RepositorioProjeto.projeto.getPosicaoConsole() != null){
+    			for (Toggle tipo : this.posicaoConsole.getToggles()) {
+					RadioButton r = (RadioButton) tipo;
+					if (r.getText().equals(RepositorioProjeto.projeto.getPosicaoConsole()))
+						r.setSelected(true);
+				}
+    		}
+    		
     		if (RepositorioProjeto.projeto.getPosteEspecial() != null)
     			this.postesEspeciais.getSelectionModel().select(RepositorioProjeto.projeto.getPosteEspecial().getTipo());
     		if (RepositorioProjeto.projeto.getMacaco() != null)

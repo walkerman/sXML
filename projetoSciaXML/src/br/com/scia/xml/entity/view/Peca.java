@@ -1,6 +1,5 @@
 package br.com.scia.xml.entity.view;
 
-import br.com.scia.xml.entity.xml.Coordenada;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
