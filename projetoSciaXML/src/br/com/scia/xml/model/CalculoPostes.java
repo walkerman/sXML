@@ -65,8 +65,12 @@ public class CalculoPostes {
 				Coordenada coordenadaPoste2 = new Coordenada();
 				Coordenada coordenadaPoste3 = new Coordenada(); 
 				Coordenada coordenadaPoste4 = new Coordenada();
+				Coordenada coordenadaBaseMacaco1 = new Coordenada();
+				Coordenada coordenadaBaseMacaco2 = new Coordenada();
 				Coordenada coordenadaMacaco1 = new Coordenada();
 				Coordenada coordenadaMacaco2 = new Coordenada();
+				Coordenada coordenadaCentroMacaco1 = new Coordenada();
+				Coordenada coordenadaCentroMacaco2 = new Coordenada();
 				Coordenada coordenadaPosteEspecial1 = new Coordenada();
 				Coordenada coordenadaPosteEspecial2 = new Coordenada();
 				Coordenada coordenadaForcado1 = new Coordenada();
@@ -75,6 +79,18 @@ public class CalculoPostes {
 				Coordenada coordenadaDetForcado2 = new Coordenada();
 				Coordenada coordenadaTopoForcado1 = new Coordenada();
 				Coordenada coordenadaTopoForcado2 = new Coordenada();
+				
+				coordenadaBaseMacaco1.setId(Identificadores.getIdentificadorNo().toString());
+				coordenadaBaseMacaco1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaBaseMacaco1.getId()));					
+				coordenadaBaseMacaco1.setX(coordX.getX());
+				coordenadaBaseMacaco1.setY(coordY.getY() - SciaXMLConstantes.METADE_COMPRIMENTO_BASE_MACACO);
+				coordenadaBaseMacaco1.setZ(altura);
+				
+				coordenadaBaseMacaco2.setId(Identificadores.getIdentificadorNo().toString());
+				coordenadaBaseMacaco2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaBaseMacaco2.getId()));					
+				coordenadaBaseMacaco2.setX(coordX.getX());
+				coordenadaBaseMacaco2.setY(coordY.getY() + SciaXMLConstantes.METADE_COMPRIMENTO_BASE_MACACO);
+				coordenadaBaseMacaco2.setZ(altura);
 				
 				coordenadaMacaco1.setId(Identificadores.getIdentificadorNo().toString());
 				coordenadaMacaco1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaMacaco1.getId()));					
@@ -88,6 +104,18 @@ public class CalculoPostes {
 				coordenadaMacaco2.setX(coordX.getX());
 				coordenadaMacaco2.setY(coordY.getY());
 				coordenadaMacaco2.setZ(altura);
+				
+				coordenadaCentroMacaco1.setId(Identificadores.getIdentificadorNo().toString());
+				coordenadaCentroMacaco1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaCentroMacaco1.getId()));					
+				coordenadaCentroMacaco1.setX(coordX.getX());
+				coordenadaCentroMacaco1.setY(coordY.getY());
+				coordenadaCentroMacaco1.setZ(altura - SciaXMLConstantes.COMPRIMENTO_CENTRO_MACACO);
+				
+				coordenadaCentroMacaco2.setId(Identificadores.getIdentificadorNo().toString());
+				coordenadaCentroMacaco2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaCentroMacaco2.getId()));					
+				coordenadaCentroMacaco2.setX(coordX.getX());
+				coordenadaCentroMacaco2.setY(coordY.getY());
+				coordenadaCentroMacaco2.setZ(altura + SciaXMLConstantes.COMPRIMENTO_CENTRO_MACACO);
 				
 				coordenadaPoste1.setId(Identificadores.getIdentificadorNo().toString());
 				coordenadaPoste1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaPoste1.getId()));					
@@ -165,6 +193,7 @@ public class CalculoPostes {
 				coordenadaTopoForcado2.setX(coordX.getX() + SciaXMLConstantes.METADE_COMPRIMENTO_TOPO_FORCADO);
 				coordenadaTopoForcado2.setY(coordY.getY());
 				coordenadaTopoForcado2.setZ(altura);
+				
 				Peca poste1 = new Peca();
 				Peca poste2 = new Peca();
 				Peca poste3 = new Peca();
@@ -187,12 +216,26 @@ public class CalculoPostes {
 				poste3.setNoInicial(coordenadaPoste3);
 				poste3.setNoFinal(coordenadaPoste4);
 				
+				Peca baseMacaco = new Peca();
+				baseMacaco.setId(String.valueOf(Identificadores.getIdentificarPecas()));
+				baseMacaco.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(baseMacaco.getId()));
+				baseMacaco.setTipo(SciaXMLConstantes.BASE_MACACO);
+				baseMacaco.setNoInicial(coordenadaBaseMacaco1);
+				baseMacaco.setNoFinal(coordenadaBaseMacaco2);
+				
 				Peca macaco1 = new Peca();
 				macaco1.setId(String.valueOf(Identificadores.getIdentificarPecas()));
 				macaco1.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(macaco1.getId()));
 				macaco1.setTipo(macaco.getTipo());
 				macaco1.setNoInicial(coordenadaMacaco1);
 				macaco1.setNoFinal(coordenadaMacaco2);
+				
+				Peca centroMacaco = new Peca();
+				centroMacaco.setId(String.valueOf(Identificadores.getIdentificarPecas()));
+				centroMacaco.setName(SciaXMLConstantes.INDEXADOR_PECA + String.valueOf(centroMacaco.getId()));
+				centroMacaco.setTipo(SciaXMLConstantes.CENTRO_MACACO);
+				centroMacaco.setNoInicial(coordenadaCentroMacaco1);
+				centroMacaco.setNoFinal(coordenadaCentroMacaco2);
 								
 				Peca posteEspecial1 = new Peca();
 				posteEspecial1.setId(String.valueOf(Identificadores.getIdentificarPecas()));
@@ -226,8 +269,12 @@ public class CalculoPostes {
 				this.sumarioDados.getListaDeNos().add(coordenadaPoste2);
 				this.sumarioDados.getListaDeNos().add(coordenadaPoste3);
 				this.sumarioDados.getListaDeNos().add(coordenadaPoste4);
+				this.sumarioDados.getListaDeNos().add(coordenadaBaseMacaco1);
+				this.sumarioDados.getListaDeNos().add(coordenadaBaseMacaco2);
 				this.sumarioDados.getListaDeNos().add(coordenadaMacaco1);
 				this.sumarioDados.getListaDeNos().add(coordenadaMacaco2);
+				this.sumarioDados.getListaDeNos().add(coordenadaCentroMacaco1);
+				this.sumarioDados.getListaDeNos().add(coordenadaCentroMacaco2);
 				this.sumarioDados.getListaDeNos().add(coordenadaPosteEspecial1);
 				this.sumarioDados.getListaDeNos().add(coordenadaPosteEspecial2);
 				this.sumarioDados.getListaDeNos().add(coordenadaForcado1);
@@ -240,7 +287,9 @@ public class CalculoPostes {
 				this.sumarioDados.getPecasFinais().add(poste1);
 				this.sumarioDados.getPecasFinais().add(poste2);
 				this.sumarioDados.getPecasFinais().add(poste3);
+				this.sumarioDados.getPecasFinais().add(baseMacaco);
 				this.sumarioDados.getPecasFinais().add(macaco1);
+				this.sumarioDados.getPecasFinais().add(centroMacaco);
 				this.sumarioDados.getPecasFinais().add(posteEspecial1);
 				this.sumarioDados.getPecasFinais().add(forcado1);
 				this.sumarioDados.getPecasFinais().add(detforcado);

@@ -26,6 +26,8 @@ public class SciaXMLConstantes {
 	public static final Double TAMANHO_HORIZONTAL_CRUZETA = 0.66;    	// TAMANHO PECA HORIZONTAL CRUZETA
 	public static final Double ALTURA_CRUZETA_HORIZONTAL = 0.11;    	// TAMANHO PECA HORIZONTAL CRUZETA
 	public static final Double ALTURA_CONSOLE_DIAGONAL = 0.95;
+	public static final Double METADE_COMPRIMENTO_BASE_MACACO = 0.05;
+	public static final Double COMPRIMENTO_CENTRO_MACACO = 0.006;
 	
 	// Tipos de Equipamento em tela
 	public static final String KIBLOC_LAJE = "tipoKIBLOCLaje";  
@@ -55,7 +57,9 @@ public class SciaXMLConstantes {
 	
 	// Código das Peças
 	public static final String KITRV = "KITRV";					// TRAVESSAS
+	public static final String BASE_MACACO = "BASE_MACACO";		// BASE_MACACO
 	public static final String MACACO = "MACACO";				// MACACO
+	public static final String CENTRO_MACACO = "CENTRO_MACACO";	// CENTRO_MACACO
 	public static final String FORCADO = "FORCADO"; 			// FORCADO
 	public static final String KIP = "KIP";						// POSTES
 	public static final String CONSOLE = "CONSOLE";				// CONSOLE
