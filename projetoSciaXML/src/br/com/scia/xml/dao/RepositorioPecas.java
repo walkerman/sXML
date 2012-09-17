@@ -103,7 +103,7 @@ public class RepositorioPecas {
 			retorno = (Project) xStream.fromXML(file);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Erro: " + e.getMessage());
+			//System.out.println("Erro: " + e.getMessage());
 			throw new RepositorioPecasException("Problemas durante o parse do arquivo: " + nomeArquivo + ". Verifique os arquivos do diretório de peças informado.");
 		}
 		
@@ -155,7 +155,7 @@ public class RepositorioPecas {
 								project.setComprimentoZ(z);
 							}catch (Exception e) {
 								e.printStackTrace();
-								System.out.println("Problemas durante o calculo.");
+								//System.out.println("Problemas durante o calculo.");
 							}
 						}
 					}

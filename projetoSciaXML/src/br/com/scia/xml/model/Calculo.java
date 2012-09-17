@@ -379,7 +379,7 @@ public class Calculo {
 		for (int i = 0; i < dados.getPecasX().size(); i++) {
 			for (int j = 0; j < dados.getPecasY().size(); j++) {
 				map.put(i+"|"+j, dados.getPecasX().get(i).getTipo()+"|"+dados.getPecasY().get(j).getTipo());
-				System.out.println(i+"|"+j+ "|" + dados.getPecasX().get(i).getTipo()+"|"+dados.getPecasY().get(j).getTipo());
+//				System.out.println(i+"|"+j+ "|" + dados.getPecasX().get(i).getTipo()+"|"+dados.getPecasY().get(j).getTipo());
 			}
 		}
 

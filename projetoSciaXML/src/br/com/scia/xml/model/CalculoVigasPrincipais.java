@@ -36,7 +36,7 @@ public class CalculoVigasPrincipais {
 		
 		//pega a primeira cordenada em x onde existe alguma escora/poste
 		Double pontoXInicialEstrutura = nosX.get(nosX.size()-1).getX();
-		System.out.println("pontoXInicialEstrutura - principal " + pontoXInicialEstrutura);
+//		System.out.println("pontoXInicialEstrutura - principal " + pontoXInicialEstrutura);
 		
 		calcularVigasX(pontoXInicialEstrutura,(SciaXMLConstantes.METADE_ESPESSURA_VIGA));
 		

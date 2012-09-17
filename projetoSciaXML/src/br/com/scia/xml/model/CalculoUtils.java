@@ -45,7 +45,7 @@ public class CalculoUtils {
 		for (int i = 0; i < Calculo.dados.getPecasX().size(); i++) {
 			for (int j = 0; j < Calculo.dados.getPecasY().size(); j++) {
 				map.put(i+"|"+j, Calculo.dados.getPecasX().get(i).getTipo()+"|"+Calculo.dados.getPecasY().get(j).getTipo());
-				System.out.println(i+"|"+j+ "|" + Calculo.dados.getPecasX().get(i).getTipo()+"|"+Calculo.dados.getPecasY().get(j).getTipo());
+//				System.out.println(i+"|"+j+ "|" + Calculo.dados.getPecasX().get(i).getTipo()+"|"+Calculo.dados.getPecasY().get(j).getTipo());
 			}
 		}
 
