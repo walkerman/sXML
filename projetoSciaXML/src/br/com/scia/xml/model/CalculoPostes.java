@@ -35,7 +35,7 @@ public class CalculoPostes {
 			List<Coordenada> coordenadasTravessasX = getNosX(pecas);
 			Collections.sort(coordenadasTravessasX,new CoordenadaSorterX());
 						
-			RepositorioPecas.listaPostes = getComposicaoPostes();
+			RepositorioPecas.listaPostes = getComposicaoPostes();		
 			//System.out.println("Postes selecionados " + RepositorioPecas.listaPostes);
 			
 			replicarPostesSelecionados(coordenadasTravessasY, coordenadasTravessasX);
@@ -98,7 +98,7 @@ public class CalculoPostes {
 				coordenadaMacaco1.setY(coordY.getY());
 				coordenadaMacaco1.setZ(altura);
 				
-				altura += getAlturaMacacoEForcado();
+				altura += CalculoUtils.getAlturaMacacoEForcado();
 				coordenadaMacaco2.setId(Identificadores.getIdentificadorNo().toString());
 				coordenadaMacaco2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaMacaco2.getId()));					
 				coordenadaMacaco2.setX(coordX.getX());
@@ -163,7 +163,7 @@ public class CalculoPostes {
 				coordenadaForcado1.setY(coordY.getY());
 				coordenadaForcado1.setZ(altura);
 				
-				altura += getAlturaMacacoEForcado();
+				altura += CalculoUtils.getAlturaMacacoEForcado();
 				coordenadaForcado2.setId(Identificadores.getIdentificadorNo().toString());
 				coordenadaForcado2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaForcado2.getId()));					
 				coordenadaForcado2.setX(coordX.getX());
@@ -174,13 +174,13 @@ public class CalculoPostes {
 				coordenadaDetForcado1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaDetForcado1.getId()));					
 				coordenadaDetForcado1.setX(coordX.getX() - SciaXMLConstantes.METADE_COMPRIMENTO_DET_FORCADO);
 				coordenadaDetForcado1.setY(coordY.getY());
-				coordenadaDetForcado1.setZ(altura - (getAlturaMacacoEForcado()/2.0));
+				coordenadaDetForcado1.setZ(altura - (CalculoUtils.getAlturaMacacoEForcado()/2.0));
 				
 				coordenadaDetForcado2.setId(Identificadores.getIdentificadorNo().toString());
 				coordenadaDetForcado2.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaDetForcado2.getId()));					
 				coordenadaDetForcado2.setX(coordX.getX() + SciaXMLConstantes.METADE_COMPRIMENTO_DET_FORCADO);
 				coordenadaDetForcado2.setY(coordY.getY());
-				coordenadaDetForcado2.setZ(altura - (getAlturaMacacoEForcado()/2.0));
+				coordenadaDetForcado2.setZ(altura - (CalculoUtils.getAlturaMacacoEForcado()/2.0));
 				
 				coordenadaTopoForcado1.setId(Identificadores.getIdentificadorNo().toString());
 				coordenadaTopoForcado1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenadaTopoForcado1.getId()));					
@@ -372,23 +372,7 @@ public class CalculoPostes {
     	return retorno;
     }
  	
-	public static Double getAlturaMacacoEForcado(){
-		Double retorno = 0.0;
-		
-		retorno = (Calculo.getAlturaUtil() - getAlturaPostesFinais())/2;
-		
-		return retorno;
-	}
-	
-	public static Double getAlturaPostesFinais (){
-		Double retorno = 0.0;
-		if (RepositorioPecas.listaPostes != null && RepositorioPecas.listaPostes.size() > 0){
-			for (Peca p : RepositorioPecas.listaPostes) {
-				retorno += p.getComprimento();
-			}
-		}
-		return retorno;
-	}
+
 		
 	private List<Coordenada> getNosY(List<Peca> pecas){
 		List<Coordenada> retorno = null;

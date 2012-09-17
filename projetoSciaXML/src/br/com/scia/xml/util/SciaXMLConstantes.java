@@ -71,10 +71,12 @@ public class SciaXMLConstantes {
 	public static final String KID = "KID";						// DIAGONAIS VERTICAIS
 	public static final String KIDH = "KIDH";					// DIAGONAIS HORIZONTAIS
 	public static final String CRU = "Cru";						// CRUZETAS
-	public static final String CRUZETA_HORIZONTAL = "Horizontal_Cr";// CRUZETAS HORIZONTAL
-	public static final String ESC = "Esc";						// ESCORAS
-	public static final String BASE_ESCORA="BASE_SIMPLES_ESCORA"; // BASE ESCORA
-	public static final String TOPO_ESCORA="TOPO_ESCORA";        // TOPO ESCORA
+	public static final String CRUZETA = "Cruzeta";             // CRUZETA INVERTIDA
+	public static final String CRUZETA_INVERTIDA = "Cruzeta invertida"; // CRUZETA INVERTIDA
+	public static final String CRUZETA_HORIZONTAL = "Horizontal_Cr";    // CRUZETAS HORIZONTAL
+	public static final String ESC = "Esc";								// ESCORAS
+	public static final String BASE_ESCORA="BASE_SIMPLES_ESCORA"; 		// BASE ESCORA
+	public static final String TOPO_ESCORA="TOPO_ESCORA";        		// TOPO ESCORA
 	public static final String FORC = "FORC";					// FORCADOS
 	public static final String KIP025RE = "KIP025RE";			// POSTE_ESPECIAL
 	public static final String KIP037R1 = "KIP037R1";			// POSTE_ESPECIAL
@@ -88,8 +90,8 @@ public class SciaXMLConstantes {
 	public static final String KIP200R4 = "KIP200R4";			// POSTE
 	public static final String KIP300R6 = "KIP300R6";			// POSTE
 	public static final String ROSACEA = "ROSACEA";				// ROSACEA
-	public static final String TOPO_FORCADO = "TOPO_FORCADO";				// TOPO_FORCADO
-	public static final String DET_FORCADO  = "DET_FORCADO";				// DET_FORCADO
+	public static final String TOPO_FORCADO = "TOPO_FORCADO";	// TOPO_FORCADO
+	public static final String DET_FORCADO  = "DET_FORCADO";	// DET_FORCADO
 	public static final String KIDI1215 = "KIDI1215";			// TRAVESSAS DIAGONAIS VERTICAIS
 	public static final String KIDI1220 = "KIDI1220";			// TRAVESSAS DIAGONAIS VERTICAIS
 	public static final String KIDI1715 = "KIDI1715";			// TRAVESSAS DIAGONAIS VERTICAIS

@@ -1,7 +1,8 @@
 package br.com.scia.xml.controller;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.Collections;
+import java.util.List;
 
 import br.com.scia.xml.dao.RepositorioPecas;
 import br.com.scia.xml.entity.view.Tipo;
@@ -18,10 +19,13 @@ public class TipoPosteController extends TipoController{
 	@Override
 	public void inicializar() {
 		if (RepositorioPecas.pecas != null){
-			Set<String> pecas = RepositorioPecas.pecas.keySet();
+			List<String> pecas = new ArrayList<String>();
+			pecas.addAll(RepositorioPecas.pecas.keySet());
+			Collections.sort(pecas);
 			
 			// Iniciando o load de postes
 			this.principal.tiposPoste = new ArrayList<Tipo>();
+			int index = 1;
 			for (String peca : pecas) {
 				if (peca.startsWith(SciaXMLConstantes.KIP025R1) || 
 					peca.startsWith(SciaXMLConstantes.KIP050R1) || 
@@ -31,8 +35,10 @@ public class TipoPosteController extends TipoController{
 					peca.startsWith(SciaXMLConstantes.KIP300R6))
 				{
 					TipoPoste t = new TipoPoste(peca);
-					t.setTableReference(this.principal.postes);				
+					t.setTableReference(this.principal.postes);
+					t.setOrdem(String.valueOf(index));
 					this.principal.tiposPoste.add(t);
+					index++;
 				}
 			}
 			

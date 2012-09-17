@@ -11,12 +11,12 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.scia.xml.controller.PrincipalController">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="1085.0" xmlns:fx="http://javafx.com/fxml" fx:controller="br.com.scia.xml.controller.PrincipalController">
   <children>
-    <Separator layoutX="308.0" layoutY="649.0" prefWidth="259.0" />
-    <SplitPane fx:id="split" dividerPositions="0.9945945945945946" layoutX="293.0" layoutY="48.0" prefHeight="572.0" prefWidth="557.0">
+    <Separator layoutX="308.0" layoutY="649.0" prefWidth="448.0" />
+    <SplitPane fx:id="split" dividerPositions="0.9962025316455696" layoutX="293.0" layoutY="48.0" prefHeight="572.0" prefWidth="792.0">
       <items>
-        <AnchorPane fx:id="areaConfiguracao" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+        <AnchorPane fx:id="areaConfiguracao" minHeight="0.0" minWidth="0.0" prefHeight="569.9998779296875" prefWidth="268.9998779296875">
           <children>
             <TextField fx:id="sumarioFolgaX1" disable="true" layoutX="111.0" layoutY="331.0" prefWidth="43.0" />
             <Label layoutX="90.0" layoutY="360.0" text="X2:" />
@@ -58,7 +58,7 @@
             <Label layoutX="96.0" layoutY="166.0" text="Z:" />
             <TextField id="sumarioEspacamento" fx:id="sumarioCoordenadaZ" disable="true" layoutX="112.0" layoutY="163.0" prefWidth="43.0" />
             <Label layoutX="42.0" layoutY="88.0" text="Coordenadas Iniciais:" underline="true" />
-            <ImageView fitHeight="38.55737704918033" fitWidth="49.0" layoutX="493.0" layoutY="13.0" onMouseClicked="#showCalc" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="38.55737704918033" fitWidth="49.0" layoutX="729.0" layoutY="14.0" onMouseClicked="#showCalc" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="img/chart.png" preserveRatio="false" smooth="false" />
               </image>
@@ -69,45 +69,81 @@
             <TextField fx:id="sumarioCoordenadaY" disable="true" layoutX="112.0" layoutY="137.0" prefWidth="42.9998779296875" />
           </children>
         </AnchorPane>
-        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="131.0" prefWidth="136.0">
+        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="570.0" prefWidth="181.0">
           <children>
-            <Label layoutX="14.0" layoutY="289.0" text="Vigas" underline="true" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="91.0" layoutX="14.0" layoutY="308.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="4.4" strokeType="INSIDE" strokeWidth="0.5" width="223.00003051757812" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0xff0000ff 0.0%, 0xff0000ff 80.0%, 0xffffffff 80.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="336.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="205.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="19.0" layoutY="372.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="204.0" />
-            <Text layoutX="19.0" layoutY="366.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo C:" />
-            <Text layoutX="19.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo A:" />
+            <Label layoutX="14.0" layoutY="184.0" text="Vigas Principais" underline="true" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="116.0" layoutX="14.0" layoutY="208.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="4.4" strokeType="INSIDE" strokeWidth="0.5" width="229.00003051757812" />
+            <Rectangle fx:id="calculoFlechaPrincipalBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="21.0" layoutY="304.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="215.0" />
+            <Text layoutX="22.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flecha:" />
+            <Text layoutX="22.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Momento:" />
             <Text fill="$x6" font="$x7" layoutX="10.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="4.0" text="Dados Calculados" />
-            <Separator layoutX="10.0" layoutY="36.0" prefWidth="229.0" />
-            <Label layoutX="14.0" layoutY="414.0" text="Cargas" underline="true" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="83.0" layoutX="14.0" layoutY="433.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="4.4" strokeType="INSIDE" strokeWidth="0.5" width="223.00003051757812" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 50.0%, 0xffffffff 50.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="456.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="204.0" />
-            <Text layoutX="19.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo B:" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0xff0000ff 0.0%, 0xff0000ff 80.0%, 0xffffffff 80.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="18.0" layoutY="494.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="204.0" />
-            <Text layoutX="19.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cálculo A:" />
-            <Label layoutX="14.0" layoutY="50.0" text="Peso" underline="true" />
-            <Label layoutX="27.0" layoutY="77.0" text="Viga:" />
-            <Label layoutX="27.0" layoutY="125.0" text="Viga + I. Laje:" />
-            <Label layoutX="27.0" layoutY="101.0" text="Laje:" />
-            <TextField fx:id="calculoViga" disable="true" layoutX="101.0" layoutY="74.0" prefWidth="59.0" />
-            <TextField fx:id="calculoLaje" disable="true" layoutX="101.0" layoutY="98.0" prefWidth="59.0" />
-            <TextField fx:id="calculoVigaLaje" disable="true" layoutX="101.0" layoutY="122.0" prefWidth="59.0" />
-            <ImageView fitHeight="38.55737704918033" fitWidth="49.0" layoutX="214.0" layoutY="14.0" onMouseClicked="#hideCalc" pickOnBounds="true" preserveRatio="true">
+            <Separator layoutX="10.0" layoutY="36.0" prefWidth="427.0" />
+            <Label layoutX="261.0" layoutY="189.0" text="Vigas Secundárias" underline="true" />
+            <Label layoutX="267.0" layoutY="49.0" text="Peso (kgf/m)" underline="true" />
+            <Label layoutX="280.0" layoutY="72.0" text="Viga:" />
+            <Label layoutX="280.0" layoutY="120.0" text="Viga + I. Laje:" />
+            <Label layoutX="280.0" layoutY="96.0" text="Laje:" />
+            <TextField fx:id="calculoViga" disable="true" layoutX="354.0" layoutY="69.0" prefWidth="59.0" />
+            <TextField fx:id="calculoLaje" disable="true" layoutX="354.0" layoutY="93.0" prefWidth="59.0" />
+            <TextField fx:id="calculoVigaLaje" disable="true" layoutX="354.0" layoutY="117.0" prefWidth="59.0" />
+            <ImageView fitHeight="38.55737704918033" fitWidth="49.0" layoutX="455.0" layoutY="14.0" onMouseClicked="#hideCalc" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="img/noChart.png" preserveRatio="false" smooth="false" />
               </image>
             </ImageView>
-            <Label layoutX="14.0" layoutY="157.0" text="Postes" underline="true" />
-            <Label layoutX="27.0" layoutY="184.0" text="Piso a Fundo:" />
-            <Label layoutX="27.0" layoutY="234.0" text="Ajuste Total:" />
-            <Label layoutX="27.0" layoutY="209.0" text="Altura Útil:" />
-            <TextField fx:id="calculoPiso" disable="true" layoutX="101.0" layoutY="181.0" prefWidth="59.0" />
-            <TextField fx:id="calculoAltura" disable="true" layoutX="101.0" layoutY="206.0" prefWidth="59.0" />
-            <TextField fx:id="calculoAjuste" disable="true" layoutX="101.0" layoutY="231.0" prefWidth="59.0" />
-            <Label layoutX="27.0" layoutY="259.0" text="Inferior/Superior:" />
-            <TextField fx:id="calculoInferior" layoutX="121.0" layoutY="256.0" prefWidth="39.0" />
-            <Label layoutX="167.0" layoutY="259.0" text="/" />
-            <TextField fx:id="calculoSuperior" layoutX="177.0" layoutY="256.0" prefWidth="39.0" />
+            <Label layoutX="12.0" layoutY="49.0" text="Postes (cm)" underline="true" />
+            <Label layoutX="25.0" layoutY="69.0" text="Piso a Fundo:" />
+            <Label layoutX="25.0" layoutY="119.0" text="Ajuste Total:" />
+            <Label layoutX="25.0" layoutY="94.0" text="Altura Útil:" />
+            <TextField fx:id="calculoPiso" disable="true" layoutX="99.0" layoutY="66.0" prefWidth="59.0" />
+            <TextField fx:id="calculoAltura" disable="true" layoutX="99.0" layoutY="91.0" prefWidth="59.0" />
+            <TextField fx:id="calculoAjuste" disable="true" layoutX="99.0" layoutY="116.0" prefWidth="59.0" />
+            <Label layoutX="25.0" layoutY="144.0" text="Inferior/Superior:" />
+            <TextField fx:id="calculoInferior" disable="true" layoutX="119.0" layoutY="141.0" prefWidth="39.0" />
+            <Label layoutX="165.0" layoutY="144.0" text="/" />
+            <TextField fx:id="calculoSuperior" disable="true" layoutX="175.0" layoutY="141.0" prefWidth="39.0" />
+            <TextField id="calculoInferior" fx:id="calculoMomentoPrincipal" disable="true" layoutX="82.0" layoutY="215.0" prefWidth="59.0" />
+            <Text layoutX="150.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max:" />
+            <TextField id="calculoInferior" fx:id="calculoMomentoPrincipalMax" disable="true" layoutX="177.0" layoutY="215.0" prefWidth="59.0" />
+            <Rectangle fx:id="calculoMomentoPrincipalBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0xff0000ff 0.0%, 0xff0000ff 80.0%, 0xffffffff 80.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="20.0" layoutY="245.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="215.0" />
+            <TextField id="calculoInferior" fx:id="calculoFlechaPrincipal" disable="true" layoutX="82.0" layoutY="273.0" prefWidth="59.0" />
+            <Separator layoutX="21.0" layoutY="263.0" prefWidth="215.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="116.0" layoutX="260.0" layoutY="208.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="4.4" strokeType="INSIDE" strokeWidth="0.5" width="237.00003051757812" />
+            <Rectangle fx:id="calculoFlechaSecundariaBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="267.0" layoutY="304.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="215.0" />
+            <Text layoutX="268.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Flecha:" />
+            <Text layoutX="268.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Momento:" />
+            <TextField id="calculoInferior" fx:id="calculoMomentoSecundaria" disable="true" layoutX="328.0" layoutY="215.0" prefWidth="59.0" />
+            <Rectangle fx:id="calculoMomentoSecundariaBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0xff0000ff 0.0%, 0xff0000ff 80.0%, 0xffffffff 80.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="267.0" layoutY="245.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="215.0" />
+            <TextField id="calculoInferior" fx:id="calculoFlechaSecundaria" disable="true" layoutX="328.0" layoutY="273.0" prefWidth="59.0" />
+            <Separator layoutX="267.0" layoutY="263.0" prefWidth="215.0" />
+            <Text layoutX="150.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max:" />
+            <TextField id="calculoInferior" fx:id="calculoFlechaPrincipalMax" disable="true" layoutX="177.0" layoutY="273.0" prefWidth="59.0" />
+            <Text layoutX="396.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max:" />
+            <Text layoutX="396.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max:" />
+            <TextField id="calculoInferior" fx:id="calculoMomentoSecundariaMax" disable="true" layoutX="423.0" layoutY="215.0" prefWidth="59.0" />
+            <TextField id="calculoInferior" fx:id="calculoFlechaSecundariaMax" disable="true" layoutX="423.0" layoutY="273.0" prefWidth="59.0" />
+            <Label layoutX="12.0" layoutY="336.0" text="Cargas" underline="true" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="192.0" layoutX="14.0" layoutY="359.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="BEVEL" strokeMiterLimit="4.4" strokeType="INSIDE" strokeWidth="0.5" width="483.0000305175781" />
+            <Separator layoutX="22.0" layoutY="454.0" prefWidth="457.0" />
+            <Text layoutX="22.0" layoutY="504.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contínua + BiApoiada (x1,25):" />
+            <Text layoutX="21.0" layoutY="526.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contínua + Contínua (x1,56):" />
+            <TextField id="calculoInferior" fx:id="calculoEscoraMaisCarregada" disable="true" layoutX="195.0" layoutY="466.0" prefWidth="59.0" />
+            <TextField id="calculoInferior" fx:id="calculoEscoraContinuaBiApoiada" disable="true" layoutX="195.0" layoutY="488.0" prefWidth="59.0" />
+            <TextField id="calculoInferior" fx:id="calculoEscoraContinuaContinua" disable="true" layoutX="195.0" layoutY="510.0" prefWidth="59.0" />
+            <Rectangle id="calculoFlechaPrincipalBar" fx:id="calculoEscoraMaisCarregadaBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="268.0" layoutY="471.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="215.0" />
+            <Rectangle id="calculoFlechaPrincipalBar" fx:id="calculoEscoraContinuaBiApoiadaBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="268.0" layoutY="493.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="215.0" />
+            <Rectangle id="calculoFlechaPrincipalBar" fx:id="calculoEscoraContinuaContinuaBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="268.0" layoutY="515.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="215.0" />
+            <Text layoutX="22.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escora mais carregada (Tf):" />
+            <Text layoutX="22.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poste mais carregado (Tf):" />
+            <Text layoutX="22.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contínua + BiApoiada (x1,25):" />
+            <Text layoutX="21.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contínua + Contínua (x1,56):" />
+            <TextField id="calculoInferior" fx:id="calculoPosteMaisCarregado" disable="true" layoutX="195.0" layoutY="377.0" prefWidth="59.0" />
+            <TextField id="calculoInferior" fx:id="calculoPosteContinuaBiApoiada" disable="true" layoutX="195.0" layoutY="399.0" prefWidth="59.0" />
+            <TextField id="calculoInferior" fx:id="calculoPosteContinuaContinua" disable="true" layoutX="195.0" layoutY="421.0" prefWidth="59.0" />
+            <Rectangle id="calculoFlechaPrincipalBar" fx:id="calculoPosteMaisCarregadoBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="268.0" layoutY="382.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="215.0" />
+            <Rectangle id="calculoFlechaPrincipalBar" fx:id="calculoPosteContinuaBiApoiadaBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="268.0" layoutY="404.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="215.0" />
+            <Rectangle id="calculoFlechaPrincipalBar" fx:id="calculoPosteContinuaContinuaBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 70.0%, 0xffffffff 70.0%, 0xffffffff 100.0%)" height="12.000007629394531" layoutX="268.0" layoutY="426.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="215.0" />
+            <Rectangle id="calculoFlechaPrincipalBar" fx:id="calculoInferiorSuperiorBar" arcHeight="5.0" arcWidth="5.0" fill="linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff 100.0%)" height="12.000007629394531" layoutX="221.0" layoutY="146.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="13.999878065493249" />
           </children>
         </AnchorPane>
       </items>
@@ -441,7 +477,7 @@
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
               <children>
                 <Label layoutX="59.0" layoutY="284.0" text="Base:" />
-                <TextField fx:id="composicaoTorres" layoutX="118.0" layoutY="221.0" prefWidth="100.0" />
+                <TextField fx:id="composicaoTorres" disable="true" layoutX="118.0" layoutY="221.0" prefWidth="100.0" />
                 <Separator layoutX="14.0" layoutY="380.0" prefWidth="267.0" />
                 <Label layoutX="44.0" layoutY="224.0" text="Composição:" />
                 <TextField fx:id="peDireito" layoutX="119.0" layoutY="250.0" prefWidth="100.0" />
@@ -453,12 +489,20 @@
                 <ComboBox fx:id="postesEspeciais" layoutX="90.0" layoutY="339.0" prefHeight="21.0" prefWidth="99.490234375" />
                 <TableView fx:id="postes" layoutX="9.0" layoutY="12.0" prefHeight="191.05078125" prefWidth="267.0">
                   <columns>
+                    <TableColumn resizable="false" text="Ordem">
+                      <cellValueFactory>
+                        <PropertyValueFactory property="ordem" />
+                      </cellValueFactory>
+                      <prefWidth>
+                        <Long fx:value="50" />
+                      </prefWidth>
+                    </TableColumn>
                     <TableColumn resizable="false" text="Item">
                       <cellValueFactory>
                         <PropertyValueFactory property="item" />
                       </cellValueFactory>
                       <prefWidth>
-                        <Long fx:value="160" />
+                        <Long fx:value="100" />
                       </prefWidth>
                     </TableColumn>
                     <TableColumn resizable="false" text="Habilitar?">
@@ -494,21 +538,30 @@
         </Menu>
       </menus>
     </MenuBar>
-    <ImageView fitHeight="71.91202545166016" fitWidth="162.77760873420937" layoutX="608.0" layoutY="648.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="71.91202545166016" fitWidth="162.77760873420937" layoutX="808.0" layoutY="642.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="img/scia_xml.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
-    <ImageView fitHeight="67.91209066497164" fitWidth="68.66667175292969" layoutX="776.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="67.91209066497164" fitWidth="68.66667175292969" layoutX="987.0" layoutY="646.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="img/rohr_logo.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
     <Text fill="$x6" font="$x7" layoutX="308.0" layoutY="643.0" strokeType="OUTSIDE" strokeWidth="4.0" text="Diretorio de Peças" />
-    <TextField fx:id="diretorioPecas" disable="true" layoutX="308.0" layoutY="659.0" prefWidth="238.0" />
-    <Button layoutX="549.0" layoutY="659.0" mnemonicParsing="false" onAction="#importarArquivos" prefWidth="36.0" text="..." />
-    <ToolBar layoutX="1.0" layoutY="22.0" prefWidth="850.0">
+    <TextField fx:id="diretorioPecas" disable="true" layoutX="308.0" layoutY="659.0" prefWidth="407.0" />
+    <Button layoutX="720.0" layoutY="660.0" mnemonicParsing="false" onAction="#importarArquivos" prefWidth="36.0" text="..." />
+    <ToolBar layoutX="1.0" layoutY="22.0" prefWidth="1085.0">
       <items>
+        <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#salvarProjeto" text="Salvar">
+          <graphic>
+            <ImageView fitHeight="22.0" fitWidth="29.333333333333332" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="img/salvarProjeto.png" preserveRatio="false" smooth="false" />
+              </image>
+            </ImageView>
+          </graphic>
+        </Button>
         <Button fx:id="btnAbrir" mnemonicParsing="false" onAction="#abrirProjeto" text="Abrir Projeto">
           <graphic>
             <ImageView fitHeight="22.0" fitWidth="29.333333333333332" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
@@ -536,24 +589,18 @@
             </ImageView>
           </graphic>
         </Button>
-        <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#salvarProjeto" text="Salvar">
+        <Button fx:id="btnCalcular" mnemonicParsing="false" onAction="#calcular" text="Calcular">
           <graphic>
             <ImageView fitHeight="22.0" fitWidth="29.333333333333332" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
               <image>
-                <Image url="img/salvarProjeto.png" preserveRatio="false" smooth="false" />
+                <Image url="img/calcular.png" preserveRatio="false" smooth="false" />
               </image>
             </ImageView>
           </graphic>
         </Button>
       </items>
     </ToolBar>
-    <Label layoutX="308.0" layoutY="690.0" text="Total de arquivos de peças em memória:" />
-    <TextField fx:id="totalPecas" disable="true" editable="false" layoutX="526.0" layoutY="687.0" prefWidth="59.0" promptText="0" />
+    <Label layoutX="435.0" layoutY="695.0" text="Total de arquivos de peças em memória:" />
+    <TextField fx:id="totalPecas" disable="true" editable="false" layoutX="656.0" layoutY="692.0" prefWidth="59.0" promptText="0" />
   </children>
-  <prefHeight>
-    <Long fx:value="725" />
-  </prefHeight>
-  <prefWidth>
-    <Long fx:value="850" />
-  </prefWidth>
 </AnchorPane>

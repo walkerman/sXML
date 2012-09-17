@@ -5,7 +5,9 @@
 package br.com.scia.xml.controller;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,8 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -43,7 +47,8 @@ import br.com.scia.xml.entity.view.SumarioDados;
 import br.com.scia.xml.entity.view.Tipo;
 import br.com.scia.xml.entity.view.TipoPecaXY;
 import br.com.scia.xml.entity.view.TipoPoste;
-import br.com.scia.xml.model.Calculo;
+import br.com.scia.xml.model.CalculoUtils;
+import br.com.scia.xml.model.Formulas;
 import br.com.scia.xml.util.SciaXMLConstantes;
 import br.com.scia.xml.util.SciaXMLFileManager;
 import br.com.scia.xml.util.SciaXMLUtils;
@@ -234,6 +239,56 @@ public class PrincipalController implements Initializable{
 	public TextField calculoInferior;
 	@FXML
 	public TextField calculoSuperior;
+	@FXML
+	Rectangle calculoInferiorSuperiorBar;
+	@FXML
+	TextField calculoMomentoPrincipal;
+	@FXML
+	TextField calculoMomentoPrincipalMax;
+	@FXML
+	Rectangle calculoMomentoPrincipalBar;
+	@FXML
+	TextField calculoFlechaPrincipal;
+	@FXML
+	TextField calculoFlechaPrincipalMax;
+	@FXML
+	Rectangle calculoFlechaPrincipalBar;
+	@FXML
+	TextField calculoMomentoSecundaria;
+	@FXML
+	TextField calculoMomentoSecundariaMax;
+	@FXML
+	Rectangle calculoMomentoSecundariaBar;
+	@FXML
+	TextField calculoFlechaSecundaria;
+	@FXML
+	TextField calculoFlechaSecundariaMax;
+	@FXML
+	Rectangle calculoFlechaSecundariaBar;
+	@FXML
+	TextField calculoPosteMaisCarregado;
+	@FXML
+	TextField calculoPosteContinuaBiApoiada;
+	@FXML
+	TextField calculoPosteContinuaContinua;
+	@FXML
+	Rectangle calculoPosteMaisCarregadoBar;
+	@FXML
+	Rectangle calculoPosteContinuaBiApoiadaBar;
+	@FXML
+	Rectangle calculoPosteContinuaContinuaBar;
+	@FXML
+	TextField calculoEscoraMaisCarregada;
+	@FXML
+	TextField calculoEscoraContinuaBiApoiada;
+	@FXML
+	TextField calculoEscoraContinuaContinua;
+	@FXML
+	Rectangle calculoEscoraMaisCarregadaBar;
+	@FXML
+	Rectangle calculoEscoraContinuaBiApoiadaBar;
+	@FXML
+	Rectangle calculoEscoraContinuaContinuaBar;
 	
 	public ArrayList<Tipo> tiposTravessas;
 	public ArrayList<Tipo> tiposCruzetas;
@@ -435,6 +490,7 @@ public class PrincipalController implements Initializable{
 			this.excentricidade.setDisable(true);
 			this.folgaY1.setDisable(false);
 			this.folgaY2.setDisable(false);
+			this.medidaY.setDisable(false);
 			this.espessura.setDisable(false);
 		}
 	}
@@ -563,26 +619,13 @@ public class PrincipalController implements Initializable{
 			File f = fc.showSaveDialog(null);
 			
 			if (f != null){
-				SumarioDados sumario = null;
+				SumarioDados sumario = CalculoUtils.calcularEstruturaFinal(this);
 				
 				try {
-					sumario = SciaXMLUtils.popularSumarioDados(this);
-					
-					try {
-						sumario = Calculo.calculaEstrutura(sumario);
+					SciaXMLUtils.construirProject(sumario,f);
 						
-						SciaXMLUtils.construirProject(sumario,f);
-						
-						JOptionPane.showMessageDialog(null, "Arquivos .xml/.def salvos com sucesso.");
-					} catch (Exception e2) {
-						e2.printStackTrace();
-						JOptionPane.showMessageDialog(null, e2.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
-					}
-					
-				} catch (SciaXMLValidationException e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, e1.getMessage(), SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
-				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Arquivos .xml/.def salvos com sucesso.");
+				}catch (Exception e2) {
 					e2.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Problemas durante a conversão dos dados. " +
 							"Por favor, verifique os dados informados", SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
@@ -594,7 +637,7 @@ public class PrincipalController implements Initializable{
 		}
 			
 	}
-		
+	
 	@FXML
 	public void usarLajePre(){
 		if (this.lajePre.isSelected()){
@@ -631,7 +674,7 @@ public class PrincipalController implements Initializable{
 	
 	@FXML
 	public void showCalc(){
-		this.split.setDividerPositions(0.5);		
+		this.split.setDividerPositions(0.35);		
 	}
 	
 	@FXML
@@ -682,6 +725,86 @@ public class PrincipalController implements Initializable{
 			}
         }	
 	}
+	
+	@FXML
+	public void calcular(){
+		try{			
+			CalculoUtils.calcularEstruturaFinal(this);
+			Formulas formulas = new Formulas();
+			
+			DecimalFormat dc = new DecimalFormat("####.##");
+			this.calculoPiso.setText(dc.format(CalculoUtils.getPisoAFundo()));
+			this.calculoAltura.setText(dc.format(CalculoUtils.getAlturaUtilCalculo()));
+			this.calculoAjuste.setText(dc.format(CalculoUtils.getAjusteTotal()));
+			this.calculoInferior.setText(dc.format(CalculoUtils.getAjusteInferior()));
+			this.calculoSuperior.setText(dc.format(CalculoUtils.getAjusteSuperior()));
+			this.calculoViga.setText(dc.format(formulas.CalculoPesoA()));
+			this.calculoVigaLaje.setText(dc.format(formulas.CalculoPesoB()));
+			this.calculoLaje.setText(dc.format(formulas.CalculoPesoC()));
+			
+			Double momentoPrincipal = formulas.CalculoVigaPrincipalMomento();
+			Double momentoPrincipalMax = formulas.RetornaMomentoMaxViga(this.tiposVigasPrincipais.getSelectionModel().getSelectedItem());
+			Double flechaPrincipal = formulas.CalculoVigaPrincipalFlecha(this.tiposVigasPrincipais.getSelectionModel().getSelectedItem());
+			Double flechaPrincipalMax = formulas.CalculoVigaPrincipalFlechaMaxima(this.tiposVigasPrincipais.getSelectionModel().getSelectedItem());
+			this.calculoMomentoPrincipal.setText(dc.format(momentoPrincipal));
+			this.calculoMomentoPrincipalMax.setText(dc.format(momentoPrincipalMax));
+			this.calculoMomentoPrincipalBar.setFill(Paint.valueOf(getBarFill(momentoPrincipal, momentoPrincipalMax)));
+			this.calculoFlechaPrincipal.setText(String.valueOf(flechaPrincipal));
+			this.calculoFlechaPrincipalMax.setText(dc.format(flechaPrincipalMax));			
+			this.calculoFlechaPrincipalBar.setFill(Paint.valueOf(getBarFill(flechaPrincipal, flechaPrincipalMax)));
+			
+			Double momentoSecundaria = formulas.CalculoVigaSecundariaMomento();
+			Double momentoSecundariaMax = formulas.RetornaMomentoMaxViga(this.tiposVigasSecundarias.getSelectionModel().getSelectedItem());
+			Double flechaSecundaria = formulas.CalculoVigaSecundariaFlecha(this.tiposVigasSecundarias.getSelectionModel().getSelectedItem());
+			Double flechaSecundariaMax = formulas.CalculoVigaSecundariaFlechaMaxima(this.tiposVigasSecundarias.getSelectionModel().getSelectedItem());
+			this.calculoMomentoSecundaria.setText(dc.format(momentoSecundaria));
+			this.calculoMomentoSecundariaMax.setText(dc.format(momentoSecundariaMax));
+			this.calculoMomentoSecundariaBar.setFill(Paint.valueOf(getBarFill(momentoSecundaria, momentoSecundariaMax)));
+			this.calculoFlechaSecundaria.setText(String.valueOf(flechaSecundaria));
+			this.calculoFlechaSecundariaMax.setText(dc.format(flechaSecundariaMax));			
+			this.calculoFlechaSecundariaBar.setFill(Paint.valueOf(getBarFill(flechaSecundaria, flechaSecundariaMax)));
+			
+			Double posteMaisCarregado = formulas.CalculoCargasPosteMaisCarregado();
+			Double posteContinuaBi = formulas.CalculoCargasPosteContinuaBiApoiada();
+			Double posteContinuaContinua = formulas.CalculoCargasPosteContinuaContinua();
+			Double posteMax = formulas.RetornaLimiteCargaPoste();
+			this.calculoPosteMaisCarregado.setText(dc.format(posteMaisCarregado));
+			this.calculoPosteContinuaBiApoiada.setText(dc.format(posteContinuaBi));
+			this.calculoPosteContinuaContinua.setText(dc.format(posteContinuaContinua));
+			this.calculoPosteMaisCarregadoBar.setFill(Paint.valueOf(getBarFill(posteMaisCarregado, posteMax)));
+			this.calculoPosteContinuaBiApoiadaBar.setFill(Paint.valueOf(getBarFill(posteContinuaBi, posteMax)));
+			this.calculoPosteContinuaContinuaBar.setFill(Paint.valueOf(getBarFill(posteContinuaContinua, posteMax)));
+			
+			Double escoraMaisCarregado = formulas.CalculoCargasEscoraMaisCarregada();
+			Double escoraContinuaBi = formulas.CalculoCargasEscoraContinuaBiApoiada();
+			Double escoraContinuaContinua = formulas.CalculoCargasEscoraContinuaContinua();
+			Double escoraMax = formulas.RetornaLimiteCargaEscora(SciaXMLConstantes.TIPO_ESCORA_A);
+			this.calculoEscoraMaisCarregada.setText(dc.format(escoraMaisCarregado));
+			this.calculoEscoraContinuaBiApoiada.setText(dc.format(escoraContinuaBi));
+			this.calculoEscoraContinuaContinua.setText(dc.format(escoraContinuaContinua));
+			this.calculoEscoraMaisCarregadaBar.setFill(Paint.valueOf(getBarFill(escoraMaisCarregado, escoraMax)));
+			this.calculoEscoraContinuaBiApoiadaBar.setFill(Paint.valueOf(getBarFill(escoraContinuaBi, escoraMax)));
+			this.calculoEscoraContinuaContinuaBar.setFill(Paint.valueOf(getBarFill(escoraContinuaContinua, escoraMax)));
+			
+			this.split.setDividerPositions(0.35);
+		}catch (SciaXMLValidationException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getMessage(),SciaXMLConstantes.TITLE_VALIDACAO,JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	private String getBarFill (Double valor, Double max){
+		String retorno = "";
+			
+		if (valor >= max)
+			retorno = "linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, red 0.0%, red 1000.0%)";
+		else{
+			BigDecimal porcentagem = new BigDecimal((valor/max)*100.0);
+			retorno = "linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, 0x008000ff 0.0%, 0x008000ff " + porcentagem + "%, 0xffffffff " + porcentagem + "%, 0xffffffff 100.0%)";
+		}
+		
+		return retorno;
+	} 
 	
 	@FXML
 	public void sair(){}

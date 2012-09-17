@@ -153,7 +153,7 @@ public class CalculoVigasSecundarias {
 							
 							Double posteEspecial = this.sumarioDados.getPosteEspecial().getComprimento();
 							Double coordenadaZ   = Double.parseDouble(this.sumarioDados.getCoordenadaZ())/SciaXMLConstantes.PRECISAO_ENVIO_COORDENADAS_XML;
-							Double altura =  Calculo.getAlturaUtil() + CalculoVigasPrincipais.getAlturaViga() + posteEspecial + CalculoPostes.getAlturaMacacoEForcado() + coordenadaZ;
+							Double altura =  Calculo.getAlturaUtil() + CalculoVigasPrincipais.getAlturaViga() + posteEspecial + CalculoUtils.getAlturaMacacoEForcado() + coordenadaZ;
 							
 							coordenada1.setId(Identificadores.getIdentificadorNo().toString());
 							coordenada1.setName(SciaXMLConstantes.INDEXADOR_NO + String.valueOf(coordenada1.getId()));					

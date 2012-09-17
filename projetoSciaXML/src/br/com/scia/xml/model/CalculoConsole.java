@@ -29,7 +29,7 @@ public class CalculoConsole {
 		List<Peca> pecas = RepositorioPecas.listaTravessasReplicadas;
 		List<Coordenada> nosX = getNosX(pecas);
 		Double menorY = getMenorY(pecas);
-		Double maiorY =  getMaiorY(pecas);
+		Double maiorY = getMaiorY(pecas);
 		Double maiorZ = getMaiorZ(pecas);
 		
 		if (posicaoConsole != null && posicaoConsole.equals(SciaXMLConstantes.DIREITA))
@@ -77,8 +77,8 @@ public class CalculoConsole {
 				console2.setNoInicial(coordenada2);
 				console2.setNoFinal(coordenada3);
 				
-				CalculoCruzeta calculoCruzeta = new CalculoCruzeta();
-				calculoCruzeta.defineForcadoCruzeta(coordenada2.getX(), coordenada2.getY(), coordenada2.getZ());
+				CalculoForcado calculoForcado = new CalculoForcado();
+				calculoForcado.defineForcado(coordenada2.getX(), coordenada2.getY(), coordenada2.getZ());
 				
 				this.sumarioDados.getListaDeNos().add(coordenada1);
 				this.sumarioDados.getListaDeNos().add(coordenada2);
@@ -128,8 +128,8 @@ public class CalculoConsole {
 				console2.setNoInicial(coordenada2);
 				console2.setNoFinal(coordenada3);
 				
-				CalculoCruzeta calculoCruzeta = new CalculoCruzeta();
-				calculoCruzeta.defineForcadoCruzeta(coordenada2.getX(), coordenada2.getY(), coordenada2.getZ());
+				CalculoForcado calculoForcado = new CalculoForcado();
+				calculoForcado.defineForcado(coordenada2.getX(), coordenada2.getY(), coordenada2.getZ());
 				
 				this.sumarioDados.getListaDeNos().add(coordenada1);
 				this.sumarioDados.getListaDeNos().add(coordenada2);
